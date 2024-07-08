@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: lms_identity_service
+  datasource:
+    url: "jdbc:postgresql://localhost:5432/lms_identity_service"
+    username: postgres
+    password: 123
+  jpa: 
+    hibernate: 
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        '[format_sql]': false
+server:
+  port: 8080
+  servlet:
+    context-path: /identity
+  error: 
+    include-message: always
+
+
+jwt:
+  signerKey: "erBbQWxtozTCcuxiDMgfAlp0xI22EoEGRVhLZMt3N9WTCbbYpPPfYDOstWVUSEqN"
+  issuer: "zenzen1"
+  valid-duration: 600 # seconds
+  refreshable-duration: 1200 # seconds
+app:
+  services:
+    lms: "http://localhost:8081/lms"
