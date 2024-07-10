@@ -10,20 +10,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-@FieldDefaults(level = AccessLevel.PRIVATE)
-@Data
-@Builder
 @Entity
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Subject {
-    // @Id
-    // @GeneratedValue(strategy = GenerationType.AUTO)
-    // long subjectId;
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Data
+public class Room {
     @Id
-    String subjectCode; // SWP
-
-    String subjectName; // softwareprojet
-
-    boolean status;
+    Long roomId;
+    // A302
+    String roomNumber;
 }

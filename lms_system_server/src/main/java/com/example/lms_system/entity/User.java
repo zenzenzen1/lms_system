@@ -1,5 +1,6 @@
 package com.example.lms_system.entity;
 
+import java.time.LocalDate;
 import java.util.Set;
 
 import jakarta.persistence.Column;
@@ -40,6 +41,8 @@ public class User {
 
     @Default
     boolean active = true;
+
+    LocalDate dob;
 
     // roles
     // @ManyToMany

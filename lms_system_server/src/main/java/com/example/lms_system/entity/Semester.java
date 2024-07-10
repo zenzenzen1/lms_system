@@ -1,5 +1,7 @@
 package com.example.lms_system.entity;
 
+import java.time.LocalDate;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
@@ -19,4 +21,9 @@ import lombok.experimental.FieldDefaults;
 public class Semester {
     @Id
     String semesterCode; // FA2024
+
+    LocalDate startDate;
+    LocalDate endDate;
+
+    String description;
 }

@@ -13,7 +13,7 @@ public enum ErrorCode {
     USER_EXISTED(1001, "Username already existed", HttpStatus.BAD_REQUEST),
     USERNAME_INVALID(1002, "Username must be at least 3 characters", HttpStatus.BAD_REQUEST),
     INVALID_KEY(1003, "Invalid message key", HttpStatus.BAD_REQUEST),
-    USER_NOT_FOUND(1004, "User not found", HttpStatus.NOT_FOUND),
+    USER_NOT_FOUND(1004, "User not found", HttpStatus.UNAUTHORIZED),
     UNAUTHENTICATED(1005, "Unauthenticated", HttpStatus.UNAUTHORIZED),
     INVALID_TOKEN_JSON_OBJECT(1006, "Invalid token", HttpStatus.BAD_REQUEST),
     UNAUTHORIZED(1007, "You do not have permission", HttpStatus.FORBIDDEN),

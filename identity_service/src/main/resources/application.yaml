@@ -1,3 +1,4 @@
+
 spring:
   application:
     name: lms_identity_service
@@ -13,6 +14,15 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
         '[format_sql]': false
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-name: google
+            scope:
+              - email
+              - profile
 server:
   port: 8080
   servlet:

@@ -30,9 +30,15 @@ public class Schedule {
     Date trainingDate;
 
     @ManyToOne
-    @JoinColumn(name = "subjectId", referencedColumnName = "subjectId")
+    @JoinColumn(name = "subjectCode", referencedColumnName = "subjectCode")
     // @JsonBackReference)
     Subject subject;
 
-    int roomId;
+    @ManyToOne
+    @JoinColumn(name = "roomId", referencedColumnName = "roomId")
+    Room room;
+
+    @ManyToOne
+    @JoinColumn(name = "slotId", referencedColumnName = "slotId")
+    Slot slot;
 }

@@ -1,6 +1,7 @@
 package com.example.identity_service.configuration;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
@@ -34,7 +35,14 @@ public class ApplicationInitConfig {
                         .name(com.example.identity_service.enums.Role.USER.name())
                         .description("User role")
                         .build());
-
+                var studentRole = roleRepository.save(Role.builder()
+                        .name(com.example.identity_service.enums.Role.STUDENT.name())
+                        .description("User role")
+                        .build());
+                var teacherRole = roleRepository.save(Role.builder()
+                        .name(com.example.identity_service.enums.Role.TEACHER.name())
+                        .description("User role")
+                        .build());
                 if (userRepository.findByUsername("admin").isEmpty()) {
                     var roles = new HashSet<Role>();
                     roles.add(adminRole);
@@ -45,6 +53,17 @@ public class ApplicationInitConfig {
                             .roles(roles)
                             .build();
                     userRepository.save(user);
+
+                    userRepository.save(User.builder()
+                            .username("student1")
+                            .password(passwordEncoder.encode("student1"))
+                            .roles(Set.of(studentRole, userRole))
+                            .build());
+                    userRepository.save(User.builder()
+                            .username("teacher1")
+                            .password(passwordEncoder.encode("teacher1"))
+                            .roles(Set.of(teacherRole, userRole))
+                            .build());
                     log.warn("Admin user has been created with default password: admin");
                 }
             }

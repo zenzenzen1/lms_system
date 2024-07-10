@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link, Navigate } from 'react-router-dom'
 import Login from './Login'
 import { insertUser } from '../../services/UserService'
+import { Button } from 'primereact/button'
 
 const Register = () => {
     const [user, setUser] = useState({});
@@ -103,7 +104,7 @@ const Register = () => {
                             </div>
                            
                             <div className="col-lg-12 m-b30">
-                                <button
+                                <Button active
                                     name="submit"
                                     type="button"
                                     value="Submit"
@@ -111,7 +112,7 @@ const Register = () => {
                                     onClick={handleSignUp}
                                 >
                                     Sign Up
-                                </button>
+                                </Button>
                             </div>
                         </div>
                     </form>
