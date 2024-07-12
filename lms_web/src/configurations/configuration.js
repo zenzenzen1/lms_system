@@ -8,5 +8,8 @@ export const API = {
   INTROSPECT: "/identity/auth/introspect",
   REGISTER: "/identity/users/registration",
   ALL_USER: "/identity/users",
-  USER_PROFILE: "/lms/users"
+  USER_PROFILE: "/lms/users",
+  SLOTS: "/lms/slots",
+  SUBJECTS: "/lms/subjects",
+  ROOM: "/lms/rooms"
 };

@@ -37,7 +37,7 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(
                 request -> request.requestMatchers(HttpMethod.POST, PUBLIC_END_POINTS)
                         .permitAll()
-                        .requestMatchers("/test")
+                        .requestMatchers(HttpMethod.GET, "/users/*")
                         .permitAll()
                         // .permitAll()
                         // .requestMatchers(HttpMethod.GET, "/auth/signin-with-google")

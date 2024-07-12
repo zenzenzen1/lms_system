@@ -13,6 +13,7 @@ import AdminPage from './pages/user/admin/AdminPage';
 import { PersistGate } from 'redux-persist/integration/react';
 import UserProfile from './pages/user/common/UserProfile';
 import StudentPage from './pages/user/student/StudentPage';
+import TeacherPage from './pages/user/teacher/TeacherPage';
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
               <Route path='/user/profile' element={<UserProfile/>} />
               <Route path="/user/admin" element={<AdminPage />} />
               <Route path="/user/student" element={<StudentPage/>} />
+              <Route path="/useruser/teacher" element={<TeacherPage/>} />
             </Routes>
           </BrowserRouter>
         </PersistGate>

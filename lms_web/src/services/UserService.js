@@ -41,3 +41,12 @@ export const updateUserProfile = async (user) => {
   }).catch(e => e);
   return res;
 };
+
+export const getUserByRole = async (role) => {
+  const res = await httpClient.get(`${API.ALL_USER}/${role}`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  }).catch(e => e);
+  return res;
+};

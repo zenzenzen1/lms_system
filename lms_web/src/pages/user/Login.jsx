@@ -25,7 +25,6 @@ const Login = () => {
         //     console.log(error);
         //     setError(JSON.stringify(error));
         // }
-        console.log({username, password});
         const res = await login(username, password);
         if (res.data.code != 1000) {
             setError(res.data.message);
@@ -44,6 +43,9 @@ const Login = () => {
         }
         else if(user.roles.includes("STUDENT")){
             navigate("/user/student");
+        }
+        else if(user.roles.includes("TEACHER")){
+            navigate("/user/teacher");
         }
 
     }

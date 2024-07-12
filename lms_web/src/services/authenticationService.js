@@ -10,6 +10,7 @@ export const login = async (username, password) => {
     console.log(error);
     return error.response;
   });
+  console.log(response);
   setToken(response.data?.result?.token);
 
   return response;

@@ -3,6 +3,7 @@ package com.example.lms_system.controller;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,6 +39,13 @@ public class UserController {
     public ApiResponse<List<UserResponse>> getAllUser() {
         return ApiResponse.<List<UserResponse>>builder()
                 .result(userService.getAllUser())
+                .build();
+    }
+
+    @GetMapping({"/getUserByRole/{role}"})
+    public ApiResponse<Object> getMethodName(@PathVariable String role) {
+        return ApiResponse.<Object>builder()
+                .result(userService.getUserByRole(role))
                 .build();
     }
 

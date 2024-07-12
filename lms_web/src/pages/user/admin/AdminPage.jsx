@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import UserList from './UserList';
 import { isValidToken, verifyToken } from '../../../services/authenticationService';
 import UserHeader from '../../../components/user/UserHeader';
+import Scheduler from './Scheduler';
 
 const AdminPage = () => {
     const [menu, setMenu] = useState({
@@ -32,9 +33,9 @@ const AdminPage = () => {
     console.log("admin page");
     return (
         <>
-            <div className='position-sticky text-blue-600'>
+            {/* <div className='position-sticky text-blue-600'>
                 <UserHeader />
-            </div>
+            </div> */}
             <div>
                 admin page. He Nhoo {user.username}
                 <div className='flex'>
@@ -44,7 +45,7 @@ const AdminPage = () => {
                             <li className='cursor-pointer' onClick={handleUserClick}>
                                 Show all users
                             </li>
-                            <li className='cursor-pointer'>Schedule</li>
+                            <li className='cursor-pointer' onClick={() => setContent(<Scheduler/>)}>Schedule</li>
                         </ul>
                     </div>
                     <div className='w-5/6'>

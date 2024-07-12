@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { getAllUser, getAllUserProfile } from '../../../services/UserService';
 import { useNavigate } from 'react-router-dom';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 

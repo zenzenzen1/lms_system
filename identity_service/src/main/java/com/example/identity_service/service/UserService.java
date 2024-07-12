@@ -2,6 +2,8 @@ package com.example.identity_service.service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContext;
@@ -39,6 +41,14 @@ public class UserService {
     LmsClient lmsClient;
     UserProfileMapper userProfileMapper;
 
+    public Set<UserResponse> getUsersByRole(String role) {
+        return userRepository.findAll().stream()
+                .filter(user ->
+                        user.getRoles().stream().anyMatch(t -> t.getName().equalsIgnoreCase(role)))
+                .map(user -> userMapper.toUserResponse(user))
+                .collect(Collectors.toSet());
+    }
+
     public User createUser(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
             // throw new ArrayIndexOutOfBoundsException("ErrorCode.USER_EXISTED");
@@ -58,8 +68,9 @@ public class UserService {
         profileRequest.setUserId(user.getId());
 
         // ServletRequestAttributes servletRequestAttributes =
-        //         (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        // var authHeader = servletRequestAttributes.getRequest().getHeader("Authorization");
+        // (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        // var authHeader =
+        // servletRequestAttributes.getRequest().getHeader("Authorization");
         // log.info("Auth header: {}", authHeader);
 
         System.out.println(profileRequest);

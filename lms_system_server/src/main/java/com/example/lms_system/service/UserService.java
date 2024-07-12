@@ -8,6 +8,7 @@ import com.example.lms_system.dto.request.UserRequest;
 import com.example.lms_system.dto.response.UserResponse;
 import com.example.lms_system.mapper.UserMapper;
 import com.example.lms_system.repository.UserRepository;
+import com.example.lms_system.repository.http_client.IdentityClient;
 
 import lombok.RequiredArgsConstructor;
 
@@ -16,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final IdentityClient identityClient;
 
     public UserResponse updateUser(UserRequest userRequest) {
         var user = userMapper.toUser(userRequest);
@@ -36,5 +38,13 @@ public class UserService {
 
     public void deleteAllUser() {
         userRepository.deleteAll();
+    }
+
+    public Object getUserByRole(String role) {
+        // return userRepository.findAll().stream()
+        //         .map(user -> userMapper.toUserResponse(user))
+        //         .collect(Collectors.toSet());
+        var res = identityClient.getUserByRole(role);
+        return res;
     }
 }

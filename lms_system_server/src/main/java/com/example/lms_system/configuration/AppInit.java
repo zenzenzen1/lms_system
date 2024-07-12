@@ -7,9 +7,11 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.example.lms_system.entity.Room;
 import com.example.lms_system.entity.Schedule;
 import com.example.lms_system.entity.Slot;
 import com.example.lms_system.entity.Subject;
+import com.example.lms_system.repository.RoomRepository;
 import com.example.lms_system.repository.ScheduleRepository;
 import com.example.lms_system.repository.SlotRepository;
 import com.example.lms_system.repository.SubjectRepository;
@@ -24,6 +26,8 @@ public class AppInit {
     private final SubjectRepository subjectRepository;
 
     private final SlotRepository slotRepository;
+
+    private final RoomRepository roomRepository;
 
     @Bean
     CommandLineRunner commandLineRunner() {
@@ -51,6 +55,11 @@ public class AppInit {
                             .endTime(LocalTime.of(10, 40, 0))
                             .build());
             slotRepository.saveAll(slots);
+
+            roomRepository.saveAll(List.of(
+                    Room.builder().roomNumber("AL-R301").build(),
+                    Room.builder().roomNumber("DE-310").build(),
+                    Room.builder().roomNumber("AL-L103").build()));
         };
     }
 }
