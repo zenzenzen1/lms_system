@@ -7,4 +7,6 @@ export const API = {
   MY_INFO: "/identity/users/userInfo",
   INTROSPECT: "/identity/auth/introspect",
   REGISTER: "/identity/users/registration",
+  ALL_USER: "/identity/users",
+  USER_PROFILE: "/lms/users"
 };

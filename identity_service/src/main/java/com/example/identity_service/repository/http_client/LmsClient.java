@@ -18,4 +18,7 @@ public interface LmsClient {
     UserProfileResponse createUserProfile(
             // @RequestHeader("Authorization") String token,
             @RequestBody UserProfileCreationRequest request);
+
+    @PostMapping(value = "/users/deleteAllUsers")
+    void deleteAllUser();
 }

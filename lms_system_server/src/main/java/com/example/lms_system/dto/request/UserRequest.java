@@ -15,8 +15,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserRequest {
+    String userId;
     String fullName;
     String email;
     String phoneNumber;
     LocalDate dob;
+    boolean active;
 }

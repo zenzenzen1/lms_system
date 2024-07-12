@@ -9,19 +9,17 @@ import Tailwind from "primereact/passthrough/tailwind";
 import { PrimeReactProvider } from 'primereact/api';
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
-import { twMerge } from 'tailwind-merge';
 import "primeflex/primeflex.css";
+import { twMerge } from 'tailwind-merge';
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
   //   <App />
-  // </React.StrictMode>,
-  <React.StrictMode>
+  // </React.StrictMode>
     <PrimeReactProvider
-      value={{ ptOptions: { mergeSections: true, mergeProps: true, classNameMergeFunction: twMerge } }}
+      // value={{ ptOptions: { mergeSections: true, mergeProps: true, classNameMergeFunction: twMerge } }}
     >
       <App />
     </PrimeReactProvider>
-  </React.StrictMode>
 )

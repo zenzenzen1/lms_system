@@ -9,5 +9,6 @@ import com.example.identity_service.dto.request.UserProfileCreationRequest;
 @Mapper(componentModel = "spring")
 public interface UserProfileMapper {
     @Mapping(target = "userId", ignore = true)
+    @Mapping(target = "active", ignore = true)
     UserProfileCreationRequest toUserProfileCreationRequest(UserCreationRequest userCreationRequest);
 }

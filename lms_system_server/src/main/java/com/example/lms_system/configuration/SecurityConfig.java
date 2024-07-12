@@ -16,7 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-    private final String[] PUBLIC_END_POINTS = {"/users"};
+    private final String[] PUBLIC_END_POINTS = {"/users", "/users/deleteAllUsers"};
 
     @Autowired
     private CustomJwtDecoder customJwtDecoder;

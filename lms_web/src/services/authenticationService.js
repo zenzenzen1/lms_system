@@ -26,7 +26,7 @@ export const isAuthenticated = () => {
 export const introspectToken = async () => {
   return await httpClient.post(API.INTROSPECT, {
     token: getToken(),
-  });
+  }).catch(error => error);
 };
 
 export const isValidToken = async () => {

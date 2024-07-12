@@ -23,3 +23,5 @@ spring:
           uri: http://localhost:8081
           predicates:
             - Path=${app.api-prefix}/lms/**
+          filters:
+            - StripPrefix=2

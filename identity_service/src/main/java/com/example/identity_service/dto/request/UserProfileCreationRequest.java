@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -17,4 +18,7 @@ public class UserProfileCreationRequest {
     private String email;
     private String phoneNumber;
     private LocalDate dob;
+
+    @Default
+    private boolean active = true;
 }

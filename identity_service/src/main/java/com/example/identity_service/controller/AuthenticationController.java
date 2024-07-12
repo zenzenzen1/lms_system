@@ -2,8 +2,6 @@ package com.example.identity_service.controller;
 
 import java.text.ParseException;
 
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,28 +19,22 @@ import com.example.identity_service.service.AuthenticationService;
 import com.nimbusds.jose.JOSEException;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-@Slf4j
 public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    @GetMapping({"/signin-with-google"})
-    public Object currentUser() {
-        return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-    }
+    // @GetMapping({"/signin-with-google"})
+    // public Object currentUser() {
+    //     return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    // }
 
     @PostMapping("/token")
     public ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
         AuthenticationResponse result = authenticationService.authenticate(request);
-        // Authentication information
-        var authentication = SecurityContextHolder.getContext().getAuthentication();
-        log.info("username: {} ", authentication.getName());
-        log.info("roles: {}", authentication.getAuthorities());
 
         return ApiResponse.<AuthenticationResponse>builder()
                 .result(result)

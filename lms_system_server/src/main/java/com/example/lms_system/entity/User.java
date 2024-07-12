@@ -30,9 +30,12 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     // @Column(name = "user_id")
+    String id;
+
+    // identity_service
     String userId;
 
-    String fullname;
+    String fullName;
 
     @Column(unique = true)
     String email;

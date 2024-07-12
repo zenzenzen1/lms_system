@@ -39,7 +39,7 @@ public class Course {
     // String code;
 
     @ManyToOne
-    @JoinColumn(name = "teacher_id", referencedColumnName = "userId")
+    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
     // @JsonBackReference
     User teacher;
 

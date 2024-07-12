@@ -9,8 +9,8 @@ import com.example.lms_system.entity.User;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    @Mapping(target = "userId", ignore = true)
     @Mapping(target = "courseStudents", ignore = true)
+    @Mapping(target = "id", ignore = true)
     User toUser(UserRequest userRequest);
 
     UserResponse toUserResponse(User user);

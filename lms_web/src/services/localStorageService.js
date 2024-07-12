@@ -11,3 +11,7 @@ export const getToken = () => {
 export const removeToken = () => {
   return localStorage.removeItem(KEY_TOKEN);
 };
+
+export const getKey = (key) => {
+  return localStorage.getItem(key);
+};
