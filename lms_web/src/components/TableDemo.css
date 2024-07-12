@@ -1,0 +1,11 @@
+.data-table .p-fluid .p-inputtext{
+    padding: 6px 6px;
+}
+
+.data-table .p-multiselect .p-multiselect-label{
+    height: 35px;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
