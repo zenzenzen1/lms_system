@@ -3,6 +3,7 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } fro
 import persistStore from 'redux-persist/es/persistStore'
 import storage from 'redux-persist/lib/storage'
 import { userSlice } from './slice/UserSlice'
+import { scheduleSlice } from './slice/ScheduleSlice'
 const persistConfig = {
     key: 'root',
     version: 1,
@@ -10,7 +11,8 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-    user: userSlice.reducer
+    user: userSlice.reducer,
+    schedule: scheduleSlice.reducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
@@ -24,5 +26,7 @@ export const store = configureStore({
             },
         }),
 });
+export const RootType = typeof store.getState;
+console.log(RootType);
 
 export const persistor = persistStore(store);

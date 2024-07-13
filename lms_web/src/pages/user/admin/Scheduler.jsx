@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { getAllSlots } from '../../../services/SlotService';
 import { useNavigate } from 'react-router-dom';
-import { getAllSubjects } from '../../../services/SubjectService';
-import { getAllRooms } from '../../../services/RoomService';
 import ScheduleList from './ScheduleList';
+import { getAllRooms, getAllSlots, getAllSubjects } from '../../../services/ScheduleService';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRooms, setSlots, setSubjects } from '../../../redux/slice/ScheduleSlice';
+import { RootType } from '../../../redux/store';
 
 const Scheduler = () => {
     const [show, setShow] = useState(false);
-    const [slots, setSlots] = useState([]);
-    const [subjects, setSubjects] = useState([]);
-    const [rooms, setRooms] = useState([]);
+    // const [slots, setSlots] = useState([]);
+    // const [subjects, setSubjects] = useState([]);
+    // const [rooms, setRooms] = useState([]);
+    const [error, setError] = useState("");
+    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const handleClose = () => setShow(false);
@@ -19,19 +22,28 @@ const Scheduler = () => {
 
     useEffect(() => {
         (async () => {
-            const _slot = await getAllSlots();
-            console.log(_slot);
-            setSlots(_slot.data.result)
-
-            const _subjects = await getAllSubjects();
-            setSubjects(_subjects.data.result);
-            
-            const _rooms = await getAllRooms();
-            setRooms(_rooms.data.result);
+            try {
+                const _slot = await getAllSlots();
+                // setSlots(_slot.data.result)
+                dispatch(setSlots(_slot.data.result));
+    
+                const _subjects = await getAllSubjects();
+                // setSubjects(_subjects.data.result);
+                dispatch(setSubjects(_subjects.data.result));
+                
+                const _rooms = await getAllRooms();
+                // setRooms(_rooms.data.result);
+                dispatch(setRooms(_rooms.data.result));
+                
+            } catch (error) {
+                setError(error);
+            }
         })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [navigate])
-
-    console.log({ slots, subjects, rooms });
+    const {slots, subjects, rooms} = useSelector<RootType>(state => state.schedule);
+    
+    // console.log({ slots, subjects, rooms });
 
     return (
         <>
@@ -53,7 +65,7 @@ const Scheduler = () => {
                                     </td>
                                     <td>
                                         <select name="slot" id="slot">
-                                            {slots.map((slot, index) => (
+                                            {slots && slots.map((slot, index) => (
                                                 <option key={index} value={slot.id}>{"Slot " + slot.slotId + " " + slot.startTime + " -> " + slot.endTime}</option>
                                             ))}
                                         </select>
@@ -65,7 +77,7 @@ const Scheduler = () => {
                                     </td>
                                     <td>
                                         <select name="subject" id="subject">
-                                            {subjects.map((subject, index) => (
+                                            {subjects && subjects.map((subject, index) => (
                                                 <option key={index} value={subject.id}>{`${subject.subjectCode} - ${subject.subjectName}`}</option>
                                             ))}
                                         </select>
@@ -77,7 +89,7 @@ const Scheduler = () => {
                                     </td>
                                     <td>
                                         <select name="room" id="room">
-                                            {rooms.map((room, index) => (
+                                            {rooms && rooms.map((room, index) => (
                                                 <option key={index} value={room.id}>{room.roomNumber}</option>
                                             ))}
                                         </select>

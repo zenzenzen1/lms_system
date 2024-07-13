@@ -1,5 +1,6 @@
 import { API } from "../configurations/configuration";
 import httpClient from "../configurations/httpClient";
+import { getToken } from "./localStorageService";
 
 export const getAllRooms = async () => {
     const res = await httpClient.get(API.ROOM, {

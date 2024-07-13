@@ -14,7 +14,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import UserProfile from './pages/user/common/UserProfile';
 import StudentPage from './pages/user/student/StudentPage';
 import TeacherPage from './pages/user/teacher/TeacherPage';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
 
   return (

@@ -34,7 +34,7 @@ server:
 jwt:
   signerKey: "erBbQWxtozTCcuxiDMgfAlp0xI22EoEGRVhLZMt3N9WTCbbYpPPfYDOstWVUSEqN"
   issuer: "zenzen1"
-  valid-duration: 600 # seconds
+  valid-duration: 1000 # seconds
   refreshable-duration: 1200 # seconds
 app:
   services:

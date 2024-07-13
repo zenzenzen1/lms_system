@@ -171,7 +171,8 @@ const TableDemo = () => {
         );
     }
     // statusRowFilterTemplate({ value: 'unqualified', filterApplyCallback: (value) => console.log(value) });
-
+    
+    
     return (
         <div className='card'>
             <MultiSelect className=''
@@ -179,7 +180,7 @@ const TableDemo = () => {
             />
             <h2 className=''>Table Demo</h2>
             <div className='data-table'>
-                <DataTable
+                <DataTable className='table table-striped table-hover table-'
                     value={data} showGridlines size='small' header={Header} footer={Footer} tableStyle={{ minWidth: '50rem' }} stripedRows
                     resizableColumns columnResizeMode='fit' reorderableColumns onColumnResizerDoubleClick={(e) => console.log(e)} onColumnResizerClick={(e) => console.log(e)}
                     // paginator rows={5} rowsPerPageOptions={[5, 10, 15]}
