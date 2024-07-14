@@ -11,5 +11,8 @@ export const API = {
   USER_PROFILE: "/lms/users",
   SLOTS: "/lms/slots",
   SUBJECTS: "/lms/subjects",
-  ROOM: "/lms/rooms"
+  ROOM: "/lms/rooms",
+  ALL_SCHEDULE: "/lms/schedules/all",
 };
+
+export const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];

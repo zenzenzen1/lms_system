@@ -1,6 +1,6 @@
 package com.example.lms_system.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,7 +27,7 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long scheduleId;
 
-    Date trainingDate;
+    LocalDate trainingDate;
 
     @ManyToOne
     @JoinColumn(name = "subjectCode", referencedColumnName = "subjectCode")

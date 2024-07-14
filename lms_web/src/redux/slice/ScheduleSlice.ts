@@ -3,20 +3,28 @@ import { createSlice } from "@reduxjs/toolkit";
 type scheduleType = {
     rooms: object[],
     subjects: object[],
-    slots: object[]
+    slots: object[],
+    schedules: object[]
 
 }
 
 const initialState: scheduleType = {
     rooms: [],
     subjects: [],
-    slots: []
+    slots: [],
+    schedules: []
 };
 
 export const scheduleSlice = createSlice({
     name: "schedule",
     initialState: initialState,
     reducers: {
+        setSchedules: (state, action) => {
+            return {
+                ...state,
+                schedules: action.payload
+            }
+        },
         setRooms: (state, action) => {
             return {
                 ...state,
@@ -38,4 +46,4 @@ export const scheduleSlice = createSlice({
     }
 })
 
-export const { setRooms, setSubjects, setSlots } = scheduleSlice.actions;
+export const { setRooms, setSubjects, setSlots, setSchedules } = scheduleSlice.actions;

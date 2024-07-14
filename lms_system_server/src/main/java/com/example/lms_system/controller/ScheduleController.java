@@ -1,6 +1,9 @@
 package com.example.lms_system.controller;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Map;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -29,6 +32,16 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
+    @GetMapping({"/{studentId}"})
+    public Map<Slot, Schedule> getScheduleByStudentId(
+            @PathVariable String studentId, @RequestParam String startDate, @RequestParam String endDate) {
+        System.out.println(studentId + " " + startDate + " " + endDate);
+        var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-M-dd").withLocale(Locale.CHINA);
+        LocalDate start = LocalDate.parse(startDate, dateTimeFormatter);
+        System.out.println(start);
+        return Map.of(Slot.builder().build(), Schedule.builder().build());
+    }
+
     @GetMapping("/all")
     public ResponseEntity<Page<Schedule>> getSchedules(
             @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
@@ -46,7 +59,7 @@ public class ScheduleController {
 
     @PostMapping("/add")
     public ResponseEntity<Schedule> addSchedule(
-            @RequestParam Date trainingDate,
+            @RequestParam LocalDate trainingDate,
             @RequestParam Subject subject,
             @RequestParam Room room,
             @RequestParam Slot slot) {
@@ -63,7 +76,7 @@ public class ScheduleController {
     @PutMapping("/update/{id}")
     public ResponseEntity<Schedule> updateSchedule(
             @PathVariable Long id,
-            @RequestParam Date trainingDate,
+            @RequestParam LocalDate trainingDate,
             @RequestParam Subject subject,
             @RequestParam Room room,
             @RequestParam Slot slot) {

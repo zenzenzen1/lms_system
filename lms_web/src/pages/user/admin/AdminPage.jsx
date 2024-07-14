@@ -21,7 +21,6 @@ const AdminPage = () => {
     
     const handleUserClick = async () => {
         const isValidUser = await isValidToken();
-        console.log(isValidUser);
         if (!isValidUser) {
             console.log(isValidUser);
             navigate("/user/login");

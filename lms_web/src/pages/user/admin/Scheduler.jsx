@@ -13,6 +13,7 @@ const Scheduler = () => {
     // const [slots, setSlots] = useState([]);
     // const [subjects, setSubjects] = useState([]);
     // const [rooms, setRooms] = useState([]);
+    const [schedule, setSchedule] = useState({});
     const [error, setError] = useState("");
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -26,7 +27,8 @@ const Scheduler = () => {
                 const _slot = await getAllSlots();
                 // setSlots(_slot.data.result)
                 dispatch(setSlots(_slot.data.result));
-    
+                console.log(_slot.data.result);
+                
                 const _subjects = await getAllSubjects();
                 // setSubjects(_subjects.data.result);
                 dispatch(setSubjects(_subjects.data.result));
@@ -34,16 +36,20 @@ const Scheduler = () => {
                 const _rooms = await getAllRooms();
                 // setRooms(_rooms.data.result);
                 dispatch(setRooms(_rooms.data.result));
-                
+                setSchedule({
+                    slots: _slot.data.result,
+                    subjects: _subjects.data.result,
+                    rooms: _rooms.data.result
+                })
             } catch (error) {
                 setError(error);
             }
         })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [navigate])
-    const {slots, subjects, rooms} = useSelector<RootType>(state => state.schedule);
+    }, [])
+    const {slots, subjects, rooms} = useSelector(state => state.schedule);
     
-    // console.log({ slots, subjects, rooms });
+    console.log({ slots, subjects, rooms });
 
     return (
         <>

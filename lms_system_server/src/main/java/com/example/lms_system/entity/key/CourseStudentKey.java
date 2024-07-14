@@ -1,4 +1,4 @@
-package com.example.lms_system.entity;
+package com.example.lms_system.entity.key;
 
 import java.io.Serializable;
 
