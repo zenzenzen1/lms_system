@@ -1,4 +1,4 @@
-package com.example.identity_service.dto.response;
+package com.example.lms_system.dto.response.identity_service;
 
 import java.util.Set;
 
@@ -19,5 +19,5 @@ public class UserResponse {
     String username;
     String password;
     Object userProfile;
-    Set<RoleResponse> roles;
+    Set<Object> roles;
 }

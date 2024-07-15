@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -52,6 +53,11 @@ public class UserController {
     //             .result(userService.getUserByRole(role))
     //             .build();
     // }
+
+    @GetMapping("/userId/{userId}")
+    public Object getUserByUserId(@PathVariable String userId) {
+        return userService.getUserByUserId(userId);
+    }
 
     @PostMapping("/deleteAllUsers")
     public void postMethodName() {

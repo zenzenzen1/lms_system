@@ -11,6 +11,7 @@ import com.example.lms_system.entity.key.CourseStudentKey;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -36,5 +37,6 @@ public class CourseStudent {
     @JoinColumn(name = "course_id")
     Course course;
 
-    boolean status;
+    @Default
+    boolean status = true;
 }

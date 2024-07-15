@@ -9,6 +9,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -41,4 +44,9 @@ public class Schedule {
     @ManyToOne
     @JoinColumn(name = "slotId", referencedColumnName = "slotId")
     Slot slot;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Course course;
 }

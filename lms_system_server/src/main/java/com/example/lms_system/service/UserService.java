@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.example.lms_system.dto.request.UserRequest;
 import com.example.lms_system.dto.response.UserResponse;
 import com.example.lms_system.entity.User;
+import com.example.lms_system.exception.AppException;
+import com.example.lms_system.exception.ErrorCode;
 import com.example.lms_system.mapper.UserMapper;
 import com.example.lms_system.repository.UserRepository;
 
@@ -44,6 +46,13 @@ public class UserService {
 
     public void deleteAllUser() {
         userRepository.deleteAll();
+    }
+
+    public Object getUserByUserId(String userId) {
+        return userRepository.findAll().stream()
+                .filter(t -> t.getUserId().equals(userId))
+                .findFirst()
+                .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
     }
 
     // public Object getUserByRole(String role) {

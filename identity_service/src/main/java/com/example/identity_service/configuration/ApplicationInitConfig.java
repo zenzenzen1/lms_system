@@ -1,6 +1,5 @@
 package com.example.identity_service.configuration;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -9,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.example.identity_service.dto.request.UserProfileCreationRequest;
 import com.example.identity_service.entity.Role;
 import com.example.identity_service.entity.User;
 import com.example.identity_service.mapper.UserProfileMapper;
@@ -35,7 +33,7 @@ public class ApplicationInitConfig {
             UserProfileMapper userProfileMapper) {
         return args -> {
             if (roleRepository.findAll().isEmpty()) {
-                lmsClient.deleteAllUser();
+
                 var adminRole = roleRepository.save(Role.builder()
                         .name(com.example.identity_service.enums.Role.ADMIN.name())
                         .description("Admin role")
@@ -68,25 +66,26 @@ public class ApplicationInitConfig {
                             .password(passwordEncoder.encode("student1"))
                             .roles(Set.of(studentRole, userRole))
                             .build());
-                    lmsClient.createUserProfile(UserProfileCreationRequest.builder()
-                            .dob(LocalDate.of(2003, 7, 16))
-                            .fullName("Lam Thon")
-                            .userId(studentUser.getId())
-                            .phoneNumber("19001002")
-                            .email("lamthon@gmail.com")
-                            .build());
+                    // lmsClient.createUserProfile(UserProfileCreationRequest.builder()
+                    //         .dob(LocalDate.of(2003, 7, 16))
+                    //         .fullName("Lam Thon")
+                    //         .userId(studentUser.getId())
+                    //         .phoneNumber("19001002")
+                    //         .email("lamthon@gmail.com")
+                    //         .build());
                     var teacherUser = userRepository.save(User.builder()
                             .username("teacher1")
                             .password(passwordEncoder.encode("teacher1"))
                             .roles(Set.of(teacherRole, userRole))
                             .build());
-                    lmsClient.createUserProfile(UserProfileCreationRequest.builder()
-                            .dob(LocalDate.of(1999, 7, 16))
-                            .fullName("Kien NT")
-                            .userId(teacherUser.getId())
-                            .email("teacher@gmail.com")
-                            .phoneNumber("19001002")
-                            .build());
+                    // lmsClient.createUserProfile(UserProfileCreationRequest.builder()
+                    //         .dob(LocalDate.of(1999, 7, 16))
+                    //         .fullName("Kien NT")
+                    //         .userId(teacherUser.getId())
+                    //         .email("teacher@gmail.com")
+                    //         .phoneNumber("19001002")
+                    //         .build());
+
                     log.warn("Admin user has been created with default password: admin");
                 }
             }

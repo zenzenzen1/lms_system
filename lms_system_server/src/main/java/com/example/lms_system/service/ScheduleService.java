@@ -1,7 +1,10 @@
 package com.example.lms_system.service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,6 +22,12 @@ import lombok.RequiredArgsConstructor;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+
+    public Set<Map<String, Object>> getScheduleByStudentId(String studentId, LocalDate startDate, LocalDate endDate) {
+        // var schedules = scheduleRepository.findAll().stream().filter(t -> t.get)
+
+        return scheduleRepository.getScheduleByStudentId(studentId, startDate, endDate);
+    }
 
     public void saveSchedule(Schedule schedule) {
         scheduleRepository.save(schedule);

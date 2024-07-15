@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -32,14 +33,15 @@ public class ScheduleController {
 
     private final ScheduleService scheduleService;
 
-    @GetMapping({"/{studentId}"})
-    public Map<Slot, Schedule> getScheduleByStudentId(
+    @GetMapping({"/studentId/{studentId}"})
+    public Set<Map<String, Object>> getScheduleByStudentId(
             @PathVariable String studentId, @RequestParam String startDate, @RequestParam String endDate) {
-        System.out.println(studentId + " " + startDate + " " + endDate);
-        var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-M-dd").withLocale(Locale.CHINA);
+        var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-M-d").withLocale(Locale.CHINA);
         LocalDate start = LocalDate.parse(startDate, dateTimeFormatter);
-        System.out.println(start);
-        return Map.of(Slot.builder().build(), Schedule.builder().build());
+        LocalDate end = LocalDate.parse(endDate, dateTimeFormatter);
+        System.out.println(
+                start.format(dateTimeFormatter) + " " + end.format(dateTimeFormatter) + " " + start + " " + end);
+        return scheduleService.getScheduleByStudentId(studentId, start, end);
     }
 
     @GetMapping("/all")

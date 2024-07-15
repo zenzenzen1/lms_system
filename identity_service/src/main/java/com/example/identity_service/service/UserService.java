@@ -102,11 +102,14 @@ public class UserService {
         String name = context.getAuthentication().getName();
         log.warn("{} logging", name);
         User user = userRepository.findByUsername(name).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        return userMapper.toUserResponse(user);
+        var userResponse = userMapper.toUserResponse(user);
+        userResponse.setUserProfile(lmsClient.getUserProfileByUserId(user.getId()));
+        return userResponse;
     }
 
-    public User getUserByUsername(String username) {
-        return userRepository.findById(username).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+    public UserResponse getUserByUsername(String username) {
+        return userMapper.toUserResponse(
+                userRepository.findByUsername(username).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)));
     }
 
     public String encodePassword(String password) {

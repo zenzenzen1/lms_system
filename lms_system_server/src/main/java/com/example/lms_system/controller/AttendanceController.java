@@ -49,7 +49,7 @@ public class AttendanceController {
             @RequestParam(defaultValue = "false") boolean attendanceStatus,
             @RequestParam(defaultValue = "") String notes) {
         Attendance newAttendance = Attendance.builder()
-                .course(course)
+                // .course(course)
                 .student(student)
                 .attendanceStatus(attendanceStatus)
                 .attendanceNote(notes)
@@ -69,7 +69,7 @@ public class AttendanceController {
         Attendance attendance = service.findById(id);
         if (attendance == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        attendance.setCourse(course);
+        // attendance.setCourse(course);
         attendance.setStudent(student);
         attendance.setAttendanceStatus(attendanceStatus);
         attendance.setAttendanceNote(notes);

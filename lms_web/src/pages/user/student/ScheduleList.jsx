@@ -1,10 +1,14 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { days } from '../../../configurations/configuration';
+import { getAllRooms, getAllSlots, getAllSubjects, getSchedulesByStudentId } from '../../../services/ScheduleService';
+import { useDispatch, useSelector } from 'react-redux';
+import { setRooms, setSchedules, setSlots, setSubjects } from '../../../redux/slice/ScheduleSlice';
 
 const ScheduleList = () => {
     var date = new Date();
-    const [currentDay, setCurrentDay] = useState(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
+    const dispatch = useDispatch();
+    const [currentDay, setCurrentDay] = useState(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 6));
     const [firstDate, setFirstDate] = useState(new Date(currentDay.getFullYear(), currentDay.getMonth(),
         currentDay.getDate() - (currentDay.getDay() === 0 ? 6 : (currentDay.getDay() - 1))));
     const [lastDate, setLastDate] = useState(new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate() - currentDay.getDay() + 7));
@@ -22,19 +26,66 @@ const ScheduleList = () => {
         const oneDay = 24 * 60 * 60 * 1000;
         return Math.floor(diff / oneDay / 7);
     }, [currentDay, firstMondayOfYear]);
-    
+    const [schedules, setSchedules] = useState([]);
+
     useMemo(() => {
         setFirstDate(date => new Date(new Date(date.setFullYear(currentDay.getFullYear())).setMonth(currentDay.getMonth(), currentDay.getDate() - (currentDay.getDay() === 0 ? 6 : (currentDay.getDay() - 1)))));
         setLastDate(date => new Date(date.setFullYear(currentDay.getFullYear())));
         setFirstMondayOfYear(date => new Date(new Date(date.setFullYear(currentDay.getFullYear())).setMonth(0, 1)));
+
     }, [currentDay]);
-    
-    console.log({ weekOfYear, date, firstMondayOfYear, firstDate, currentDay, lastDate });
-    
-    
+    const user = useSelector(state => state.user);
+    useEffect(() => {
+        (async () => {
+            try {
+                const _slot = await getAllSlots();
+                dispatch(setSlots(_slot.data.result));
+
+                const _subjects = await getAllSubjects();
+                dispatch(setSubjects(_subjects.data.result));
+
+                const _rooms = await getAllRooms();
+                dispatch(setRooms(_rooms.data.result));
+
+                (async () => {
+                    const res = await getSchedulesByStudentId(user.userProfile.id, firstDate.toLocaleDateString("en-CA"), lastDate.toLocaleDateString("en-CA"));
+                    setSchedules(res.data);
+                })();
+            } catch (error) {
+                // setError(error);
+                console.log(error);
+            }
+        })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
+
+    const slots = useSelector(state => state.schedule.slots);
+    // console.log({ slots, schedules });
+
+
+    // console.log({ weekOfYear, date, firstMondayOfYear, firstDate, currentDay, lastDate });
+    const coursesBySlots = useMemo(() => {
+        // if(!schedules) return [];
+        
+        return slots.reduce((prev, curr, index) => {
+            const s = [];
+            for (let i = 0; i < 7; i++) {
+                const schedule = schedules.find(schedule => schedule.slot_id === curr.slotId
+                    && new Date(schedule.training_date).toLocaleDateString("en-CA") === new Date(new Date(firstDate).setDate(firstDate.getDate() + i)).toLocaleDateString("en-CA"));
+                s.push(schedule ?? null);
+            }
+            return [
+                ...prev,
+                [s, curr]
+            ];
+        }, []);
+    }, [firstDate, schedules, slots]);
+    // console.log(coursesBySlots);
+
     return (
         <>
-            <Table size='sm' className='' style={{ fontSize: "15px" }}>
+            <Table size='sm' className='' style={{ fontSize: "15px" }} hover>
                 <thead>
                     <tr>
                         <th rowSpan={2}>
@@ -64,7 +115,7 @@ const ScheduleList = () => {
                                 }}
                             >
                                 {
-                                    
+
                                 }
                             </select>
                         </th>
@@ -83,17 +134,40 @@ const ScheduleList = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>07:30 - 09:30</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    {/* Add more rows as needed */}
+                    {
+                        // coursesBySlots && coursesBySlots.flatMap((value, index, array) => {
+                        //     return value.map((course, i) => {
+                        //         console.log(i);
+                        //         return (
+                        //             <td key={i}>
+                        //                 {
+                        //                     course && "abc"
+                        //                 }
+                        //             </td>
+                        //         )
+                        //     })
+                        // })
+                        coursesBySlots.reduce((prev, curr, index) => {
+                            const slot = curr[1];
+                            return [... prev, (
+                                <tr key={index}>
+                                    <td>
+                                        Slot {slot.slotId} <br/>
+                                        {`${slot.startTime} -> ${slot.endTime}`}
+                                    </td>
+                                    {curr[0].map((value, index) => {
+                                        return (
+                                            <td className={"text-sm"} key={index}>
+                                                {value ? value.subject_name : "-"}
+                                            </td>
+                                        )
+                                    })}
+                                </tr>
+                            )]
+                        }, []).map((value, index) => {
+                            return value;
+                        })
+                    }
                 </tbody>
             </Table>
         </>

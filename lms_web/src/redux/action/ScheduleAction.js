@@ -5,3 +5,4 @@ export const setSchedulesAction = () => async (dispatch) => {
     const res = await getSchedules();
     dispatch(setSchedules(res.data.content));
 }
+

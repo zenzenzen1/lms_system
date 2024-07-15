@@ -25,10 +25,10 @@ public class Attendance {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long attendanceId;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id")
-    // @JsonIgnore
-    Course course;
+    // @ManyToOne
+    // @JoinColumn(name = "course_id")
+    // // @JsonIgnore
+    // Course course;
 
     @ManyToOne
     @JoinColumn(name = "student_id")

@@ -1,6 +1,8 @@
-import { login } from "./src/services/authenticationService.js";
+let a = [[1, 2], [3, 4]]
 
-const res = await login("student1", "student1");
+let b = a.reduce((prev, curr) => {
+    // console.log({prev, curr});
+    return [... prev, curr.map(t => t + 10)];
+}, [])
 
-console.log(res);
-
+console.log(b);

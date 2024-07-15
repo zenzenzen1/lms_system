@@ -76,7 +76,7 @@ const Login = () => {
                         </div>
                         <div className="col-lg-12">
                             <div className="form-group">
-                                <div className="input-group">
+                                <div className="">
                                     <label>Your Password</label>
                                     <InputText
                                         name="password"

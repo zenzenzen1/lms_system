@@ -60,6 +60,11 @@ public class UserController {
         return ApiResponse.<List<User>>builder().result(userService.getUsers()).build();
     }
 
+    @GetMapping("/username/{username}")
+    public UserResponse getMethodName(@PathVariable String username) {
+        return userService.getUserByUsername(username);
+    }
+
     @GetMapping("/{userId}")
     public UserResponse getUser(@PathVariable String userId) {
         return userService.getUser(userId);

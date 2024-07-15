@@ -10,6 +10,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +32,7 @@ public class Course {
     Long courseId;
 
     @ManyToOne
-    @JoinColumn(name = "subject_id")
+    @JoinColumn(name = "subjectCode")
     Subject subject;
 
     @ManyToOne
@@ -40,6 +43,7 @@ public class Course {
 
     @ManyToOne
     @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     // @JsonBackReference
     User teacher;
 
