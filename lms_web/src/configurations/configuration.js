@@ -13,7 +13,12 @@ export const API = {
   SUBJECTS: "/lms/subjects",
   ROOM: "/lms/rooms",
   ALL_SCHEDULE: "/lms/schedules/all",
-  SCHEDULE_BY_STUDENTID: "/lms/schedules/studentId"
+  ALL_SEMESTERS: "/lms/semesters/all",
+  SCHEDULE: "/lms/schedules",
+  SCHEDULE_BY_STUDENTID: "/lms/schedules/studentId",
+  SCHEDULE_BY_TEACHERID: "/lms/attendances/teacherId",
+  STUDENTS_BY_SCHEDULEID: "/lms/attendances/scheduleId",
+  SAVE_ALL_ATTENDANCES: "/lms/attendances/saveAll"
 };
 
 export const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];

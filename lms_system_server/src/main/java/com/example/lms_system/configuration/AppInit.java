@@ -8,6 +8,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.example.lms_system.dto.response.identity_service.UserCreationRequest;
+import com.example.lms_system.dto.response.identity_service.UserResponse;
+import com.example.lms_system.entity.Attendance;
 import com.example.lms_system.entity.Course;
 import com.example.lms_system.entity.CourseStudent;
 import com.example.lms_system.entity.Room;
@@ -17,6 +20,7 @@ import com.example.lms_system.entity.Slot;
 import com.example.lms_system.entity.Subject;
 import com.example.lms_system.entity.User;
 import com.example.lms_system.entity.key.CourseStudentKey;
+import com.example.lms_system.repository.AttendanceRepository;
 import com.example.lms_system.repository.CourseRepository;
 import com.example.lms_system.repository.CourseStudentRepository;
 import com.example.lms_system.repository.RoomRepository;
@@ -46,7 +50,8 @@ public class AppInit {
             SemesterRepository semesterRepository,
             UserRepository userRepository,
             CourseStudentRepository courseStudentRepository,
-            IdentityClient identityClient) {
+            IdentityClient identityClient,
+            AttendanceRepository attendanceRepository) {
         return args -> {
             var subjects = List.of(
                     Subject.builder()
@@ -109,6 +114,23 @@ public class AppInit {
                 userRepository.saveAll(List.of(student, teacher));
                 // return;
             }
+            for (int i = 0; i < 20; i++) {
+                try {
+                    identityClient.createUser(UserCreationRequest.builder()
+                            .username("user" + i)
+                            .password("user" + i)
+                            .fullName("user" + i)
+                            .email("email" + i + "@gmail.com")
+                            .build());
+                } catch (Exception e) {
+                    UserResponse user = identityClient.getUserByUsername("user" + i);
+                    userRepository.save(User.builder()
+                            .fullName("user" + i)
+                            .email("email" + i + "@gmail.com")
+                            .userId(user.getId())
+                            .build());
+                }
+            }
             // student.setCourseStudents(Set.of(CourseStudent.builder()
             // .course(courses.get(0))
             // .student(student)
@@ -148,7 +170,7 @@ public class AppInit {
             courseStudentRepository.saveAll(courseStudents);
             // student.setCourseStudents(courseStudents);
 
-            scheduleRepository.saveAll(List.of(
+            var schedules = List.of(
                     Schedule.builder()
                             .subject(subjects.get(0))
                             .room(rooms.get(0))
@@ -162,7 +184,12 @@ public class AppInit {
                             .slot(slots.get(0))
                             .trainingDate(LocalDate.of(2024, 7, 9))
                             .course(courses.get(1))
-                            .build()));
+                            .build());
+            scheduleRepository.saveAll(schedules);
+            var attendances = schedules.stream()
+                    .map(s -> Attendance.builder().schedule(s).student(student).build())
+                    .toList();
+            attendanceRepository.saveAll(attendances);
         };
     }
 }

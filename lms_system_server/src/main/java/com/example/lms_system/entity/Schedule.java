@@ -33,7 +33,7 @@ public class Schedule {
     LocalDate trainingDate;
 
     @ManyToOne
-    @JoinColumn(name = "subjectCode", referencedColumnName = "subjectCode")
+    @JoinColumn(name = "subject_code", referencedColumnName = "subjectCode")
     // @JsonBackReference)
     Subject subject;
 
@@ -46,7 +46,7 @@ public class Schedule {
     Slot slot;
 
     @ManyToOne
-    @JoinColumn(name = "course_id")
+    @JoinColumn(name = "courseId")
     @OnDelete(action = OnDeleteAction.CASCADE)
     Course course;
 }

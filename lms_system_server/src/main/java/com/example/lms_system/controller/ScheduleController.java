@@ -6,6 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.lms_system.dto.request.ScheduleRequest;
 import com.example.lms_system.entity.Room;
 import com.example.lms_system.entity.Schedule;
 import com.example.lms_system.entity.Slot;
@@ -32,6 +35,23 @@ import lombok.RequiredArgsConstructor;
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
+
+    @Autowired
+    private final DateTimeFormatter dateTimeFormatter;
+
+    @GetMapping("/teacherId/{teacherId}")
+    public Object getScheduleByTeacherId(
+            @PathVariable String teacherId, @RequestParam String startDate, @RequestParam String endDate) {
+        try {
+            LocalDate start = LocalDate.parse(startDate, dateTimeFormatter);
+            LocalDate end = LocalDate.parse(endDate, dateTimeFormatter);
+            System.out.println(start + " " + end);
+            // return scheduleService.getScheduleByTeacherId(teacherId, start, end);
+            return null;
+        } catch (Exception e) {
+            throw new RuntimeException("date parse error");
+        }
+    }
 
     @GetMapping({"/studentId/{studentId}"})
     public Set<Map<String, Object>> getScheduleByStudentId(
@@ -57,6 +77,11 @@ public class ScheduleController {
     @GetMapping("/details")
     public ResponseEntity<Schedule> getScheduleDetails(@RequestParam Long id) {
         return ResponseEntity.ok(scheduleService.findById(id));
+    }
+
+    @PostMapping()
+    public ResponseEntity<Schedule> addSchedule(@RequestBody ScheduleRequest scheduleRequest) {
+        return scheduleService.saveSchedule(scheduleRequest);
     }
 
     @PostMapping("/add")

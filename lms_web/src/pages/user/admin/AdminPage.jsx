@@ -28,7 +28,7 @@ const AdminPage = () => {
 
         setContent(<UserList />)
     }
-
+    
     console.log("admin page");
     return (
         <>

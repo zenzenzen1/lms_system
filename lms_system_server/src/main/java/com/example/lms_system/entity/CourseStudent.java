@@ -27,12 +27,12 @@ public class CourseStudent {
     @EmbeddedId
     CourseStudentKey id;
 
-    @ManyToOne
+    @ManyToOne()
     @MapsId("studentId")
     @JoinColumn(name = "student_id")
     User student;
 
-    @ManyToOne
+    @ManyToOne()
     @MapsId("courseId")
     @JoinColumn(name = "course_id")
     Course course;

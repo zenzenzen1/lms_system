@@ -19,13 +19,13 @@ const ScheduleList = () => {
     const daysOfWeek = days.map((day, index) => {
         return new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate() + index);
     });
-    const weekOfYear = useMemo(() => {
-        const firstMonday = new Date(firstMondayOfYear.getFullYear(), firstMondayOfYear.getMonth(), firstMondayOfYear.getDate());
-        const current = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate());
-        const diff = current - firstMonday;
-        const oneDay = 24 * 60 * 60 * 1000;
-        return Math.floor(diff / oneDay / 7);
-    }, [currentDay, firstMondayOfYear]);
+    // const weekOfYear = useMemo(() => {
+    //     const firstMonday = new Date(firstMondayOfYear.getFullYear(), firstMondayOfYear.getMonth(), firstMondayOfYear.getDate());
+    //     const current = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate());
+    //     const diff = current - firstMonday;
+    //     const oneDay = 24 * 60 * 60 * 1000;
+    //     return Math.floor(diff / oneDay / 7);
+    // }, [currentDay, firstMondayOfYear]);
     const [schedules, setSchedules] = useState([]);
 
     useMemo(() => {
@@ -115,7 +115,7 @@ const ScheduleList = () => {
                                 }}
                             >
                                 {
-
+                                    
                                 }
                             </select>
                         </th>

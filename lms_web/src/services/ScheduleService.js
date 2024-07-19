@@ -2,6 +2,38 @@ import { API } from "../configurations/configuration";
 import httpClient from "../configurations/httpClient";
 import { getToken } from "./localStorageService";
 
+export const getSemesters = async() => {
+    const res = httpClient.get(API.ALL_SEMESTERS, {
+        headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    }).catch(e => e);
+    return res;
+}
+
+export const saveSchedule = async (scheduleRequest) => {
+    const res = await httpClient.post(API.SCHEDULE, scheduleRequest, {
+        headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    }).catch(e => e);
+    return res;
+}
+
+export const getSchedulesByTeacherId = async (teacherId, startDate, endDate) => {
+    const res = await httpClient.get(API.SCHEDULE_BY_TEACHERID + `/${teacherId}`, {
+        params: {
+            startDate: startDate,
+            endDate: endDate
+        },
+        headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    }).catch((e) => e);
+
+    return res;
+}
+
 export const getSchedulesByStudentId = async (studentId, startDate, endDate) => {
     const res = await httpClient.get(API.SCHEDULE_BY_STUDENTID + `/${studentId}`, {
         params: {

@@ -17,6 +17,7 @@ import StudentPage from './pages/user/student/StudentPage';
 import TeacherPage from './pages/user/teacher/TeacherPage';
 import { persistor, store } from './redux/store';
 import { isValidToken } from './services/authenticationService';
+import ClassDetail from './pages/user/teacher/ClassDetail';
 function App() {
   useEffect(() => {
     const interval = setInterval(async() => {
@@ -49,7 +50,8 @@ function App() {
               <Route path='/user/profile' element={<UserProfile/>} />
               <Route path="/user/admin" element={<AdminPage />} />
               <Route path="/user/student" element={<StudentPage/>} />
-              <Route path="/useruser/teacher" element={<TeacherPage/>} />
+              <Route path="/user/teacher" element={<TeacherPage/>} />
+              <Route path='/user/teacher/class-detail' element={<ClassDetail/>}/>
             </Routes>
           </BrowserRouter>
         </PersistGate>

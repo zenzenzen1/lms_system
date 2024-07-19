@@ -32,7 +32,7 @@ public class Course {
     Long courseId;
 
     @ManyToOne
-    @JoinColumn(name = "subjectCode")
+    @JoinColumn(name = "subject_code")
     Subject subject;
 
     @ManyToOne

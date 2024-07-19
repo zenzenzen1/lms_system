@@ -61,6 +61,7 @@ public class UserService {
 
         HashSet<com.example.identity_service.entity.Role> roles = new HashSet<>();
         roleRepository.findById(Role.USER.name()).ifPresent(roles::add);
+        roleRepository.findById(Role.STUDENT.name()).ifPresent(roles::add);
         user.setRoles(roles);
         user = userRepository.save(user);
 

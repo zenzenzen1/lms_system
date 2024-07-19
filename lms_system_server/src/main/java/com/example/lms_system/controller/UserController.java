@@ -28,6 +28,11 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
     private final UserService userService;
 
+    // @GetMapping("/course/{courseId}")
+    // public String getStudentsI(@PathVariable Long courseId) {
+    //     return new String();
+    // }
+
     @PutMapping
     public ApiResponse<UserResponse> updateUser(@RequestBody UserRequest userRequest) {
         return ApiResponse.<UserResponse>builder()
@@ -49,9 +54,9 @@ public class UserController {
 
     // @GetMapping({"/getUserByRole/{role}"})
     // public ApiResponse<Object> getMethodName(@PathVariable String role) {
-    //     return ApiResponse.<Object>builder()
-    //             .result(userService.getUserByRole(role))
-    //             .build();
+    // return ApiResponse.<Object>builder()
+    // .result(userService.getUserByRole(role))
+    // .build();
     // }
 
     @GetMapping("/userId/{userId}")

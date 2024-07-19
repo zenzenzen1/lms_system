@@ -2,6 +2,8 @@ package com.example.lms_system.service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,6 +21,10 @@ import lombok.RequiredArgsConstructor;
 public class SemesterService {
 
     private final SemesterRepository semesterRepository;
+
+    public Set<Semester> getAllSemesters() {
+        return semesterRepository.findAll().stream().collect(Collectors.toSet());
+    }
 
     public void saveSemester(Semester semester) {
         semesterRepository.save(semester);

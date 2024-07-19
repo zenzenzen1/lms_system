@@ -33,6 +33,25 @@ export const getAllUserProfile = async () => {
   return res;
 };
 
+export const getAllUserAndUserProfile = async () => {
+  const _users = await getAllUser();
+  const users = _users.data.result;
+
+  const _userProfiles = await getAllUserProfile();
+
+  const userProfiles = _userProfiles.data.result;
+
+  return users.map(user => {
+    const userProfile = userProfiles.find(p => p.userId === user.id)
+    return userProfile ? {
+      ...user,
+      ...userProfile
+    } : {
+      ...user
+    }
+  });
+}
+
 export const updateUserProfile = async (user) => {
   const res = await httpClient.put(API.USER_PROFILE, user, {
     headers: {

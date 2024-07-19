@@ -1,6 +1,7 @@
 package com.example.lms_system.controller;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -25,6 +26,11 @@ import lombok.RequiredArgsConstructor;
 public class SemesterController {
 
     private final SemesterService semesterService;
+
+    @GetMapping()
+    public Set<Semester> getAllSemesters() {
+        return semesterService.getAllSemesters();
+    }
 
     @GetMapping("/all")
     public ResponseEntity<Page<Semester>> getSemesters(

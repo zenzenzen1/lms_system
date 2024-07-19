@@ -12,6 +12,7 @@ import jakarta.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -39,6 +40,9 @@ public class User {
     // private String firstName;
     // private String lastName;
     // private LocalDate dob;
+
+    @Default
+    private boolean active = true;
 
     @ManyToMany
     private Set<Role> roles;
