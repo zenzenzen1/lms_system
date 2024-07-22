@@ -61,7 +61,7 @@ public class ApplicationInitConfig {
                             .build();
                     adminUser = userRepository.save(adminUser);
 
-                    var studentUser = userRepository.save(User.builder()
+                    userRepository.save(User.builder()
                             .username("student1")
                             .password(passwordEncoder.encode("student1"))
                             .roles(Set.of(studentRole, userRole))
@@ -73,7 +73,7 @@ public class ApplicationInitConfig {
                     //         .phoneNumber("19001002")
                     //         .email("lamthon@gmail.com")
                     //         .build());
-                    var teacherUser = userRepository.save(User.builder()
+                    userRepository.save(User.builder()
                             .username("teacher1")
                             .password(passwordEncoder.encode("teacher1"))
                             .roles(Set.of(teacherRole, userRole))
@@ -87,6 +87,8 @@ public class ApplicationInitConfig {
                     //         .build());
 
                     log.warn("Admin user has been created with default password: admin");
+                    log.warn("Teacher user has been created with default username: teacher1, password: teacher1");
+                    log.warn("Student user has been created with default username: student1 password: student1");
                 }
             }
         };

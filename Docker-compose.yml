@@ -1,16 +1,49 @@
 version: '3.8'
 services:
-  db:
-    image: postgres:latest
-    restart: always
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=123
-    ports:
-      - '5432:5432'
-    volumes: 
-      - db:/var/lib/postgresql/data
-    
-volumes:
-  db:
-    driver: local
+    db:
+        container_name: lms_postgres_db
+        image: postgres
+        restart: always
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=123
+        ports:
+            - '5432:5432'
+        volumes:
+            - ./sql/initdb.sql:/docker-entrypoint-initdb.d/init-script.sql
+        networks:
+            - lms_network
+        # command: psql -U postgres -c "CREATE DATABASE lms_db;" 
+    pgadmin_service:
+        image: dpage/pgadmin4
+        environment:
+            - PGADMIN_DEFAULT_EMAIL=email@gmail.com
+            - PGADMIN_DEFAULT_PASSWORD=root
+        ports:
+            - "8070:80"
+        depends_on:
+            - db
+        networks:
+            - lms_network
+    redis_service:
+        image: redis:7.2.5
+        container_name: lms_redis_service
+        restart: always
+        ports:
+            - "6379:6379"
+        networks:
+            - lms_network
+    identity_service:
+        container_name: lms_identity_service
+        build:
+            context: ./identity_service
+            dockerfile: Dockerfile
+        ports:
+            - "8080:8080"
+        networks:
+            - lms_network
+        depends_on:
+            - db
+networks:
+    lms_network:
+        driver: bridge

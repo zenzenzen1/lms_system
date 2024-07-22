@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useNavigate } from 'react-router-dom';
-import ScheduleList from './ScheduleList';
-import { getAllRooms, getAllSlots, getAllSubjects, saveSchedule } from '../../../services/ScheduleService';
 import { useDispatch, useSelector } from 'react-redux';
-import { setRooms, setSlots, setSubjects } from '../../../redux/slice/ScheduleSlice';
-import { RootType } from '../../../redux/store';
-import { getAllUser, getAllUserAndUserProfile } from '../../../services/UserService';
+import { useNavigate } from 'react-router-dom';
 import { setSemestersAction } from '../../../redux/action/ScheduleAction';
-import { Toast, ToastBody, ToastContainer, ToastHeader } from 'react-bootstrap';
+import { setRooms, setSlots, setSubjects } from '../../../redux/slice/ScheduleSlice';
+import { getAllRooms, getAllSlots, getAllSubjects, saveSchedule } from '../../../services/ScheduleService';
+import { getAllUserAndUserProfile } from '../../../services/UserService';
+import ScheduleList from './ScheduleList';
+import { Toast } from 'primereact/toast';
+import { Button as PrimereactButton} from 'primereact/button';
 
 const Scheduler = () => {
     const [show, setShow] = useState(false);
@@ -31,26 +31,20 @@ const Scheduler = () => {
         if (_confirm) {
             // save schedule
             const res = await saveSchedule(scheduleRequest);
-            
+
         }
     }
 
     useEffect(() => {
         (async () => {
             try {
-                const _slot = await getAllSlots();
-                // setSlots(_slot.data.result)
-                dispatch(setSlots(_slot.data.result));
-
-                const _subjects = await getAllSubjects();
-                // setSubjects(_subjects.data.result);
+                const [_slots, _subjects, _rooms] = await Promise.all([getAllSlots(), getAllSubjects(), getAllRooms()]);
+                dispatch(setSlots(_slots.data.result));
                 dispatch(setSubjects(_subjects.data.result));
-
-                const _rooms = await getAllRooms();
-                // setRooms(_rooms.data.result);
                 dispatch(setRooms(_rooms.data.result));
+
                 setSchedule({
-                    slots: _slot.data.result,
+                    slots: _slots.data.result,
                     subjects: _subjects.data.result,
                     rooms: _rooms.data.result
                 })
@@ -95,18 +89,15 @@ const Scheduler = () => {
             }
         })
     }
+    const toast = useRef(null);
+
+    const showSuccess = () => {
+        toast.current.show({ severity: 'success', summary: 'Success', detail: 'Message Content', life: 3000 });
+    }
     return (
         <>
-            {/* <Toast delay={1} animation className=''>
-                <ToastContainer position='top-end' className='w-2'>
-                    <ToastHeader close>
+            <Toast ref={toast} />
 
-                    </ToastHeader>
-                    <ToastBody>
-                        Success
-                    </ToastBody>
-                </ToastContainer>
-            </Toast> */}
             <Button variant="primary" onClick={handleShow}>
                 Create schedule
             </Button>

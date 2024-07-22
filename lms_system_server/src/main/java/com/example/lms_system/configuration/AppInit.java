@@ -94,26 +94,45 @@ public class AppInit {
                             .build());
             semesterRepository.saveAll(semesters);
 
-            User teacher, student;
+            User teacher = null, student = null;
+
             if (userRepository.findByEmail("lamthon@gmail.com").isPresent()) {
                 teacher = userRepository.findByEmail("lamthon@gmail.com").get();
                 student = userRepository.findByEmail("teacher@gmail.com").get();
             } else {
+                while (true) {
+                    try {
+                        teacher = User.builder()
+                                .email("teacher@gmail")
+                                .fullName("teacher")
+                                .userId(identityClient
+                                        .getUserByUsername("teacher1")
+                                        .getId())
+                                .build();
+                        student = User.builder()
+                                .userId(identityClient
+                                        .getUserByUsername("student1")
+                                        .getId())
+                                .email("lamthon@gmail.com")
+                                .fullName("Lam Thon")
+                                .dob(LocalDate.of(2003, 7, 16))
+                                .build();
+                        userRepository.saveAll(List.of(student, teacher));
+                        // return;
 
-                teacher = User.builder()
-                        .email("teacher@gmail")
-                        .fullName("teacher")
-                        .userId(identityClient.getUserByUsername("teacher1").getId())
-                        .build();
-                student = User.builder()
-                        .userId(identityClient.getUserByUsername("student1").getId())
-                        .email("lamthon@gmail.com")
-                        .fullName("Lam Thon")
-                        .dob(LocalDate.of(2003, 7, 16))
-                        .build();
-                userRepository.saveAll(List.of(student, teacher));
-                // return;
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("start identity_service di anh La^m Tho^n`");
+                        try {
+                            Thread.sleep(3000);
+
+                        } catch (Exception e2) {
+                            // TODO: handle exception
+                        }
+                    }
+                }
             }
+            var users = List.of(teacher, student);
             for (int i = 0; i < 20; i++) {
                 try {
                     identityClient.createUser(UserCreationRequest.builder()
@@ -155,7 +174,7 @@ public class AppInit {
                             .student(student)
                             .id(CourseStudentKey.builder()
                                     .courseId(courses.get(0).getCourseId())
-                                    .studentId(student.getId())
+                                    .studentId(users.get(1).getId())
                                     .build())
                             .build(),
                     CourseStudent.builder()
@@ -163,7 +182,7 @@ public class AppInit {
                             .course(courses.get(1))
                             .id(CourseStudentKey.builder()
                                     .courseId(courses.get(1).getCourseId())
-                                    .studentId(student.getId())
+                                    .studentId(users.get(1).getId())
                                     .build())
                             .build());
 
@@ -186,8 +205,12 @@ public class AppInit {
                             .course(courses.get(1))
                             .build());
             scheduleRepository.saveAll(schedules);
+
             var attendances = schedules.stream()
-                    .map(s -> Attendance.builder().schedule(s).student(student).build())
+                    .map(s -> Attendance.builder()
+                            .schedule(s)
+                            .student(users.get(1))
+                            .build())
                     .toList();
             attendanceRepository.saveAll(attendances);
         };

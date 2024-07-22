@@ -62,7 +62,8 @@ public class ScheduleService {
                     i = i.plusDays(1)) {
 
                 //
-                break;
+                students.forEach((t) -> {});
+                continue;
             }
         }
 
