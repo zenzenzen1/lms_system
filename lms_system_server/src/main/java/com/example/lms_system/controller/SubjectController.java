@@ -1,5 +1,7 @@
 package com.example.lms_system.controller;
 
+import java.util.Set;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -8,10 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.lms_system.dto.request.SubjectRequest;
+import com.example.lms_system.dto.response.ApiResponse;
+import com.example.lms_system.dto.response.SubjectResponse;
 import com.example.lms_system.entity.Subject;
 import com.example.lms_system.service.SubjectService;
 
@@ -40,32 +46,13 @@ public class SubjectController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Subject> addSubject(
-            @RequestParam String subjectCode,
-            @RequestParam String subjectName,
-            @RequestParam(defaultValue = "false") boolean status) {
-        if (subjectService.findById(subjectName) != null)
-            return ResponseEntity.badRequest().build();
-        Subject subject = Subject.builder()
-                .subjectCode(subjectCode)
-                .subjectName(subjectName)
-                .status(status)
-                .build();
-        subjectService.saveSubject(subject);
-        return ResponseEntity.ok(subject);
+    public SubjectResponse addSubject(@RequestBody SubjectRequest request) {
+        return subjectService.insertSubject(request);
     }
 
     @PutMapping("/update/{subjectCode}")
-    public ResponseEntity<Subject> updateSubject(
-            @PathVariable String subjectCode,
-            @RequestParam String subjectName,
-            @RequestParam(defaultValue = "false") boolean status) {
-        Subject subject = subjectService.findById(subjectCode);
-        if (subject == null) return ResponseEntity.notFound().build();
-        subject.setSubjectName(subjectName);
-        subject.setStatus(status);
-        subjectService.saveSubject(subject);
-        return ResponseEntity.ok(subject);
+    public SubjectResponse updateSubject(@RequestBody SubjectRequest request) {
+        return subjectService.updateSubject(request);
     }
 
     @DeleteMapping("/delete/{subjectCode}")
@@ -74,5 +61,12 @@ public class SubjectController {
         if (subject == null) return ResponseEntity.notFound().build();
         subjectService.deleteById(subjectCode);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ApiResponse<Set<Subject>> getAllSubjects() {
+        return ApiResponse.<Set<Subject>>builder()
+                .result(subjectService.getAllSubject())
+                .build();
     }
 }

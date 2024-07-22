@@ -9,7 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.lms_system.dto.request.CourseRequest;
+import com.example.lms_system.dto.response.CourseResponse;
 import com.example.lms_system.entity.Course;
+import com.example.lms_system.mapper.CourseMapper;
 import com.example.lms_system.repository.CourseRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,10 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class CourseService {
 
     private final CourseRepository courseRepository;
-
-    public void saveCourse(Course course) {
-        courseRepository.save(course);
-    }
+    private final CourseMapper courseMapper;
 
     public void deleteById(Long id) {
         courseRepository.deleteById(id);
@@ -53,5 +53,18 @@ public class CourseService {
         Page<Course> courses = courseRepository.findAll(pageRequest);
 
         return courses.hasContent() ? courses.getContent() : Collections.emptyList();
+    }
+
+    public CourseResponse insertCourse(CourseRequest request) {
+        var course = courseMapper.toCourse(request);
+        return courseMapper.toCourseResponse(courseRepository.save(course));
+    }
+
+    public CourseResponse updateCourse(CourseRequest request) {
+        var target = courseMapper.toCourse(request);
+        var course = courseRepository.findById(target.getCourseId())
+                                    .orElseThrow(() -> new IllegalArgumentException("Course not found"));
+        course = courseMapper.toCourse(request);
+        return courseMapper.toCourseResponse(courseRepository.save(course));                            
     }
 }

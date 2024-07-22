@@ -6,9 +6,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 
+import com.example.lms_system.entity.key.CourseStudentKey;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -24,15 +27,16 @@ public class CourseStudent {
     @EmbeddedId
     CourseStudentKey id;
 
-    @ManyToOne
+    @ManyToOne()
     @MapsId("studentId")
     @JoinColumn(name = "student_id")
     User student;
 
-    @ManyToOne
+    @ManyToOne()
     @MapsId("courseId")
     @JoinColumn(name = "course_id")
     Course course;
 
-    boolean status;
+    @Default
+    boolean status = true;
 }

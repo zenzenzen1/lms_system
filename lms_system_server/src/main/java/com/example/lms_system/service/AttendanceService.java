@@ -2,6 +2,7 @@ package com.example.lms_system.service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -9,7 +10,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.lms_system.dto.request.AttendanceRequest;
+import com.example.lms_system.dto.response.AttendanceResponse;
 import com.example.lms_system.entity.Attendance;
+import com.example.lms_system.mapper.AttendanceMapper;
 import com.example.lms_system.repository.AttendanceRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,14 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class AttendanceService {
 
     private final AttendanceRepository attendanceRepository;
-
-    public void saveAttendance(Attendance attendance) {
-        attendanceRepository.save(attendance);
-    }
-
-    public void deleteById(Long id) {
-        attendanceRepository.deleteById(id);
-    }
+    private final AttendanceMapper attendanceMapper;
 
     public Attendance findById(Long id) {
         return attendanceRepository
@@ -54,5 +51,32 @@ public class AttendanceService {
         Page<Attendance> attendanceList = attendanceRepository.findAll(pageRequest);
 
         return attendanceList.hasContent() ? attendanceList.getContent() : Collections.emptyList();
+    }
+
+    public AttendanceResponse insertAttendance(AttendanceRequest request) {
+        var attendance = attendanceMapper.toAttendance(request);
+        return attendanceMapper.toAttendanceResponse(attendanceRepository.save(attendance));
+    }
+
+    public AttendanceResponse updateAttendance(AttendanceRequest request) {
+        var target = attendanceMapper.toAttendance(request);
+        var attendance = attendanceRepository
+                        .findById(target.getAttendanceId())
+                        .orElseThrow(() -> new IllegalArgumentException("Attendance not found"));
+        attendance = attendanceMapper.toAttendance(request);
+        return attendanceMapper.toAttendanceResponse(attendanceRepository.save(attendance));
+    }
+
+    public void changeAttendanceStatus(long id) {
+        Attendance attendance = findById(id);
+        if (attendance == null) throw new IllegalArgumentException("Attendance not found");
+        attendance.setAttendanceStatus(!attendance.isAttendanceStatus());
+        attendanceRepository.save(attendance);
+    }
+
+    public List<AttendanceResponse> insertMultipleAttendances(List<AttendanceRequest> requests) {
+        return requests.stream()
+                        .map(this::insertAttendance)
+                        .collect(Collectors.toList());
     }
 }

@@ -1,7 +1,10 @@
 package com.example.lms_system.service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -9,7 +12,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.lms_system.dto.request.ScheduleRequest;
+import com.example.lms_system.dto.response.ScheduleResponse;
 import com.example.lms_system.entity.Schedule;
+import com.example.lms_system.mapper.ScheduleMapper;
 import com.example.lms_system.repository.ScheduleRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,9 +25,12 @@ import lombok.RequiredArgsConstructor;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
+    private final ScheduleMapper scheduleMapper;
 
-    public void saveSchedule(Schedule schedule) {
-        scheduleRepository.save(schedule);
+    public Set<Map<String, Object>> getScheduleByStudentId(String studentId, LocalDate startDate, LocalDate endDate) {
+        // var schedules = scheduleRepository.findAll().stream().filter(t -> t.get)
+
+        return scheduleRepository.getScheduleByStudentId(studentId, startDate, endDate);
     }
 
     public void deleteById(Long id) {
@@ -52,5 +61,17 @@ public class ScheduleService {
         Page<Schedule> scheduleList = scheduleRepository.findAll(pageRequest);
 
         return scheduleList.hasContent() ? scheduleList.getContent() : Collections.emptyList();
+    }
+
+    public ScheduleResponse insertSchedule(ScheduleRequest request) {
+        var schedule = scheduleMapper.toSchedule(request);
+        return scheduleMapper.toScheduleResponse(scheduleRepository.save(schedule));
+    }
+
+    public ScheduleResponse updateSchedule(ScheduleRequest request) {
+        var target = scheduleMapper.toSchedule(request);
+        var schedule = scheduleRepository.findById(target.getScheduleId()).orElseThrow(() -> new IllegalArgumentException("Schedule not found"));
+        schedule = scheduleMapper.toSchedule(request);
+        return scheduleMapper.toScheduleResponse(scheduleRepository.save(schedule));
     }
 }

@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.lms_system.dto.request.CourseRequest;
+import com.example.lms_system.dto.response.CourseResponse;
 import com.example.lms_system.entity.Course;
-import com.example.lms_system.entity.Semester;
-import com.example.lms_system.entity.Subject;
-import com.example.lms_system.entity.User;
 import com.example.lms_system.service.CourseService;
 
 import lombok.RequiredArgsConstructor;
@@ -27,7 +27,6 @@ import lombok.RequiredArgsConstructor;
 public class CourseController {
 
     private final CourseService courseService;
-
     @GetMapping("/all")
     public ResponseEntity<Page<Course>> getAttendances(
             @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
@@ -44,31 +43,13 @@ public class CourseController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Course> addCourse(
-            @RequestParam Subject subject, @RequestParam Semester semester, @RequestParam User teacher) {
-        Course course = Course.builder()
-                .subject(subject)
-                .semester(semester)
-                .teacher(teacher)
-                .build();
-        courseService.saveCourse(course);
-        return new ResponseEntity<>(course, HttpStatus.OK);
+    public CourseResponse addCourse(@RequestBody CourseRequest request) {
+        return courseService.insertCourse(request);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Course> updateCourse(
-            @PathVariable Long id,
-            @RequestParam Subject subject,
-            @RequestParam Semester semester,
-            @RequestParam User teacher) {
-        Course course = courseService.findById(id);
-        if (course == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        course.setSubject(subject);
-        course.setSemester(semester);
-        course.setTeacher(teacher);
-        courseService.saveCourse(course);
-        return new ResponseEntity<>(course, HttpStatus.OK);
+    public CourseResponse updateCourse(@RequestBody CourseRequest request) {
+        return courseService.updateCourse(request);
     }
 
     @DeleteMapping("/delete/{id}")

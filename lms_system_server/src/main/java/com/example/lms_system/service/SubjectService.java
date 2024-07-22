@@ -1,7 +1,9 @@
 package com.example.lms_system.service;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -9,7 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.example.lms_system.entity.*;
+import com.example.lms_system.dto.request.SubjectRequest;
+import com.example.lms_system.dto.response.SubjectResponse;
+import com.example.lms_system.entity.Subject;
+import com.example.lms_system.mapper.SubjectMapper;
 import com.example.lms_system.repository.SubjectRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,10 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class SubjectService {
 
     private final SubjectRepository subjectRepository;
-
-    public void saveSubject(Subject subject) {
-        subjectRepository.save(subject);
-    }
+    private final SubjectMapper subjectMapper;
 
     public void deleteById(String id) {
         subjectRepository.deleteById(id);
@@ -53,5 +55,21 @@ public class SubjectService {
         Page<Subject> subjects = subjectRepository.findAll(pageRequest);
 
         return subjects.hasContent() ? subjects.getContent() : Collections.emptyList();
+    }
+
+    public Set<Subject> getAllSubject() {
+        return new HashSet<>(subjectRepository.findAll());
+    }
+
+    public SubjectResponse insertSubject(SubjectRequest request) {
+        Subject subject = subjectMapper.toSubject(request);
+        return subjectMapper.toSubjectResponse(subjectRepository.save(subject));
+    }
+
+    public SubjectResponse updateSubject(SubjectRequest request) {
+        Subject target = subjectMapper.toSubject(request);
+        Subject subject = subjectRepository.findById(target.getSubjectCode()).orElseThrow(() -> new IllegalArgumentException("Subject not found"));
+        subject = subjectMapper.toSubject(request);
+        return subjectMapper.toSubjectResponse(subjectRepository.save(subject));
     }
 }

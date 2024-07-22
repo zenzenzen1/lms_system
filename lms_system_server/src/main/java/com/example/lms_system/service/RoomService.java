@@ -2,6 +2,8 @@ package com.example.lms_system.service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -9,7 +11,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.lms_system.dto.request.RoomRequest;
+import com.example.lms_system.dto.response.RoomResponse;
 import com.example.lms_system.entity.Room;
+import com.example.lms_system.mapper.RoomMapper;
 import com.example.lms_system.repository.RoomRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,10 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class RoomService {
 
     private final RoomRepository roomRepository;
-
-    public void saveRoom(Room room) {
-        roomRepository.save(room);
-    }
+    private final RoomMapper roomMapper;
 
     public Room findById(Long id) {
         return roomRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Room not found"));
@@ -53,5 +55,26 @@ public class RoomService {
         Page<Room> rooms = roomRepository.findAll(pageRequest);
 
         return rooms.hasContent() ? rooms.getContent() : Collections.emptyList();
+    }
+
+    public Set<RoomResponse> getAllRooms() {
+        return roomRepository.findAll().stream()
+                .map(room -> RoomResponse.builder()
+                        .roomId(room.getRoomId())
+                        .roomNumber(room.getRoomNumber())
+                        .build())
+                .collect(Collectors.toSet());
+    }
+
+    public RoomResponse insertRoom(RoomRequest request) {
+        var room = roomMapper.toRoom(request);
+        return roomMapper.toRoomResponse(roomRepository.save(room));
+    }
+
+    public RoomResponse updateRoom(RoomRequest request) {
+        var target = roomMapper.toRoom(request);
+        var room = roomRepository.findById(target.getRoomId()).orElseThrow(() -> new IllegalArgumentException("Room not found"));
+        room = roomMapper.toRoom(request);
+        return roomMapper.toRoomResponse(roomRepository.save(room));
     }
 }

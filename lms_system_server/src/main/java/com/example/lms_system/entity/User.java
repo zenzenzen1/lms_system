@@ -11,6 +11,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -53,5 +56,6 @@ public class User {
     // Set<Role> roles;
 
     @OneToMany(mappedBy = "student")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     Set<CourseStudent> courseStudents;
 }

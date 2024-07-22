@@ -83,4 +83,10 @@ public class GlobalException {
         System.out.println("lỗi tính toán rùi");
         return ResponseEntity.ok().body("ArithmeticException: " + e.getMessage());
     }
+
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    ResponseEntity<String> handleIllegalArgumentException(IllegalArgumentException e) {
+        System.out.println("lỗi đầu vào");
+        return ResponseEntity.ok().body("IllegalArgumentException: " + e.getMessage());
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.lms_system.service;
 
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,7 +10,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.lms_system.dto.request.SemesterRequest;
+import com.example.lms_system.dto.response.SemesterResponse;
 import com.example.lms_system.entity.Semester;
+import com.example.lms_system.mapper.SemesterMapper;
 import com.example.lms_system.repository.SemesterRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,10 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class SemesterService {
 
     private final SemesterRepository semesterRepository;
-
-    public void saveSemester(Semester semester) {
-        semesterRepository.save(semester);
-    }
+    private final SemesterMapper semesterMapper;
 
     public void deleteById(String id) {
         semesterRepository.deleteById(id);
@@ -52,5 +53,25 @@ public class SemesterService {
         Page<Semester> SemesterList = semesterRepository.findAll(pageRequest);
 
         return SemesterList.hasContent() ? SemesterList.getContent() : Collections.emptyList();
+    }
+
+    public SemesterResponse insertSemester(SemesterRequest request) {
+        var semester = semesterMapper.toSemester(request);
+        return semesterMapper.toSemesterResponse(semesterRepository.save(semester));
+    }
+
+    public SemesterResponse updateSemester(SemesterRequest request) {
+        var target = semesterMapper.toSemester(request);
+        var semester = semesterRepository.findById(target.getSemesterCode()).orElseThrow(() -> new IllegalArgumentException("Semester not found"));
+        semester = semesterMapper.toSemester(request);
+        return semesterMapper.toSemesterResponse(semesterRepository.save(semester));
+    }
+
+    public Semester getSemesterByDate(LocalDate date) {
+        return (Semester)semesterRepository.findAll()
+                                            .stream()
+                                            .filter(s -> s.getStartDate().isBefore(date) && s.getEndDate().isAfter(date))
+                                            .findFirst()
+                                            .orElseThrow(() -> new IllegalArgumentException("Date not in any semester"));        
     }
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.lms_system.dto.request.UserRequest;
 import com.example.lms_system.dto.response.UserResponse;
-import com.example.lms_system.entity.*;
+import com.example.lms_system.entity.User;
 import com.example.lms_system.mapper.UserMapper;
 import com.example.lms_system.repository.UserRepository;
 
@@ -22,15 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
-    public UserResponse insertUser(UserRequest userRequest) {
-        var user = userMapper.toUser(userRequest);
-        return userMapper.toUserResponse(userRepository.save(user));
-    }
-
-    public void deleteById(String id) {
-        userRepository.deleteById(id);
-    }
+    // private final IdentityClient identityClient;
 
     public UserResponse updateUser(UserRequest userRequest) {
         var target = userMapper.toUser(userRequest);
@@ -39,6 +31,39 @@ public class UserService {
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
         user = userMapper.toUser(userRequest);
         return userMapper.toUserResponse(userRepository.save(user));
+    }
+
+    public UserResponse insertUser(UserRequest userRequest) {
+        var user = userMapper.toUser(userRequest);
+        return userMapper.toUserResponse(userRepository.save(user));
+    }
+
+    public List<UserResponse> getAllUser() {
+        return userRepository.findAll().stream().map(userMapper::toUserResponse).toList();
+    }
+
+    public void deleteAllUser() {
+        userRepository.deleteAll();
+    }
+
+    public Object getUserByUserId(String userId) {
+        return userRepository.findAll().stream()
+                .filter(t -> t.getUserId().equals(userId))
+                .findFirst()
+                // .orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+                .orElse(null);
+    }
+
+    // public Object getUserByRole(String role) {
+    //     // return userRepository.findAll().stream()
+    //     // .map(user -> userMapper.toUserResponse(user))
+    //     // .collect(Collectors.toSet());
+    //     var res = identityClient.getUserByRole(role);
+    //     return res;
+    // }
+
+    public void deleteById(String id) {
+        userRepository.deleteById(id);
     }
 
     public User findById(String id) {

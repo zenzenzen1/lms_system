@@ -1,6 +1,6 @@
 package com.example.lms_system.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -8,6 +8,9 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,10 +30,10 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.AUTO)
     long scheduleId;
 
-    Date trainingDate;
+    LocalDate trainingDate;
 
     @ManyToOne
-    @JoinColumn(name = "subjectCode", referencedColumnName = "subjectCode")
+    @JoinColumn(name = "subject_code", referencedColumnName = "subjectCode")
     // @JsonBackReference)
     Subject subject;
 
@@ -41,4 +44,9 @@ public class Schedule {
     @ManyToOne
     @JoinColumn(name = "slotId", referencedColumnName = "slotId")
     Slot slot;
+
+    @ManyToOne
+    @JoinColumn(name = "courseId")
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    Course course;
 }

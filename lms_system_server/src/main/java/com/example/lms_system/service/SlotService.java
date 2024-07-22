@@ -9,7 +9,10 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.example.lms_system.dto.request.SlotRequest;
+import com.example.lms_system.dto.response.SlotResponse;
 import com.example.lms_system.entity.Slot;
+import com.example.lms_system.mapper.SlotMapper;
 import com.example.lms_system.repository.SlotRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -19,10 +22,7 @@ import lombok.RequiredArgsConstructor;
 public class SlotService {
 
     private final SlotRepository slotRepository;
-
-    public void saveSlot(Slot slot) {
-        slotRepository.save(slot);
-    }
+    private final SlotMapper slotMapper;
 
     public void deleteById(Long id) {
         slotRepository.deleteById(id);
@@ -52,5 +52,30 @@ public class SlotService {
         Page<Slot> slotList = slotRepository.findAll(pageRequest);
 
         return slotList.hasContent() ? slotList.getContent() : Collections.emptyList();
+    }
+
+    public List<SlotResponse> getAllSlots() {
+        return slotRepository.findAll().stream()
+                .map(t -> SlotResponse.builder()
+                        .slotId(t.getSlotId())
+                        .startTime(t.getStartTime())
+                        .endTime(t.getEndTime())
+                        .build())
+                .toList();
+    }
+
+    public SlotResponse insertSlot(SlotRequest request) {
+        Slot slot = slotMapper.toSlot(request);
+        
+        return slotMapper.toSlotResponse(slotRepository.save(slot));
+    }
+
+    public SlotResponse updateSlot(SlotRequest request) {
+        Slot target = slotMapper.toSlot(request);
+        Slot slot = slotRepository.findById(target.getSlotId())
+               .orElseThrow(() -> new IllegalArgumentException("Slot not found."));
+        slot = slotMapper.toSlot(request);
+        
+        return slotMapper.toSlotResponse(slotRepository.save(slot));
     }
 }

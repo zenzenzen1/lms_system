@@ -1,6 +1,7 @@
 package com.example.lms_system.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 import lombok.AccessLevel;
@@ -18,6 +19,7 @@ import lombok.experimental.FieldDefaults;
 @Data
 public class Room {
     @Id
+    @GeneratedValue
     Long roomId;
     // A302
     String roomNumber;

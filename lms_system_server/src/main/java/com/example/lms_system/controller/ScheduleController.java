@@ -1,6 +1,10 @@
 package com.example.lms_system.controller;
 
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -10,14 +14,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.lms_system.entity.Room;
+import com.example.lms_system.dto.request.ScheduleRequest;
+import com.example.lms_system.dto.response.ScheduleResponse;
 import com.example.lms_system.entity.Schedule;
-import com.example.lms_system.entity.Slot;
-import com.example.lms_system.entity.Subject;
 import com.example.lms_system.service.ScheduleService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,6 +32,16 @@ import lombok.RequiredArgsConstructor;
 public class ScheduleController {
 
     private final ScheduleService scheduleService;
+    @GetMapping({"/studentId/{studentId}"})
+    public Set<Map<String, Object>> getScheduleByStudentId(
+            @PathVariable String studentId, @RequestParam String startDate, @RequestParam String endDate) {
+        var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-M-d").withLocale(Locale.CHINA);
+        LocalDate start = LocalDate.parse(startDate, dateTimeFormatter);
+        LocalDate end = LocalDate.parse(endDate, dateTimeFormatter);
+        System.out.println(
+                start.format(dateTimeFormatter) + " " + end.format(dateTimeFormatter) + " " + start + " " + end);
+        return scheduleService.getScheduleByStudentId(studentId, start, end);
+    }
 
     @GetMapping("/all")
     public ResponseEntity<Page<Schedule>> getSchedules(
@@ -45,37 +59,13 @@ public class ScheduleController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Schedule> addSchedule(
-            @RequestParam Date trainingDate,
-            @RequestParam Subject subject,
-            @RequestParam Room room,
-            @RequestParam Slot slot) {
-        Schedule schedule = Schedule.builder()
-                .trainingDate(trainingDate)
-                .subject(subject)
-                .room(room)
-                .slot(slot)
-                .build();
-        scheduleService.saveSchedule(schedule);
-        return ResponseEntity.ok(schedule);
+    public ScheduleResponse addSchedule(@RequestBody ScheduleRequest request) {
+        return scheduleService.insertSchedule(request);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Schedule> updateSchedule(
-            @PathVariable Long id,
-            @RequestParam Date trainingDate,
-            @RequestParam Subject subject,
-            @RequestParam Room room,
-            @RequestParam Slot slot) {
-        Schedule schedule = scheduleService.findById(id);
-        if (schedule == null) return ResponseEntity.notFound().build();
-
-        schedule.setTrainingDate(trainingDate);
-        schedule.setSubject(subject);
-        schedule.setRoom(room);
-        schedule.setSlot(slot);
-        scheduleService.saveSchedule(schedule);
-        return ResponseEntity.ok(schedule);
+    public ScheduleResponse updateSchedule(@RequestBody ScheduleRequest request) {
+        return scheduleService.updateSchedule(request);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -85,4 +75,6 @@ public class ScheduleController {
         scheduleService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    
 }

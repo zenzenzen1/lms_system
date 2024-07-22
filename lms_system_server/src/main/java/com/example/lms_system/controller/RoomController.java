@@ -1,5 +1,7 @@
 package com.example.lms_system.controller;
 
+import java.util.Set;
+
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -9,10 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.lms_system.dto.request.RoomRequest;
+import com.example.lms_system.dto.response.ApiResponse;
+import com.example.lms_system.dto.response.RoomResponse;
 import com.example.lms_system.entity.Room;
 import com.example.lms_system.service.RoomService;
 
@@ -24,7 +30,6 @@ import lombok.RequiredArgsConstructor;
 public class RoomController {
 
     private final RoomService roomService;
-
     @GetMapping("/all")
     public ResponseEntity<Page<Room>> getRooms(
             @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
@@ -42,20 +47,13 @@ public class RoomController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Room> addRoom(@RequestParam String roomNumber) {
-        Room room = Room.builder().roomNumber(roomNumber).build();
-        roomService.saveRoom(room);
-        return new ResponseEntity<>(room, HttpStatus.OK);
+    public RoomResponse addRoom(@RequestBody RoomRequest request) {
+        return roomService.insertRoom(request);
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Room> updateRoom(@PathVariable Long id, @RequestParam String roomNumber) {
-        Room room = roomService.findById(id);
-        if (room == null) return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
-        room.setRoomNumber(roomNumber);
-        roomService.saveRoom(room);
-        return new ResponseEntity<>(room, HttpStatus.OK);
+    public RoomResponse updateRoom(@RequestBody RoomRequest request) {
+        return roomService.updateRoom(request);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -65,5 +63,12 @@ public class RoomController {
 
         roomService.deleteById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping
+    public ApiResponse<Set<RoomResponse>> getAllRooms() {
+        return ApiResponse.<Set<RoomResponse>>builder()
+                .result(roomService.getAllRooms())
+                .build();
     }
 }

@@ -12,11 +12,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class Slot {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
