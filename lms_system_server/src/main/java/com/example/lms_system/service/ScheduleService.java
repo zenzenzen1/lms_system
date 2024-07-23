@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 
 import com.example.lms_system.dto.request.ScheduleRequest;
 import com.example.lms_system.dto.response.ScheduleResponse;
-import com.example.lms_system.dto.request.ScheduleRequest;
 import com.example.lms_system.entity.Attendance;
 import com.example.lms_system.entity.CourseStudent;
 import com.example.lms_system.entity.Schedule;
@@ -45,6 +44,7 @@ public class ScheduleService {
     private final CourseRepository courseRepository;
     private final CourseStudentRepository courseStudentRepository;
     private final AttendanceRepository attendanceRepository;
+    private final ScheduleMapper scheduleMapper;
 
     public Set<Map<String, Object>> getScheduleByStudentId(String studentId, LocalDate startDate, LocalDate endDate) {
         // var schedules = scheduleRepository.findAll().stream().filter(t -> t.get)
@@ -100,9 +100,6 @@ public class ScheduleService {
 
         // validate
         return null;
-    }
-
-        return scheduleRepository.getScheduleByStudentId(studentId, startDate, endDate);
     }
 
     public void deleteById(Long id) {

@@ -24,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 public class CourseService {
 
     private final CourseRepository courseRepository;
+    private final CourseMapper courseMapper;
 
     public Set<Course> findBySemesterCode(String semesterCode) {
         return courseRepository.findAll().stream()

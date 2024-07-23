@@ -61,16 +61,6 @@ public class ScheduleController {
                 start.format(dateTimeFormatter) + " " + end.format(dateTimeFormatter) + " " + start + " " + end);
         return scheduleService.getScheduleByStudentId(studentId, start, end);
     }
-    @GetMapping({"/studentId/{studentId}"})
-    public Set<Map<String, Object>> getScheduleByStudentId(
-            @PathVariable String studentId, @RequestParam String startDate, @RequestParam String endDate) {
-        var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-M-d").withLocale(Locale.CHINA);
-        LocalDate start = LocalDate.parse(startDate, dateTimeFormatter);
-        LocalDate end = LocalDate.parse(endDate, dateTimeFormatter);
-        System.out.println(
-                start.format(dateTimeFormatter) + " " + end.format(dateTimeFormatter) + " " + start + " " + end);
-        return scheduleService.getScheduleByStudentId(studentId, start, end);
-    }
 
     @GetMapping("/all")
     public ResponseEntity<Page<Schedule>> getSchedules(
