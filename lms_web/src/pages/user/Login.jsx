@@ -25,7 +25,6 @@ const Login = () => {
         //     console.log(error);
         //     setError(JSON.stringify(error));
         // }
-        console.log({username, password});
         const res = await login(username, password);
         if (res.data.code != 1000) {
             setError(res.data.message);
@@ -44,6 +43,9 @@ const Login = () => {
         }
         else if(user.roles.includes("STUDENT")){
             navigate("/user/student");
+        }
+        else if(user.roles.includes("TEACHER")){
+            navigate("/user/teacher");
         }
 
     }
@@ -74,7 +76,7 @@ const Login = () => {
                         </div>
                         <div className="col-lg-12">
                             <div className="form-group">
-                                <div className="input-group">
+                                <div className="">
                                     <label>Your Password</label>
                                     <InputText
                                         name="password"

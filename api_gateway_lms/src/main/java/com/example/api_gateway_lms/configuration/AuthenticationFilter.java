@@ -61,13 +61,18 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             String token = authHeader.get(0).replace("Bearer ", "");
             log.info("Token {}", token);
             return identityService.introspect(token).flatMap(result -> {
+                log.info("Result {}", result);
                 if (result.getResult().isValid()) {
                     return chain.filter(exchange);
                 }
                 else{
                     return unauthenticated(exchange.getResponse());
                 }
-            }).onErrorResume(t -> unauthenticated(exchange.getResponse()));
+            })
+            .onErrorResume(t -> {
+                log.error("Error", t);
+                return unauthenticated(exchange.getResponse());
+            });
         }
         // identity service
 
@@ -92,7 +97,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         return response.writeWith(Mono
-                .just(response.bufferFactory().wrap(body == null ? "unauthenticated".getBytes() : body.getBytes())));
+                .just(response.bufferFactory().wrap(body == null ? "unauthenticated".getBytes() : (body + response.toString()).getBytes())));
     }
     
     private boolean isPublicEndpoint(ServerHttpRequest request){

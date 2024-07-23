@@ -27,6 +27,11 @@ import lombok.RequiredArgsConstructor;
 public class CourseController {
 
     private final CourseService courseService;
+
+    @GetMapping("/semesterCode/{semesterCode}")
+    public Object findBySemesterCode(@PathVariable String semesterCode) {
+        return courseService.findBySemesterCode(semesterCode);
+    }
     @GetMapping("/all")
     public ResponseEntity<Page<Course>> getAttendances(
             @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {

@@ -1,11 +1,6 @@
 package com.example.lms_system.dto.request;
 
-import java.time.LocalDate;
-
-import com.example.lms_system.entity.Course;
-import com.example.lms_system.entity.Room;
-import com.example.lms_system.entity.Slot;
-import com.example.lms_system.entity.Subject;
+import java.util.Set;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,16 +9,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Data
 public class ScheduleRequest {
-    long scheduleId;
-    LocalDate trainingDate;
-    Subject subject;
-    Room room;
-    Slot slot;
-    Course course;
+    String semesterCode;
+    Long slotId;
+    Long roomId;
+    // String subjectCode;
+    Long courseId;
+    Set<String> studentIds;
 }

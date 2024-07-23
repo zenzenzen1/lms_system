@@ -1,0 +1,28 @@
+# spring.application.name=api_gateway
+# server.port=8082
+
+app:
+  api-prefix: /api/v1
+  identityUrl: ${IDENTITY_SERVICE:http://localhost:8080/identity}
+
+server:
+  port: 8090
+
+spring:
+  application:
+    name: api_gateway
+  cloud:
+    gateway:
+      routes:
+        - id: identity_service
+          uri: ${IDENTITY_SERVICE}
+          predicates:
+            - Path=${app.api-prefix}/identity/**
+          filters:
+            - StripPrefix=2
+        - id: lms
+          uri: ${LMS_SERVICE}
+          predicates:
+            - Path=${app.api-prefix}/lms/**
+          filters:
+            - StripPrefix=2

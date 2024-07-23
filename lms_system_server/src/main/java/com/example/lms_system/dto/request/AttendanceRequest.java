@@ -1,7 +1,6 @@
 package com.example.lms_system.dto.request;
 
-import com.example.lms_system.entity.Schedule;
-import com.example.lms_system.entity.User;
+import java.util.Set;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -17,8 +16,10 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AttendanceRequest {
     long attendanceId;
-    User student;
-    Schedule schedule;
+
     boolean attendanceStatus;
+
     String attendanceNote;
+
+    Set<AttendanceRequest> attendanceRequests;
 }

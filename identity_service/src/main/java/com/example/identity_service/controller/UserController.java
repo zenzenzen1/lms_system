@@ -1,6 +1,7 @@
 package com.example.identity_service.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import jakarta.validation.Valid;
 
@@ -59,6 +60,11 @@ public class UserController {
         return ApiResponse.<List<User>>builder().result(userService.getUsers()).build();
     }
 
+    @GetMapping("/username/{username}")
+    public UserResponse getUserByUsername(@PathVariable String username) {
+        return userService.getUserByUsername(username);
+    }
+
     @GetMapping("/{userId}")
     public UserResponse getUser(@PathVariable String userId) {
         return userService.getUser(userId);
@@ -73,5 +79,10 @@ public class UserController {
     public String deleteUser(@PathVariable String userId) {
         userService.deleteUser(userId);
         return "User has been deleted";
+    }
+
+    @GetMapping("/getUserByRole/{role}")
+    public Set<UserResponse> getUsersByRole(@PathVariable String role) {
+        return userService.getUsersByRole(role);
     }
 }

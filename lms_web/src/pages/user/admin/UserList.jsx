@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { getAllUser, getAllUserProfile } from '../../../services/UserService';
+import { getAllUser, getAllUserAndUserProfile, getAllUserProfile } from '../../../services/UserService';
 import { useNavigate } from 'react-router-dom';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 
@@ -18,24 +18,26 @@ const UserList = () => {
     const navigate = useNavigate();
     useEffect(() => {
         (async () => {
-            const _users = await getAllUser();
-            // setUsers(_users.data.result);
-            const users = _users.data.result;
+            // const _users = await getAllUser();
+            // // setUsers(_users.data.result);
+            // const users = _users.data.result;
 
-            const _userProfiles = await getAllUserProfile();
+            // const _userProfiles = await getAllUserProfile();
 
-            const userProfiles = _userProfiles.data.result;
-            console.log({ users, userProfiles });
+            // const userProfiles = _userProfiles.data.result;
+            // console.log({ users, userProfiles });
 
-            setUsers(users.map(user => {
-                const userProfile = userProfiles.find(p => p.userId === user.id)
-                return userProfile ? {
-                    ...user,
-                    ...userProfile
-                } : {
-                    ...user
-                }
-            }))
+            // setUsers(users.map(user => {
+            //     const userProfile = userProfiles.find(p => p.userId === user.id)
+            //     return userProfile ? {
+            //         ...user,
+            //         ...userProfile
+            //     } : {
+            //         ...user
+            //     }
+            // }))
+            const users = await getAllUserAndUserProfile();
+            setUsers(users);
         })()
 
         return () => {

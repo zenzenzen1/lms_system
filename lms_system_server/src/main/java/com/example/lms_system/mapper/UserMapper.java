@@ -11,6 +11,7 @@ import com.example.lms_system.entity.User;
 public interface UserMapper {
     @Mapping(target = "courseStudents", ignore = true)
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "_class", ignore = true)
     User toUser(UserRequest userRequest);
 
     UserResponse toUserResponse(User user);

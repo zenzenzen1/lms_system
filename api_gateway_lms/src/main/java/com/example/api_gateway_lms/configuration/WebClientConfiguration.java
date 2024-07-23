@@ -2,6 +2,7 @@ package com.example.api_gateway_lms.configuration;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -15,10 +16,13 @@ import com.example.api_gateway_lms.repository.IdentityClient;
 
 @Configuration
 public class WebClientConfiguration {
+    @Value("${app.identityUrl}")
+    private String identityUrl;
+    
     @Bean
     WebClient webClient() {
         return WebClient.builder()
-                .baseUrl("http://localhost:8080/identity")
+                .baseUrl(identityUrl)
                 .build();
     }
 

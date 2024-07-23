@@ -18,11 +18,12 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserResponse {
+    String id;
     String userId;
     String fullName;
     String email;
     String phoneNumber;
-    boolean active;
+    // boolean active;
     LocalDate dob;
     Set<CourseStudent> courseStudents;
 }

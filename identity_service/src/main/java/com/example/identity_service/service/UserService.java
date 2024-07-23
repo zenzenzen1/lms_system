@@ -2,6 +2,8 @@ package com.example.identity_service.service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContext;
@@ -39,6 +41,14 @@ public class UserService {
     LmsClient lmsClient;
     UserProfileMapper userProfileMapper;
 
+    public Set<UserResponse> getUsersByRole(String role) {
+        return userRepository.findAll().stream()
+                .filter(user ->
+                        user.getRoles().stream().anyMatch(t -> t.getName().equalsIgnoreCase(role)))
+                .map(user -> userMapper.toUserResponse(user))
+                .collect(Collectors.toSet());
+    }
+
     public User createUser(UserCreationRequest request) {
         if (userRepository.existsByUsername(request.getUsername())) {
             // throw new ArrayIndexOutOfBoundsException("ErrorCode.USER_EXISTED");
@@ -51,6 +61,7 @@ public class UserService {
 
         HashSet<com.example.identity_service.entity.Role> roles = new HashSet<>();
         roleRepository.findById(Role.USER.name()).ifPresent(roles::add);
+        roleRepository.findById(Role.STUDENT.name()).ifPresent(roles::add);
         user.setRoles(roles);
         user = userRepository.save(user);
 
@@ -58,8 +69,9 @@ public class UserService {
         profileRequest.setUserId(user.getId());
 
         // ServletRequestAttributes servletRequestAttributes =
-        //         (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        // var authHeader = servletRequestAttributes.getRequest().getHeader("Authorization");
+        // (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        // var authHeader =
+        // servletRequestAttributes.getRequest().getHeader("Authorization");
         // log.info("Auth header: {}", authHeader);
 
         System.out.println(profileRequest);
@@ -91,11 +103,14 @@ public class UserService {
         String name = context.getAuthentication().getName();
         log.warn("{} logging", name);
         User user = userRepository.findByUsername(name).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
-        return userMapper.toUserResponse(user);
+        var userResponse = userMapper.toUserResponse(user);
+        userResponse.setUserProfile(lmsClient.getUserProfileByUserId(user.getId()));
+        return userResponse;
     }
 
-    public User getUserByUsername(String username) {
-        return userRepository.findById(username).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
+    public UserResponse getUserByUsername(String username) {
+        return userMapper.toUserResponse(
+                userRepository.findByUsername(username).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND)));
     }
 
     public String encodePassword(String password) {

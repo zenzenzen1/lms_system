@@ -1,8 +1,5 @@
 package com.example.lms_system.dto.response;
 
-import com.example.lms_system.entity.Schedule;
-import com.example.lms_system.entity.User;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,8 +14,8 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AttendanceResponse {
     long attendanceId;
-    User student;
-    Schedule schedule;
+
     boolean attendanceStatus;
+
     String attendanceNote;
 }

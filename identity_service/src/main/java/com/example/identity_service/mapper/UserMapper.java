@@ -18,8 +18,10 @@ public interface UserMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "roles", ignore = true)
+    @Mapping(target = "active", ignore = true)
     User toUser(UserCreationRequest request);
 
     //    @Mapping(source = "firstName", target = "lastName")
+    @Mapping(target = "userProfile", ignore = true)
     UserResponse toUserResponse(User user);
 }
