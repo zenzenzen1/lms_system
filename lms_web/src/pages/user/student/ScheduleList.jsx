@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Table } from 'react-bootstrap';
-import { days } from '../../../configurations/configuration';
+import { days, years } from '../../../configurations/configuration';
 import { getAllRooms, getAllSlots, getAllSubjects, getSchedulesByStudentId } from '../../../services/ScheduleService';
 import { useDispatch, useSelector } from 'react-redux';
 import { setRooms, setSchedules, setSlots, setSubjects } from '../../../redux/slice/ScheduleSlice';
@@ -16,6 +16,7 @@ const ScheduleList = () => {
         const _date = new Date().setMonth(0, 1);
         return new Date(_date);
     });
+    const [year, setYear] = useState(currentDay.getFullYear());
     const daysOfWeek = days.map((day, index) => {
         return new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate() + index);
     });
@@ -29,12 +30,21 @@ const ScheduleList = () => {
     const [schedules, setSchedules] = useState([]);
 
     useMemo(() => {
-        setFirstDate(date => new Date(new Date(date.setFullYear(currentDay.getFullYear())).setMonth(currentDay.getMonth(), currentDay.getDate() - (currentDay.getDay() === 0 ? 6 : (currentDay.getDay() - 1)))));
-        setLastDate(date => new Date(date.setFullYear(currentDay.getFullYear())));
-        setFirstMondayOfYear(date => new Date(new Date(date.setFullYear(currentDay.getFullYear())).setMonth(0, 1)));
+        setFirstDate(date => new Date(new Date(date.setFullYear(firstDate.getFullYear())).setMonth(firstDate.getMonth(), firstDate.getDate() - (firstDate.getDay() === 0 ? 6 : (firstDate.getDay() - 1)))));
+        setLastDate(date => new Date(date.setFullYear(firstDate.getFullYear())));
+        setFirstMondayOfYear(date => new Date(new Date(date.setFullYear(firstDate.getFullYear())).setMonth(0, 1)));
 
     }, [currentDay]);
     const user = useSelector(state => state.user);
+    const weeks = useMemo(() => {
+        const _weeks = [];
+        const firstMonday = new Date(firstMondayOfYear.getFullYear(), firstMondayOfYear.getMonth(), firstMondayOfYear.getDate());
+        while(firstMonday.getFullYear() === year) {
+            _weeks.push(new Date(firstMonday.getFullYear(), firstMonday.getMonth(), firstMonday.getDate()));
+            firstMonday.setDate(firstMonday.getDate() + 7);
+        }
+        return _weeks;
+    }, [year]);
     useEffect(() => {
         (async () => {
             try {
@@ -90,32 +100,40 @@ const ScheduleList = () => {
                     <tr>
                         <th rowSpan={2}>
                             <label>Year</label>
-                            <select className='border ml-2' value={currentDay.getFullYear()}
+                            <select className='border ml-2' value={year}
                                 onChange={e => {
                                     setCurrentDay(date => {
                                         const year = e.target.value;
-                                        return year === date.getFullYear() ? date : new Date(date.setFullYear(year));
+                                        return year === date.getFullYear() ? date : new Date(date.setFullYear(e.target.value));
                                     })
+                                    setYear(e.target.value);
                                 }}
                             >
-                                <option>2021</option>
-                                <option>2022</option>
-                                <option>2023</option>
-                                <option>2024</option>
-                                <option>2025</option>
+                                {years.map((year, index) => {
+                                    return (
+                                        <option key={index} value={year}>{year}</option>
+                                    )
+                                })
+                                }
                             </select>
                             <br />
                             <label>Week</label>
-                            <select className='border ml-2' value={currentDay.getMonth()}
+                            <select className='border ml-2' value={firstDate}
                                 onChange={e => {
-                                    setCurrentDay(date => {
-                                        const month = e.target.value;
-                                        return month === date.getMonth() ? date : new Date(date.getFullYear(), month, date.getDate());
-                                    })
+                                    // setCurrentDay(date => {
+                                    //     const month = e.target.value;
+                                    //     return month === date.getMonth() ? date : new Date(date.getFullYear(), month, date.getDate());
+                                    // })
+                                    console.log(e.target.value);
                                 }}
                             >
                                 {
-                                    
+                                    weeks.map((week, index) => {
+                                        const lastDayOfWeek = new Date(week.getFullYear(), week.getMonth(), week.getDate() + 6);
+                                        return (
+                                            <option key={index} value={week}>{`${week.getDate()}/${week.getMonth() + 1}/${week.getFullYear()} -> ${lastDayOfWeek.getDate()}/${lastDayOfWeek.getMonth() + 1}/${lastDayOfWeek.getFullYear()}`}</option>
+                                        )
+                                    })
                                 }
                             </select>
                         </th>

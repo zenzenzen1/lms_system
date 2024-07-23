@@ -80,8 +80,8 @@ public class ScheduleController {
     }
 
     @PostMapping()
-    public ResponseEntity<Schedule> addSchedule(@RequestBody ScheduleRequest scheduleRequest) {
-        return scheduleService.saveSchedule(scheduleRequest);
+    public ResponseEntity<Schedule> addSchedules(@RequestBody ScheduleRequest scheduleRequest) {
+        return scheduleService.saveSchedules(scheduleRequest);
     }
 
     @PostMapping("/add")

@@ -26,6 +26,10 @@ public class SecurityConfig {
         httpSecurity.authorizeHttpRequests(
                 request -> request.requestMatchers(HttpMethod.POST, PUBLIC_END_POINTS)
                         .permitAll()
+                        .requestMatchers(HttpMethod.GET, "/schedules/**")
+                        .permitAll()
+                        .requestMatchers(HttpMethod.GET)
+                        .permitAll()
                         // .requestMatchers(HttpMethod.GET, "/users", "/users/")
                         .anyRequest()
                         .authenticated()

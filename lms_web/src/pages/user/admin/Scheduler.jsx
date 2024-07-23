@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -9,7 +9,8 @@ import { getAllRooms, getAllSlots, getAllSubjects, saveSchedule } from '../../..
 import { getAllUserAndUserProfile } from '../../../services/UserService';
 import ScheduleList from './ScheduleList';
 import { Toast } from 'primereact/toast';
-import { Button as PrimereactButton} from 'primereact/button';
+import { Button as PrimereactButton } from 'primereact/button';
+import { getCoursesBySemester } from '../../../services/courseService';
 
 const Scheduler = () => {
     const [show, setShow] = useState(false);
@@ -19,6 +20,7 @@ const Scheduler = () => {
     const [schedule, setSchedule] = useState({});
     const [error, setError] = useState("");
     const [students, setStudents] = useState([]);
+    const [courses, setCourses] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -31,7 +33,7 @@ const Scheduler = () => {
         if (_confirm) {
             // save schedule
             const res = await saveSchedule(scheduleRequest);
-
+            console.log(res);
         }
     }
 
@@ -52,12 +54,16 @@ const Scheduler = () => {
                 const users = await getAllUserAndUserProfile();
                 const s = users.filter(u => u.roles.find(r => r.name.toLowerCase() === "student"));
                 setStudents(s)
+
             } catch (error) {
                 setError(error);
             }
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [navigate])
+
+
+
     const { slots, subjects, rooms, semesters } = useSelector(state => state.schedule);
     const parseDate = (date) => {
         const d = new Date(Date.parse(date));
@@ -67,11 +73,24 @@ const Scheduler = () => {
     const [scheduleRequest, setScheduleRequest] = useState({
         semesterCode: semesters && semesters[0].semesterCode,
         slotId: slots && slots[0].slotId,
-        subjectCode: subjects && subjects[0].subjectCode,
+        // subjectCode: subjects && subjects[0].subjectCode,
+        courseId: courses[0] && courses[0].courseId,
         roomId: rooms && rooms[0].roomId,
         studentIds: []
     });
-    console.log(scheduleRequest);
+
+    useMemo(async () => {
+        console.log(scheduleRequest.semesterCode);
+        const res = await getCoursesBySemester(scheduleRequest.semesterCode);
+        setCourses(res.data);
+        setScheduleRequest(request => {
+            return {
+                ...request,
+                courseId: res.data[0].courseId
+            }
+        })
+    }, [scheduleRequest.semesterCode])
+    console.log(rooms, courses, subjects, scheduleRequest);
 
     const handleChangeScheduleRequest = (e) => {
 
@@ -80,7 +99,10 @@ const Scheduler = () => {
                 const studentId = e.target.value;
                 return {
                     ...state,
-                    studentIds: scheduleRequest.studentIds.findIndex(s => s === studentId) === -1 ? [...scheduleRequest.studentIds, studentId] : scheduleRequest.studentIds.reduce((prev, curr) => { return curr === studentId ? prev : [...prev, curr] }, [])
+                    // studentIds: [...state.studentIds ?? studentId]
+                    studentIds: scheduleRequest.studentIds.findIndex(s => s === studentId) === -1
+                        ? [...state.studentIds, studentId]
+                        : scheduleRequest.studentIds.reduce((prev, curr) => { return curr === studentId ? [...prev] : [...prev, curr] }, [])
                 }
             }
             return {
@@ -142,14 +164,16 @@ const Scheduler = () => {
                                 </tr>
                                 <tr>
                                     <td>
-                                        <label htmlFor='subjectCode'>Subject: </label>
+                                        <label htmlFor="courseId">Course</label>
                                     </td>
                                     <td>
-                                        <select name="subject" id="subjectCode" value={scheduleRequest.subjectCode}
+                                        <select name='' id='courseId' value={scheduleRequest.courseId}
                                             onChange={handleChangeScheduleRequest}
                                         >
-                                            {subjects && subjects.map((subject, index) => (
-                                                <option key={index} value={subject.subjectCode}>{`${subject.subjectCode} - ${subject.subjectName}`}</option>
+                                            {courses && courses.map((course, index) => (
+                                                <option key={index} value={course.courseId}>
+                                                    {`${course.subject.subjectCode} - ${course.subject.subjectName}`} by {` ${course.teacher.fullName}`}
+                                                </option>
                                             ))}
                                         </select>
                                     </td>
@@ -163,7 +187,9 @@ const Scheduler = () => {
                                             onChange={handleChangeScheduleRequest}
                                         >
                                             {rooms && rooms.map((room, index) => (
-                                                <option key={index} value={room.id}>{room.roomNumber}</option>
+                                                <option key={index} value={room.roomId}>
+                                                    {room.roomNumber}
+                                                </option>
                                             ))}
                                         </select>
                                     </td>
@@ -173,15 +199,16 @@ const Scheduler = () => {
                                         <label htmlFor="students">Students: </label>
                                     </td>
                                     <td>
-                                        {students.map((value, index) => {
+                                        {students.map((student, index) => {
+                                            console.log(student);
                                             return (
                                                 <span key={index}>
-                                                    <input type="checkbox" name="students" id={`student${index}`} value={`${value.id}`}
-                                                        onChange={handleChangeScheduleRequest} checked={scheduleRequest.studentIds.find(id => {
-                                                            return value.id === id;
-                                                        })}
+                                                    <input type="checkbox" name="students" id={`student${index}`} value={`${student.id}`}
+                                                        onChange={handleChangeScheduleRequest} checked={(scheduleRequest.studentIds.find(id => {
+                                                            return student.id === id;
+                                                        })) ? true : false}
                                                     />
-                                                    <label htmlFor={`student${index}`}>{value.username}</label>
+                                                    <label htmlFor={`student${index}`}>{student.username}</label>
                                                 </span>
                                             )
                                         })}

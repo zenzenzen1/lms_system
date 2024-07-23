@@ -3,12 +3,12 @@ spring:
   application:
     name: lms_identity_service
   datasource:
-    url: "jdbc:postgresql://localhost:5432/lms_identity_service"
-    username: postgres
-    password: 123
+    url: "${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/lms_identity_service}"
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:123}
   jpa: 
     hibernate: 
-      ddl-auto: create-drop
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:create-drop}
     show-sql: true
     properties:
       hibernate:
@@ -38,4 +38,5 @@ jwt:
   refreshable-duration: 1200 # seconds
 app:
   services:
-    lms: "http://localhost:8081/lms"
+    lms: ${LMS_SERVICE:http://localhost:8081/lms}
+    # lms: http://lms-system-service:8081/lms

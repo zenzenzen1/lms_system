@@ -10,16 +10,12 @@ import org.springframework.context.annotation.Configuration;
 
 import com.example.lms_system.dto.response.identity_service.UserCreationRequest;
 import com.example.lms_system.dto.response.identity_service.UserResponse;
-import com.example.lms_system.entity.Attendance;
 import com.example.lms_system.entity.Course;
-import com.example.lms_system.entity.CourseStudent;
 import com.example.lms_system.entity.Room;
-import com.example.lms_system.entity.Schedule;
 import com.example.lms_system.entity.Semester;
 import com.example.lms_system.entity.Slot;
 import com.example.lms_system.entity.Subject;
 import com.example.lms_system.entity.User;
-import com.example.lms_system.entity.key.CourseStudentKey;
 import com.example.lms_system.repository.AttendanceRepository;
 import com.example.lms_system.repository.CourseRepository;
 import com.example.lms_system.repository.CourseStudentRepository;
@@ -122,12 +118,11 @@ public class AppInit {
 
                         break;
                     } catch (Exception e) {
-                        System.out.println("start identity_service di anh La^m Tho^n`");
+                        System.out.println("start identity_service di anh La^m Tho^n` " + e.getMessage());
                         try {
                             Thread.sleep(3000);
 
                         } catch (Exception e2) {
-                            // TODO: handle exception
                         }
                     }
                 }
@@ -168,51 +163,51 @@ public class AppInit {
                             .build());
             courseRepository.saveAll(courses);
 
-            var courseStudents = List.of(
-                    CourseStudent.builder()
-                            .course(courses.get(0))
-                            .student(student)
-                            .id(CourseStudentKey.builder()
-                                    .courseId(courses.get(0).getCourseId())
-                                    .studentId(users.get(1).getId())
-                                    .build())
-                            .build(),
-                    CourseStudent.builder()
-                            .student(student)
-                            .course(courses.get(1))
-                            .id(CourseStudentKey.builder()
-                                    .courseId(courses.get(1).getCourseId())
-                                    .studentId(users.get(1).getId())
-                                    .build())
-                            .build());
+            // var courseStudents = List.of(
+            //         CourseStudent.builder()
+            //                 .course(courses.get(0))
+            //                 .student(student)
+            //                 .id(CourseStudentKey.builder()
+            //                         .courseId(courses.get(0).getCourseId())
+            //                         .studentId(users.get(1).getId())
+            //                         .build())
+            //                 .build(),
+            //         CourseStudent.builder()
+            //                 .student(student)
+            //                 .course(courses.get(1))
+            //                 .id(CourseStudentKey.builder()
+            //                         .courseId(courses.get(1).getCourseId())
+            //                         .studentId(users.get(1).getId())
+            //                         .build())
+            //                 .build());
 
-            courseStudentRepository.saveAll(courseStudents);
-            // student.setCourseStudents(courseStudents);
+            // courseStudentRepository.saveAll(courseStudents);
+            // // student.setCourseStudents(courseStudents);
 
-            var schedules = List.of(
-                    Schedule.builder()
-                            .subject(subjects.get(0))
-                            .room(rooms.get(0))
-                            .slot(slots.get(0))
-                            .trainingDate(LocalDate.of(2024, 7, 10))
-                            .course(courses.get(0))
-                            .build(),
-                    Schedule.builder()
-                            .subject(subjects.get(1))
-                            .room(rooms.get(0))
-                            .slot(slots.get(0))
-                            .trainingDate(LocalDate.of(2024, 7, 9))
-                            .course(courses.get(1))
-                            .build());
-            scheduleRepository.saveAll(schedules);
+            // var schedules = List.of(
+            //         Schedule.builder()
+            //                 .subject(subjects.get(0))
+            //                 .room(rooms.get(0))
+            //                 .slot(slots.get(0))
+            //                 .trainingDate(LocalDate.of(2024, 7, 10))
+            //                 .course(courses.get(0))
+            //                 .build(),
+            //         Schedule.builder()
+            //                 .subject(subjects.get(1))
+            //                 .room(rooms.get(0))
+            //                 .slot(slots.get(0))
+            //                 .trainingDate(LocalDate.of(2024, 7, 9))
+            //                 .course(courses.get(1))
+            //                 .build());
+            // scheduleRepository.saveAll(schedules);
 
-            var attendances = schedules.stream()
-                    .map(s -> Attendance.builder()
-                            .schedule(s)
-                            .student(users.get(1))
-                            .build())
-                    .toList();
-            attendanceRepository.saveAll(attendances);
+            // var attendances = schedules.stream()
+            //         .map(s -> Attendance.builder()
+            //                 .schedule(s)
+            //                 .student(users.get(1))
+            //                 .build())
+            //         .toList();
+            // attendanceRepository.saveAll(attendances);
         };
     }
 }

@@ -18,6 +18,7 @@ public class ScheduleRequest {
     String semesterCode;
     Long slotId;
     Long roomId;
-    String subjectCode;
+    // String subjectCode;
+    Long courseId;
     Set<String> studentIds;
 }

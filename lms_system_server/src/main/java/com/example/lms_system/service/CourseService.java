@@ -2,6 +2,8 @@ package com.example.lms_system.service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -19,6 +21,12 @@ import lombok.RequiredArgsConstructor;
 public class CourseService {
 
     private final CourseRepository courseRepository;
+
+    public Set<Course> findBySemesterCode(String semesterCode) {
+        return courseRepository.findAll().stream()
+                .filter(t -> t.getSemester().getSemesterCode().equals(semesterCode))
+                .collect(Collectors.toSet());
+    }
 
     public void saveCourse(Course course) {
         courseRepository.save(course);
