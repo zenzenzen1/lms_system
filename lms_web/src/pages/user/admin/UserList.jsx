@@ -18,24 +18,6 @@ const UserList = () => {
     const navigate = useNavigate();
     useEffect(() => {
         (async () => {
-            // const _users = await getAllUser();
-            // // setUsers(_users.data.result);
-            // const users = _users.data.result;
-
-            // const _userProfiles = await getAllUserProfile();
-
-            // const userProfiles = _userProfiles.data.result;
-            // console.log({ users, userProfiles });
-
-            // setUsers(users.map(user => {
-            //     const userProfile = userProfiles.find(p => p.userId === user.id)
-            //     return userProfile ? {
-            //         ...user,
-            //         ...userProfile
-            //     } : {
-            //         ...user
-            //     }
-            // }))
             const users = await getAllUserAndUserProfile();
             setUsers(users);
         })()
@@ -44,7 +26,7 @@ const UserList = () => {
             
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [navigate])
     console.log(users);
     return (
         <>

@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.example.lms_system.dto.request.AttendanceRequest;
@@ -27,29 +28,45 @@ public class AttendanceService {
     private final AttendanceRepository attendanceRepository;
     private final AttendanceMapper attendanceMapper;
 
+    @SuppressWarnings("unused")
+    private final RedisTemplate<String, Object> redisTemplate;
+
+    public List<Attendance> getAttendancesByCourseIdStudentId(Long cousreId, String studentId) {
+        return attendanceRepository.findAll().stream()
+                .filter(t -> t.getSchedule().getCourse().getCourseId() == cousreId
+                        && t.getStudent().getId().equals(studentId))
+                .sorted((o1, o2) -> o1.getSchedule()
+                                .getTrainingDate()
+                                .isAfter(o2.getSchedule().getTrainingDate())
+                        ? 1
+                        : -1)
+                .toList();
+    }
+
     public Object getScheduleByTeacherId(String teacherId, LocalDate startate, LocalDate endDate) {
 
         // var schedules = scheduleRepository.findAll().stream()
-        //         .filter(t -> t.getTrainingDate().isAfter(endDate)
-        //                 && t.getTrainingDate().isBefore(endDate))
-        //         .toList();
+        // .filter(t -> t.getTrainingDate().isAfter(endDate)
+        // && t.getTrainingDate().isBefore(endDate))
+        // .toList();
         // var a = attendanceRepository.findAll().stream()
-        //         .filter(t -> schedules.stream()
-        //                 .filter(s -> s.getScheduleId() == t.getSchedule().getScheduleId())
-        //                 .findFirst()
-        //                 .isPresent())
-        //         .collect(Collectors.toSet());
+        // .filter(t -> schedules.stream()
+        // .filter(s -> s.getScheduleId() == t.getSchedule().getScheduleId())
+        // .findFirst()
+        // .isPresent())
+        // .collect(Collectors.toSet());
 
         // return a.stream()
-        //         .filter(at -> courseRepository.findAll().stream()
-        //                 .filter(c -> c.getTeacher().getId().equals(teacherId)
-        //                         && c.getCourseId()
-        //                                 == at.getSchedule().getCourse().getCourseId())
-        //                 .findFirst()
-        //                 .isPresent())
-        //         .collect(Collectors.toSet());
+        // .filter(at -> courseRepository.findAll().stream()
+        // .filter(c -> c.getTeacher().getId().equals(teacherId)
+        // && c.getCourseId()
+        // == at.getSchedule().getCourse().getCourseId())
+        // .findFirst()
+        // .isPresent())
+        // .collect(Collectors.toSet());
         return attendanceRepository.getScheduleByTeacherId(teacherId, startate, endDate);
-        // return scheduleRepository.getScheduleByTeacherId(teacherId, startate, endDate);
+        // return scheduleRepository.getScheduleByTeacherId(teacherId, startate,
+        // endDate);
     }
 
     public Set<Attendance> getStudentsByScheduleId(long scheduleId) {

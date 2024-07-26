@@ -24,4 +24,7 @@ public interface IdentityClient {
 
     @PostMapping(value = "/users/registration", produces = MediaType.APPLICATION_JSON_VALUE)
     UserResponse createUser(@RequestBody UserCreationRequest request);
+
+    @GetMapping(value = "/users/existByUsername/{username}", produces = MediaType.APPLICATION_JSON_VALUE)
+    boolean existsByUsername(@PathVariable String username);
 }

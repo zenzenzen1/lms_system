@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Schedule from './Schedule';
 import AttendanceStatus from './AttendanceStatus';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSemestersAction } from '../../../redux/action/ScheduleAction';
+import { getAllRooms, getAllSlots, getAllSubjects } from '../../../services/ScheduleService';
+import { setRooms, setSlots, setSubjects } from '../../../redux/slice/ScheduleSlice';
 
 const StudentPage = () => {
     const dispatch = useDispatch();
@@ -12,6 +14,25 @@ const StudentPage = () => {
         dispatch(setSemestersAction());
 
     }
+    useEffect(() => {
+        (async () => {
+            try {
+                const _slot = await getAllSlots();
+                dispatch(setSlots(_slot.data.result));
+
+                const _subjects = await getAllSubjects();
+                dispatch(setSubjects(_subjects.data.result));
+
+                const _rooms = await getAllRooms();
+                dispatch(setRooms(_rooms.data.result));
+
+            } catch (error) {
+                // setError(error);
+                console.log(error);
+            }
+        })();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
     console.log(semesters);
     return (
         <div className=''>

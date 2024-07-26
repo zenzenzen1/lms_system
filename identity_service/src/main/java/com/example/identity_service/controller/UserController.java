@@ -38,6 +38,11 @@ public class UserController {
     //     return userProfileClient.getUserProfile(userId);
     // }
 
+    @GetMapping("/existByUsername/{username}")
+    public boolean existsByUsername(@PathVariable String username) {
+        return userService.existsByUsername(username);
+    }
+
     @PostMapping({"/registration"})
     public ApiResponse<User> createUser(@RequestBody @Valid UserCreationRequest request) {
         ApiResponse<User> response = new ApiResponse<>();

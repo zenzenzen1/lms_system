@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setSemestersAction } from '../../../redux/action/ScheduleAction';
+import { setSchedulesAction, setSemestersAction } from '../../../redux/action/ScheduleAction';
 import { setRooms, setSlots, setSubjects } from '../../../redux/slice/ScheduleSlice';
 import { getAllRooms, getAllSlots, getAllSubjects, saveSchedule } from '../../../services/ScheduleService';
 import { getAllUserAndUserProfile } from '../../../services/UserService';
@@ -32,39 +32,42 @@ const Scheduler = () => {
         console.log(_confirm);
         if (_confirm) {
             // save schedule
-            const res = await saveSchedule(scheduleRequest);
-            console.log(res);
+            saveSchedule(scheduleRequest).then(res => {
+                console.log(res);
+                dispatch(setSchedulesAction());
+                alert("success!");
+            }).catch(e => {
+                alert("error " + e.message);
+            })
         }
     }
-
+    const { slots, subjects, rooms, semesters } = useSelector(state => state.schedule);
     useEffect(() => {
         (async () => {
-            try {
-                const [_slots, _subjects, _rooms] = await Promise.all([getAllSlots(), getAllSubjects(), getAllRooms()]);
-                dispatch(setSlots(_slots.data.result));
-                dispatch(setSubjects(_subjects.data.result));
-                dispatch(setRooms(_rooms.data.result));
+            //         try {
+            //             const [_slots, _subjects, _rooms] = await Promise.all([getAllSlots(), getAllSubjects(), getAllRooms()]);
+            //             dispatch(setSlots(_slots.data.result));
+            //             dispatch(setSubjects(_subjects.data.result));
+            //             dispatch(setRooms(_rooms.data.result));
 
-                setSchedule({
-                    slots: _slots.data.result,
-                    subjects: _subjects.data.result,
-                    rooms: _rooms.data.result
-                })
-                dispatch(setSemestersAction());
-                const users = await getAllUserAndUserProfile();
-                const s = users.filter(u => u.roles.find(r => r.name.toLowerCase() === "student"));
-                setStudents(s)
-
-            } catch (error) {
-                setError(error);
-            }
+            //             setSchedule({
+            //                 slots: _slots.data.result,
+            //                 subjects: _subjects.data.result,
+            //                 rooms: _rooms.data.result
+            //             })
+            //             dispatch(setSemestersAction());
+            const users = await getAllUserAndUserProfile();
+            const s = users.filter(u => u.roles.find(r => r.name.toLowerCase() === "student"));
+            setStudents(s)
+            
+            //         } catch (error) {
+            //             setError(error);
+            //         }
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [navigate])
 
 
-
-    const { slots, subjects, rooms, semesters } = useSelector(state => state.schedule);
     const parseDate = (date) => {
         const d = new Date(Date.parse(date));
         return d.getDate() + "/" + (d.getMonth() + 1) + "/" + d.getFullYear();
@@ -93,7 +96,6 @@ const Scheduler = () => {
     console.log(rooms, courses, subjects, scheduleRequest);
 
     const handleChangeScheduleRequest = (e) => {
-
         setScheduleRequest(state => {
             if (e.target.name === "students") {
                 const studentId = e.target.value;
@@ -200,7 +202,7 @@ const Scheduler = () => {
                                     </td>
                                     <td>
                                         {students.map((student, index) => {
-                                            console.log(student);
+                                            // console.log(student);
                                             return (
                                                 <span key={index}>
                                                     <input type="checkbox" name="students" id={`student${index}`} value={`${student.id}`}

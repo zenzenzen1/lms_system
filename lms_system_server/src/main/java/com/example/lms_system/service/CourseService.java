@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.lms_system.entity.Course;
 import com.example.lms_system.repository.CourseRepository;
+import com.example.lms_system.repository.CourseStudentRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -21,6 +22,18 @@ import lombok.RequiredArgsConstructor;
 public class CourseService {
 
     private final CourseRepository courseRepository;
+    private final CourseStudentRepository courseStudentRepository;
+
+    public Set<Course> getCoursesByStudentIdSemesterCode(String studentId, String semesterCode) {
+        var courses = courseRepository.findAll().stream()
+                .filter(course -> course.getSemester().getSemesterCode().equals(semesterCode))
+                .filter(t -> courseStudentRepository.findAll().stream()
+                        .filter(cs -> cs.getCourse().getCourseId() == t.getCourseId())
+                        .findFirst()
+                        .isPresent())
+                .collect(Collectors.toSet());
+        return courses;
+    }
 
     public Set<Course> findBySemesterCode(String semesterCode) {
         return courseRepository.findAll().stream()

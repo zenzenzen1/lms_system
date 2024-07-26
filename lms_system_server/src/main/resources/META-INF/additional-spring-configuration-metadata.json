@@ -1,5 +1,17 @@
-{"properties": [{
-  "name": "app.services.identity",
-  "type": "java.lang.String",
-  "description": "A description for 'app.services.identity'"
-}]}
+{"properties": [
+  {
+    "name": "app.services.identity",
+    "type": "java.lang.String",
+    "description": "A description for 'app.services.identity'"
+  },
+  {
+    "name": "app.redis.redis-host",
+    "type": "java.lang.String",
+    "description": "A description for 'app.redis.redis-host'"
+  },
+  {
+    "name": "app.redis.redis-port",
+    "type": "java.lang.String",
+    "description": "A description for 'app.redis.redis-port'"
+  }
+]}

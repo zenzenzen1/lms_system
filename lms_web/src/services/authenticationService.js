@@ -31,6 +31,7 @@ export const introspectToken = async () => {
 };
 
 export const isValidToken = async () => {
+  if (!getToken()) return false;
   const response = await introspectToken();
   return response.data?.result?.valid;
 };

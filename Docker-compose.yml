@@ -15,6 +15,7 @@ services:
             - lms_network
     pgadmin_service:
         image: dpage/pgadmin4
+        restart: always
         environment:
             - PGADMIN_DEFAULT_EMAIL=email@gmail.com
             - PGADMIN_DEFAULT_PASSWORD=root
@@ -25,6 +26,7 @@ services:
         networks:
             - lms_network
     redis_service:
+        hostname: redis-host
         image: redis:7.2.5
         container_name: lms_redis_service
         restart: always
@@ -32,10 +34,14 @@ services:
             - "6379:6379"
         networks:
             - lms_network
+        environment:
+            - REDIS_PORT=6379
+    
+
     lms-system-service:
         hostname: lms-system-service
         container_name: lms_system_service
-        build: 
+        build:
             context: ./lms_system_server
             dockerfile: Dockerfile
         ports:
@@ -75,7 +81,7 @@ services:
     api_gateway:
         hostname: api-gateway
         container_name: api_gateway
-        build: 
+        build:
             context: ./api_gateway_lms
             dockerfile: Dockerfile
         ports:

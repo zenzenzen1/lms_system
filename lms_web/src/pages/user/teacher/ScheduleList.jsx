@@ -1,29 +1,67 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { Table } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-import { days } from '../../../configurations/configuration';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { days, years } from '../../../configurations/configuration';
 import { setRooms, setSlots, setSubjects } from '../../../redux/slice/ScheduleSlice';
 import { getStudentIdByScheduleId } from '../../../services/attendanceService';
-import { getAllRooms, getAllSlots, getAllSubjects, getSchedulesByTeacherId } from '../../../services/ScheduleService';
+import { getAllRooms, getAllSlots, getAllSubjects, getAttendancesByTeacherId } from '../../../services/ScheduleService';
 import ClassDetail from './ClassDetail';
 
 const TeacherScheduleList = () => {
     var date = new Date();
+    const navigate = useNavigate();
+    const [currentPage, setCurrentPage] = useState("schedulePage");
+    const [currentDay, setCurrentDay] = useState(new Date(date.getFullYear(), date.getMonth(), date.getDate()));
+    const [year, setYear] = useState(currentDay.getFullYear());
     const dispatch = useDispatch();
-    const [currentDay, setCurrentDay] = useState(new Date(date.getFullYear(), date.getMonth(), date.getDate() - 6));
-    const [firstDate, setFirstDate] = useState(new Date(currentDay.getFullYear(), currentDay.getMonth(),
+    const [firstDate, setFirstDate] = useState(new Date(year, currentDay.getMonth(),
         currentDay.getDate() - (currentDay.getDay() === 0 ? 6 : (currentDay.getDay() - 1))));
-    const [lastDate, setLastDate] = useState(new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate() - currentDay.getDay() + 7));
+    const [lastDate, setLastDate] = useState(new Date(year, currentDay.getMonth(), currentDay.getDate() - currentDay.getDay() + 7));
     const [firstMondayOfYear, setFirstMondayOfYear] = useState(day => {
-        const _date = new Date().setMonth(0, 1);
-        return new Date(_date);
+        let _date = new Date(new Date().setMonth(0, 1));
+        while (_date.getDay() !== 1) {
+            _date = new Date(_date.setDate(_date.getDate() + 1));
+        }
+        return _date;
     });
 
     const daysOfWeek = days.map((day, index) => {
         return new Date(firstDate.getFullYear(), firstDate.getMonth(), firstDate.getDate() + index);
     });
     const [content, setContent] = useState(null);
+    const user = useSelector(state => state.user);
+    useMemo(() => {
+        const _firstDate = new Date(year, currentDay.getMonth(), (currentDay.getDate() - (currentDay.getDay() === 0 ? 6 : (currentDay.getDay() - 1))));
+        setFirstDate(_firstDate);
+        setLastDate(new Date(_firstDate.getFullYear(), _firstDate.getMonth(), _firstDate.getDate() + 6));
+        setFirstMondayOfYear(day => {
+            let _date = new Date(year, 0, 1);
+            while (_date.getDay() !== 1) {
+                _date = new Date(_date.setDate(_date.getDate() + 1));
+            }
+            return _date;
+        });
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [year]);
+
+    const weeks = useMemo(() => {
+        const _weeks = [];
+        let firstMonday = new Date(firstMondayOfYear);
+        while (firstMonday.getFullYear() === +year) {
+            _weeks.push(new Date(firstMonday.getFullYear(), firstMonday.getMonth(), firstMonday.getDate()));
+            firstMonday.setDate(firstMonday.getDate() + 7);
+        }
+        return _weeks;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [firstMondayOfYear, year]);
+
+    useMemo(async () => {
+        const res = await getAttendancesByTeacherId(user.userProfile.id, firstDate.toLocaleDateString("en-CA"), lastDate.toLocaleDateString("en-CA"));
+        setSchedules(res.data);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [firstDate]);
 
     const ScheduleList = () => {
         return (
@@ -31,39 +69,52 @@ const TeacherScheduleList = () => {
                 <thead>
                     <tr>
                         <th rowSpan={2}>
-                            <label>Year</label>
-                            <select className='border ml-2' value={currentDay.getFullYear()}
-                                onChange={e => {
-                                    setCurrentDay(date => {
-                                        const year = e.target.value;
-                                        return year === date.getFullYear() ? date : new Date(date.setFullYear(year));
+                            <div>
+                                <label>Year</label>
+                                <select className='border ml-2' value={year}
+                                    onChange={e => {
+                                        setCurrentDay(date => {
+                                            const year = e.target.value;
+                                            return year === date.getFullYear() ? date : new Date(date.setFullYear(e.target.value));
+                                        })
+                                        setYear(e.target.value);
+                                    }}
+                                >
+                                    {years.map((year, index) => {
+                                        return (
+                                            <option key={index} value={year}>{year}</option>
+                                        )
                                     })
-                                }}
-                            >
-                                <option>2021</option>
-                                <option>2022</option>
-                                <option>2023</option>
-                                <option>2024</option>
-                                <option>2025</option>
-                            </select>
-                            <br />
-                            <label>Week</label>
-                            <select className='border ml-2' value={currentDay.getMonth()}
-                                onChange={e => {
-                                    setCurrentDay(date => {
-                                        const month = e.target.value;
-                                        return month === date.getMonth() ? date : new Date(date.getFullYear(), month, date.getDate());
-                                    })
-                                }}
-                            >
-                                {
-
-                                }
-                            </select>
+                                    }
+                                </select>
+                            </div>
+                            <div>
+                                <label>Week</label>
+                                <select className='border ml-2' value={firstDate}
+                                    onChange={e => {
+                                        // setCurrentDay(date => {
+                                        //     const month = e.target.value;
+                                        //     return month === date.getMonth() ? date : new Date(date.getFullYear(), month, date.getDate());
+                                        // })
+                                        const date = new Date(Date.parse(e.target.value))
+                                        setFirstDate(date);
+                                        setLastDate(new Date(date.getFullYear(), date.getMonth(), date.getDate() + 6));
+                                    }}
+                                >
+                                    {
+                                        weeks.map((week, index) => {
+                                            const lastDayOfWeek = new Date(week.getFullYear(), week.getMonth(), week.getDate() + 6);
+                                            return (
+                                                <option className={`${(firstDate.toString() === week.toString()) && "text-red-500"}`} key={index} value={week}>{`${week.getDate()}/${week.getMonth() + 1}/${week.getFullYear()} -> ${lastDayOfWeek.getDate()}/${lastDayOfWeek.getMonth() + 1}/${lastDayOfWeek.getFullYear()}`}</option>
+                                            )
+                                        })
+                                    }
+                                </select>
+                            </div>
                         </th>
                         {days.map((day, index) => {
                             return (
-                                <th key={index}>{day}</th>
+                                <th className={`${daysOfWeek[index].toDateString() === new Date().toDateString() && ((currentDay.getDay() === 0 && index === 6 || currentDay.getDay() - 1 === index)) && "text-green-500"}`} key={index}>{day}</th>
                             )
                         })}
                     </tr>
@@ -86,6 +137,7 @@ const TeacherScheduleList = () => {
                                         {`${slot.startTime} -> ${slot.endTime}`}
                                     </td>
                                     {curr[0].map((value, index) => {
+                                        console.log(value);
                                         return (
                                             <td className={"text-sm"} key={index}>
                                                 {value
@@ -93,9 +145,19 @@ const TeacherScheduleList = () => {
                                                         <span onClick={(e) => {
 
                                                         }}>
-                                                            <Link onClick={(e) => showClassDetail(value.schedule_id)}
+                                                            <span className='cursor-pointer' onClick={(e) => {
+                                                                // showClassDetail(value.schedule_id)
+                                                                console.log(e);
+                                                                navigate(`/user/teacher/class-detail/${value.schedule_id}`, {
+                                                                    state: {
+                                                                        scheduleId: value.schedule_id
+                                                                    }
+                                                                });
+                                                            }}
                                                             // target='_blank'
-                                                            >{value.schedule_id}</Link>
+                                                            >
+                                                                {value.subject_code}
+                                                            </span>
                                                         </span>
                                                     </>)
                                                     : "-"}
@@ -115,23 +177,9 @@ const TeacherScheduleList = () => {
     }
 
 
-    // const weekOfYear = useMemo(() => {
-    //     const firstMonday = new Date(firstMondayOfYear.getFullYear(), firstMondayOfYear.getMonth(), firstMondayOfYear.getDate());
-    //     const current = new Date(currentDay.getFullYear(), currentDay.getMonth(), currentDay.getDate());
-    //     const diff = current - firstMonday;
-    //     const oneDay = 24 * 60 * 60 * 1000;
-    //     return Math.floor(diff / oneDay / 7);
-    // }, [currentDay, firstMondayOfYear]);
     const [schedules, setSchedules] = useState([]);
 
-    useMemo(() => {
-        setFirstDate(date => new Date(new Date(date.setFullYear(currentDay.getFullYear())).setMonth(currentDay.getMonth(), currentDay.getDate() - (currentDay.getDay() === 0 ? 6 : (currentDay.getDay() - 1)))));
-        setLastDate(date => new Date(date.setFullYear(currentDay.getFullYear())));
-        setFirstMondayOfYear(date => new Date(new Date(date.setFullYear(currentDay.getFullYear())).setMonth(0, 1)));
 
-
-    }, [currentDay]);
-    const user = useSelector(state => state.user);
     useEffect(() => {
         (async () => {
             try {
@@ -144,10 +192,7 @@ const TeacherScheduleList = () => {
                 const _rooms = await getAllRooms();
                 dispatch(setRooms(_rooms.data.result));
 
-                (async () => {
-                    const res = await getSchedulesByTeacherId(user.userProfile.id, firstDate.toLocaleDateString("en-CA"), lastDate.toLocaleDateString("en-CA"));
-                    setSchedules(res.data);
-                })();
+
             } catch (error) {
                 // setError(error);
                 console.log(error);
@@ -179,20 +224,20 @@ const TeacherScheduleList = () => {
         }, []);
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [firstDate, schedules, slots]);
-    console.log({ scheduleContent, schedules });
+    }, [firstDate, schedules, slots, year, firstMondayOfYear]);
+    // console.log({ scheduleContent, schedules });
 
     const showClassDetail = async (scheduleId) => {
         setContent(
-            < ClassDetail scheduleId = { scheduleId } />
+            <ClassDetail scheduleId={scheduleId} />
         )
     }
 
-return (
-    <>
-        {content}
-    </>
-)
+    return (
+        <>
+            {content}
+        </>
+    )
 }
 
 export default TeacherScheduleList

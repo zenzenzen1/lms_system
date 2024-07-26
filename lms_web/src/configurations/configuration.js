@@ -15,11 +15,15 @@ export const API = {
   SUBJECTS: lms_prefix + "/subjects",
   ROOM: lms_prefix + "/rooms",
   ALL_SCHEDULE: lms_prefix + "/schedules/all",
+  ALL_ATTENDANCES: lms_prefix + "/attendances/all",
   ALL_SEMESTERS: lms_prefix + "/semesters/all",
   SCHEDULE: lms_prefix + "/schedules",
   SCHEDULE_BY_STUDENTID: lms_prefix + "/schedules/studentId",
-  SCHEDULE_BY_TEACHERID: lms_prefix + "/attendances/teacherId",
+  ATTENDANCES_BY_STUDENTID: lms_prefix + "/attendances/studentId",
+  ATTENDANCES_BY_TEACHERID: lms_prefix + "/attendances/teacherId",
   STUDENTS_BY_SCHEDULEID: lms_prefix + "/attendances/scheduleId",
+  GET_ATTENDANCES_BY_COURSEID_STUDENTID: lms_prefix + "/attendances/courseId/studentId",
+  GET_COURSES_BY_STUDENTID_SEMESTERCODE: lms_prefix + "/courses/studentId/semesterCode",
   GET_COURSES_BY_SEMESTER: lms_prefix + "/courses/semesterCode",
   SAVE_ALL_ATTENDANCES: lms_prefix + "/attendances/saveAll"
 };

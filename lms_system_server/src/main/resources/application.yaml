@@ -3,6 +3,9 @@ app:
     # identity: "${IDENTITY_SERVICE:http://localhost:8080/identity}"
     # identity: http://identity-service:8080/identity
     identity: http://localhost:8080/identity
+  redis:
+    redis-host: "127.0.0.1"
+    redis-port: 6379
 
 spring:
   application:
@@ -28,3 +31,4 @@ server:
     context-path: /lms
   error: 
     include-message: always
+    

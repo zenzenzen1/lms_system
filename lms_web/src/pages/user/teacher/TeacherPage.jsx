@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
 import Scheduler from './Scheduler';
+import { useNavigate } from 'react-router-dom';
 
-const TeacherPage = () => {
-    const [content, setContent] = useState(null);
-    
-    
+// eslint-disable-next-line react/prop-types
+const TeacherPage = ({ defaultContent = null }) => {
+    const [content, setContent] = useState(defaultContent ?? <Scheduler />);
+    const navigate = useNavigate();
+
     return (
         <div>
             Teacher page
@@ -12,7 +14,10 @@ const TeacherPage = () => {
                 <div className='col-md-2'>
                     Menu
                     <ul className='pl-3'>
-                        <li onClick={e => {setContent(<Scheduler />)} }>Schedule</li>
+                        <li onClick={e => {
+                            setContent(<Scheduler />)
+                            // navigate('/user/teacher/schedule')
+                        }}>Schedule</li>
                     </ul>
                 </div>
                 <div className='col-md-10'>

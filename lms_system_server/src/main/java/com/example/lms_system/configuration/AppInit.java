@@ -20,7 +20,6 @@ import com.example.lms_system.repository.AttendanceRepository;
 import com.example.lms_system.repository.CourseRepository;
 import com.example.lms_system.repository.CourseStudentRepository;
 import com.example.lms_system.repository.RoomRepository;
-import com.example.lms_system.repository.ScheduleRepository;
 import com.example.lms_system.repository.SemesterRepository;
 import com.example.lms_system.repository.SlotRepository;
 import com.example.lms_system.repository.SubjectRepository;
@@ -32,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @RequiredArgsConstructor
 public class AppInit {
-    private final ScheduleRepository scheduleRepository;
+    // private final ScheduleRepository scheduleRepository;
 
     private final SubjectRepository subjectRepository;
 
@@ -57,7 +56,12 @@ public class AppInit {
                     Subject.builder()
                             .subjectCode("SWT")
                             .subjectName("software testing")
-                            .build());
+                            .build(),
+                    Subject.builder()
+                            .subjectCode("PRF")
+                            .subjectName("programming")
+                            .build(),
+                    Subject.builder().subjectCode("PRJ").subjectName("java web").build());
             subjectRepository.saveAll(subjects);
 
             var slots = List.of(
@@ -118,38 +122,49 @@ public class AppInit {
 
                         break;
                     } catch (Exception e) {
-                        System.out.println("start identity_service di anh La^m Tho^n` " + e.getMessage());
+                        System.out.println("start identity_service di anh La^m Tho^n`" + e.getMessage());
                         try {
                             Thread.sleep(3000);
 
                         } catch (Exception e2) {
+                            // TODO: handle exception
                         }
                     }
                 }
             }
-            var users = List.of(teacher, student);
+            // var users = List.of(teacher, student);
             for (int i = 0; i < 20; i++) {
                 try {
+                    if (identityClient.existsByUsername(("user" + i))) {
+                        UserResponse user = identityClient.getUserByUsername("user" + i);
+                        userRepository.save(User.builder()
+                                .fullName("user" + i)
+                                .email("email" + i + "@gmail.com")
+                                .userId(user.getId())
+                                .build());
+                        continue;
+                    }
                     identityClient.createUser(UserCreationRequest.builder()
                             .username("user" + i)
                             .password("user" + i)
                             .fullName("user" + i)
                             .email("email" + i + "@gmail.com")
                             .build());
+
                 } catch (Exception e) {
-                    UserResponse user = identityClient.getUserByUsername("user" + i);
-                    userRepository.save(User.builder()
-                            .fullName("user" + i)
-                            .email("email" + i + "@gmail.com")
-                            .userId(user.getId())
-                            .build());
+                    // UserResponse user = identityClient.getUserByUsername("user" + i);
+                    // userRepository.save(User.builder()
+                    //         .fullName("user" + i)
+                    //         .email("email" + i + "@gmail.com")
+                    //         .userId(user.getId())
+                    //         .build());
                 }
             }
+
             // student.setCourseStudents(Set.of(CourseStudent.builder()
             // .course(courses.get(0))
             // .student(student)
             // .build()));
-            // userRepository.saveAll(List.of(teacher, student));
             var courses = List.of(
                     Course.builder()
                             .subject(subjects.get(0))
@@ -160,53 +175,63 @@ public class AppInit {
                             .subject(subjects.get(1))
                             .semester(semesters.get(1))
                             .teacher(teacher)
+                            .build(),
+                    Course.builder()
+                            .subject(subjects.get(2))
+                            .semester(semesters.get(0))
+                            .teacher(teacher)
+                            .build(),
+                    Course.builder()
+                            .subject(subjects.get(3))
+                            .semester(semesters.get(0))
+                            .teacher(teacher)
                             .build());
             courseRepository.saveAll(courses);
 
             // var courseStudents = List.of(
-            //         CourseStudent.builder()
-            //                 .course(courses.get(0))
-            //                 .student(student)
-            //                 .id(CourseStudentKey.builder()
-            //                         .courseId(courses.get(0).getCourseId())
-            //                         .studentId(users.get(1).getId())
-            //                         .build())
-            //                 .build(),
-            //         CourseStudent.builder()
-            //                 .student(student)
-            //                 .course(courses.get(1))
-            //                 .id(CourseStudentKey.builder()
-            //                         .courseId(courses.get(1).getCourseId())
-            //                         .studentId(users.get(1).getId())
-            //                         .build())
-            //                 .build());
+            // CourseStudent.builder()
+            // .course(courses.get(0))
+            // .student(student)
+            // .id(CourseStudentKey.builder()
+            // .courseId(courses.get(0).getCourseId())
+            // .studentId(users.get(1).getId())
+            // .build())
+            // .build(),
+            // CourseStudent.builder()
+            // .student(student)
+            // .course(courses.get(1))
+            // .id(CourseStudentKey.builder()
+            // .courseId(courses.get(1).getCourseId())
+            // .studentId(users.get(1).getId())
+            // .build())
+            // .build());
 
             // courseStudentRepository.saveAll(courseStudents);
             // // student.setCourseStudents(courseStudents);
 
             // var schedules = List.of(
-            //         Schedule.builder()
-            //                 .subject(subjects.get(0))
-            //                 .room(rooms.get(0))
-            //                 .slot(slots.get(0))
-            //                 .trainingDate(LocalDate.of(2024, 7, 10))
-            //                 .course(courses.get(0))
-            //                 .build(),
-            //         Schedule.builder()
-            //                 .subject(subjects.get(1))
-            //                 .room(rooms.get(0))
-            //                 .slot(slots.get(0))
-            //                 .trainingDate(LocalDate.of(2024, 7, 9))
-            //                 .course(courses.get(1))
-            //                 .build());
+            // Schedule.builder()
+            // .subject(subjects.get(0))
+            // .room(rooms.get(0))
+            // .slot(slots.get(0))
+            // .trainingDate(LocalDate.of(2024, 7, 10))
+            // .course(courses.get(0))
+            // .build(),
+            // Schedule.builder()
+            // .subject(subjects.get(1))
+            // .room(rooms.get(0))
+            // .slot(slots.get(0))
+            // .trainingDate(LocalDate.of(2024, 7, 9))
+            // .course(courses.get(1))
+            // .build());
             // scheduleRepository.saveAll(schedules);
 
             // var attendances = schedules.stream()
-            //         .map(s -> Attendance.builder()
-            //                 .schedule(s)
-            //                 .student(users.get(1))
-            //                 .build())
-            //         .toList();
+            // .map(s -> Attendance.builder()
+            // .schedule(s)
+            // .student(users.get(1))
+            // .build())
+            // .toList();
             // attendanceRepository.saveAll(attendances);
         };
     }

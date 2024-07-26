@@ -27,6 +27,5 @@ export const store = configureStore({
         }),
 });
 export const RootType = typeof store.getState;
-console.log(RootType);
 
 export const persistor = persistStore(store);

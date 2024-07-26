@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.event.dto.NotificationEvent;
 import com.example.identity_service.dto.request.UserCreationRequest;
 import com.example.identity_service.dto.request.UserUpdateRequest;
 import com.example.identity_service.dto.response.UserResponse;
@@ -40,6 +42,11 @@ public class UserService {
     UserMapper userMapper;
     LmsClient lmsClient;
     UserProfileMapper userProfileMapper;
+    KafkaTemplate<String, Object> kafkaTemplate;
+
+    public boolean existsByUsername(String username) {
+        return userRepository.existsByUsername(username);
+    }
 
     public Set<UserResponse> getUsersByRole(String role) {
         return userRepository.findAll().stream()
@@ -74,9 +81,16 @@ public class UserService {
         // servletRequestAttributes.getRequest().getHeader("Authorization");
         // log.info("Auth header: {}", authHeader);
 
-        System.out.println(profileRequest);
         var userProfile = lmsClient.createUserProfile(profileRequest);
         log.info("User profile: {}", userProfile);
+
+        NotificationEvent notificationEvent = NotificationEvent.builder()
+                .channel("channel1")
+                .receiver(user.getId())
+                .subject("welcome")
+                .body("Hello " + user.getUsername())
+                .build();
+        kafkaTemplate.send("create-user", notificationEvent);
 
         return user;
     }

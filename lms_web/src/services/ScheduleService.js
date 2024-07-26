@@ -20,8 +20,8 @@ export const saveSchedule = async (scheduleRequest) => {
     return res;
 }
 
-export const getSchedulesByTeacherId = async (teacherId, startDate, endDate) => {
-    const res = await httpClient.get(API.SCHEDULE_BY_TEACHERID + `/${teacherId}`, {
+export const getAttendancesByTeacherId = async (teacherId, startDate, endDate) => {
+    const res = await httpClient.get(API.ATTENDANCES_BY_TEACHERID + `/${teacherId}`, {
         params: {
             startDate: startDate,
             endDate: endDate

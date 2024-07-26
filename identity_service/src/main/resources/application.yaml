@@ -2,6 +2,12 @@
 spring:
   application:
     name: lms_identity_service
+  kafka:
+    bootstrap-servers: localhost:9094
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   datasource:
     url: "${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/lms_identity_service}"
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
@@ -31,6 +37,7 @@ server:
     include-message: always
 
 
+
 jwt:
   signerKey: "erBbQWxtozTCcuxiDMgfAlp0xI22EoEGRVhLZMt3N9WTCbbYpPPfYDOstWVUSEqN"
   issuer: "zenzen1"
@@ -40,3 +47,9 @@ app:
   services:
     lms: ${LMS_SERVICE:http://localhost:8081/lms}
     # lms: http://lms-system-service:8081/lms
+  redis:
+    # redis-host: ${REDIS_HOST:127.0.0.1}
+    # redis-port: ${REDIS_PORT:6379}
+    redis-host: "127.0.0.1"
+    redis-port: 6379
+    

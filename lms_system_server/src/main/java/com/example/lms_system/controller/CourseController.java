@@ -33,6 +33,12 @@ public class CourseController {
         return courseService.findBySemesterCode(semesterCode);
     }
 
+    @GetMapping("/studentId/semesterCode")
+    public Object getCoursesByStudentIdSemesterCode(@RequestParam String studentId, @RequestParam String semesterCode) {
+        System.out.println(studentId + " " + semesterCode);
+        return courseService.getCoursesByStudentIdSemesterCode(studentId, semesterCode);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<Page<Course>> getAttendances(
             @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {

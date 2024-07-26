@@ -45,6 +45,10 @@ public class Schedule {
     @JoinColumn(name = "slotId", referencedColumnName = "slotId")
     Slot slot;
 
+    // @OneToMany
+    // @JoinColumn(name = "attendanceId", referencedColumnName = "schedule")
+    // Set<Attendance> attendances;
+
     @ManyToOne
     @JoinColumn(name = "courseId")
     @OnDelete(action = OnDeleteAction.CASCADE)

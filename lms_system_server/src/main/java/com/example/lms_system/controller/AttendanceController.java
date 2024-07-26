@@ -35,6 +35,11 @@ public class AttendanceController {
 
     private final AttendanceService attendanceService;
 
+    @GetMapping("/courseId/studentId")
+    public Object getAttendancesByCourseId(@RequestParam Long courseId, @RequestParam String studentId) {
+        return attendanceService.getAttendancesByCourseIdStudentId(courseId, studentId);
+    }
+
     @PutMapping(value = "/saveAll", produces = MediaType.APPLICATION_JSON_VALUE)
     public Object saveAllAttendance(@RequestBody AttendanceRequest attendanceRequests) {
         // return attendanceRequests;
@@ -63,7 +68,7 @@ public class AttendanceController {
 
     @GetMapping("/all")
     public ResponseEntity<Page<Attendance>> getAttendances(
-            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "100000") int size) {
         Page<Attendance> attendancePage = attendanceService.getAttendances(page, size);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Attendance-page-number", String.valueOf(attendancePage.getNumber()));

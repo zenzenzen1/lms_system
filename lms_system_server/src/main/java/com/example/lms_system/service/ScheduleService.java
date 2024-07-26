@@ -2,6 +2,7 @@ package com.example.lms_system.service;
 
 import java.time.LocalDate;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -10,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.lms_system.dto.request.ScheduleRequest;
@@ -49,7 +49,7 @@ public class ScheduleService {
         return scheduleRepository.getScheduleByStudentId(studentId, startDate, endDate);
     }
 
-    public ResponseEntity<Schedule> saveSchedules(ScheduleRequest scheduleRequest) {
+    public Set<Schedule> saveSchedules(ScheduleRequest scheduleRequest) {
         System.out.println(scheduleRequest);
         if (scheduleRequest.getStudentIds() == null
                 || scheduleRequest.getStudentIds().isEmpty()) {
@@ -63,13 +63,15 @@ public class ScheduleService {
         var semester = semesterRepository.findById(scheduleRequest.getSemesterCode());
         var course = courseRepository.findById(scheduleRequest.getCourseId());
         var room = roomRepository.findById(scheduleRequest.getRoomId());
+        Set<Schedule> schedules = new HashSet<>();
 
         if (slot.isPresent() && semester.isPresent() && course.isPresent() && room.isPresent()) {
+            var now = LocalDate.now();
             for (var i = semester.get().getStartDate();
                     i.isBefore(semester.get().getEndDate());
                     i = i.plusDays(1)) {
                 //
-                if (!Utils.checkIsWeekend(i)) {
+                if (i.isAfter(now) && !Utils.checkIsWeekend(i)) {
                     var schedule = scheduleRepository.save(Schedule.builder()
                             .trainingDate(i)
                             .course(course.get())
@@ -77,6 +79,7 @@ public class ScheduleService {
                             .slot(slot.get())
                             .subject(course.get().getSubject())
                             .build());
+                    schedules.add(schedule);
                     students.forEach((student) -> {
                         courseStudentRepository.save(CourseStudent.builder()
                                 .course(course.get())
@@ -96,7 +99,7 @@ public class ScheduleService {
         }
 
         // validate
-        return null;
+        return schedules;
     }
 
     public void saveSchedule(Schedule schedule) {

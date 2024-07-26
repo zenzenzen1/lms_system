@@ -10,7 +10,6 @@ import jakarta.persistence.ManyToOne;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Builder.Default;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -39,8 +38,7 @@ public class Attendance {
     @JoinColumn(name = "schedule_id")
     Schedule schedule;
 
-    @Default
-    boolean attendanceStatus = false;
+    Boolean attendanceStatus;
 
     String attendanceNote;
 }

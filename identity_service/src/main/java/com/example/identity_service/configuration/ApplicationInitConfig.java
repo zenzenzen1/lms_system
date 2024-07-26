@@ -1,11 +1,13 @@
 package com.example.identity_service.configuration;
 
+import java.time.Duration;
 import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.example.identity_service.entity.Role;
@@ -30,7 +32,8 @@ public class ApplicationInitConfig {
             UserRepository userRepository,
             RoleRepository roleRepository,
             LmsClient lmsClient,
-            UserProfileMapper userProfileMapper) {
+            UserProfileMapper userProfileMapper,
+            RedisTemplate<String, Object> redisTemplate) {
         return args -> {
             if (roleRepository.findAll().isEmpty()) {
 
@@ -89,6 +92,9 @@ public class ApplicationInitConfig {
                     log.warn("Admin user has been created with default password: admin");
                     log.warn("Teacher user has been created with default username: teacher1, password: teacher1");
                     log.warn("Student user has been created with default username: student1 password: student1");
+
+                    redisTemplate.opsForValue().set("a", "tests");
+                    redisTemplate.expire("a", Duration.ofSeconds(10));
                 }
             }
         };

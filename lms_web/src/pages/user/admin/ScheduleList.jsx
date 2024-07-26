@@ -25,6 +25,7 @@ const ScheduleList = () => {
         schedules.map(async (value, index) => {
             const res = await getStudentIdByScheduleId(value.scheduleId);
             const students = res.data.map((value) => value.student);
+            console.log(students);
             setSchedules(schedule => schedule.map((value) => value.scheduleId === value.scheduleId ? { ...value, students } : { ...value }))
             // return {
             //     ...value,
@@ -34,12 +35,13 @@ const ScheduleList = () => {
         // setSchedules(s);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
+    console.log(schedules);
     const StudentsEnrolledTemplate = (e) => {
         return <>
         <Link>
             {e.students && e.students.map(value => value.fullName)}
         </Link>
-
+            
         </>
     }
 
