@@ -1,16 +1,18 @@
 package com.example.lms_system.service;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import com.example.lms_system.dto.request.ScheduleRequest;
@@ -27,6 +29,9 @@ import com.example.lms_system.repository.SemesterRepository;
 import com.example.lms_system.repository.SlotRepository;
 import com.example.lms_system.repository.UserRepository;
 import com.example.lms_system.utils.Utils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,9 +47,37 @@ public class ScheduleService {
     private final CourseRepository courseRepository;
     private final CourseStudentRepository courseStudentRepository;
     private final AttendanceRepository attendanceRepository;
+    private final RedisTemplate<String, Object> redisTemplate;
+    // private final ObjectMapper redisObjectMapper;
 
-    public Set<Map<String, Object>> getScheduleByStudentId(String studentId, LocalDate startDate, LocalDate endDate) {
+    @Value("${app.redis.ttl_student_schedule}")
+    private int ttlStudentSchedule;
+
+    public Object getScheduleByStudentId(String studentId, LocalDate startDate, LocalDate endDate) {
         // var schedules = scheduleRepository.findAll().stream().filter(t -> t.get)
+
+        ObjectMapper redisObjectMapper = new ObjectMapper();
+        String key = "schedule" + studentId + "/" + startDate.toString() + "->" + endDate.toString();
+        List<Object> schedulesRedis = null;
+        try {
+            String json = (String) redisTemplate.opsForValue().get(key);
+            schedulesRedis =
+                    json != null ? redisObjectMapper.readValue(json, new TypeReference<List<Object>>() {}) : null;
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        if (schedulesRedis == null) {
+            try {
+                var schedules = scheduleRepository.getScheduleByStudentId(studentId, startDate, endDate);
+                String json = redisObjectMapper.writeValueAsString(schedules);
+                redisTemplate.opsForValue().set(key, json, Duration.ofSeconds(ttlStudentSchedule));
+                return schedules;
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        } else {
+            return schedulesRedis;
+        }
 
         return scheduleRepository.getScheduleByStudentId(studentId, startDate, endDate);
     }
@@ -67,8 +100,11 @@ public class ScheduleService {
 
         if (slot.isPresent() && semester.isPresent() && course.isPresent() && room.isPresent()) {
             var now = LocalDate.now();
-            for (var i = semester.get().getStartDate();
-                    i.isBefore(semester.get().getEndDate());
+            for (
+            // var i = semester.get().getStartDate();
+            var i = now;
+                    // i.isBefore(semester.get().getEndDate());
+                    i.isBefore(now.plusDays(10));
                     i = i.plusDays(1)) {
                 //
                 if (i.isAfter(now) && !Utils.checkIsWeekend(i)) {
@@ -93,10 +129,12 @@ public class ScheduleService {
                                 .student(student)
                                 .schedule(schedule)
                                 .build());
+                        redisTemplate.delete(redisTemplate.keys("schedule" + student.getId() + "*"));
                     });
                 }
             }
         }
+        // redisTemplate.delete(null)
 
         // validate
         return schedules;

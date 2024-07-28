@@ -6,9 +6,11 @@ import { setSchedulesAction } from '../../../redux/action/ScheduleAction';
 import { Column } from 'primereact/column';
 import { getStudentIdByScheduleId } from '../../../services/attendanceService';
 
-const ScheduleList = () => {
+// eslint-disable-next-line react/prop-types
+const ScheduleList = ({schedules = []}) => {
     const { slots, subjects, rooms } = useSelector(state => state.schedule);
-    const [schedules, setSchedules] = useState(useSelector(state => state.schedule.schedules))
+    // const [scheduleList, setScheduleList] = useState(useSelector(state => state.schedule.schedules))
+    // const [scheduleList, setScheduleList] = useState(schedules);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -21,20 +23,20 @@ const ScheduleList = () => {
     //     setSchedules(res.data.content);
     // })();
     useEffect(() => {
-        dispatch(setSchedulesAction());
-        schedules.map(async (value, index) => {
-            const res = await getStudentIdByScheduleId(value.scheduleId);
-            const students = res.data.map((value) => value.student);
-            console.log(students);
-            setSchedules(schedule => schedule.map((value) => value.scheduleId === value.scheduleId ? { ...value, students } : { ...value }))
+        // dispatch(setSchedulesAction());
+        // schedules.map(async (value, index) => {
+        //     const res = await getStudentIdByScheduleId(value.scheduleId);
+        //     const students = res.data.map((value) => value.student);
+        //     console.log(students);
+        //     setScheduleList(schedule => schedule.map((value) => value.scheduleId === value.scheduleId ? { ...value, students } : { ...value }))
             // return {
             //     ...value,
             //     students: students
             // }
-        })
+        // })
         // setSchedules(s);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [schedules])
     console.log(schedules);
     const StudentsEnrolledTemplate = (e) => {
         return <>

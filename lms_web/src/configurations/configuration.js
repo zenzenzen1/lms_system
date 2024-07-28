@@ -31,3 +31,5 @@ export const API = {
 export const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
 export const years = [2021, 2022, 2023, 2024, 2025, 2026];
+
+export const checkTokenInterval = 20000;

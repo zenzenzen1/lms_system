@@ -6,11 +6,24 @@ spring:
     name: kafka_example
   kafka:
     bootstrap-servers: localhost:9094
-    consumer: 
+    consumer:
       group-id: notification-group
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      # value-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+
+      # value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
       properties:
         '[spring.json.trusted.packages]': '*'
+        # spring:
+        #   deserializer:
+        #     value:
+        #       delegate:
+        #         class: org.springframework.kafka.support.serializer.JsonDeserializer
+    # producer:
+    #   key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # retries: 1
+      # properties:
+        # '[spring.json.trusted.packages]': '*'
+    #     '[spring.json.type.mapping]': product:com.example.kafka_example.entity.Product

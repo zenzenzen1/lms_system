@@ -17,7 +17,10 @@ export const login = async (username, password) => {
 };
 
 export const logOut = () => {
-  removeToken();
+  clearInterval(localStorage.getItem('checkTokenInterval'));
+  localStorage.clear();
+  // navigate('/user/login');
+  window.location.href = '/user/login';
 };
 
 export const isAuthenticated = () => {
@@ -39,6 +42,6 @@ export const isValidToken = async () => {
 export const verifyToken = async () => {
   const _isValidToken = await isValidToken();
   if (!_isValidToken) {
-    removeToken();
+    logOut();
   }
 };

@@ -3,7 +3,6 @@ package com.example.lms_system.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +53,7 @@ public class ScheduleController {
     }
 
     @GetMapping({"/studentId/{studentId}"})
-    public Set<Map<String, Object>> getScheduleByStudentId(
+    public Object getScheduleByStudentId(
             @PathVariable String studentId, @RequestParam String startDate, @RequestParam String endDate) {
         var dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-M-d").withLocale(Locale.CHINA);
         LocalDate start = LocalDate.parse(startDate, dateTimeFormatter);

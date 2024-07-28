@@ -1,13 +1,15 @@
-package com.example.notification_service;
+package com.example.lms_notification_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NotificationServiceApplication {
-
+public class LmsNotificationServiceApplication {
+	
 	public static void main(String[] args) {
-		SpringApplication.run(NotificationServiceApplication.class, args);
+		SpringApplication.run(LmsNotificationServiceApplication.class, args);
+		
 	}
 
 }
+ 

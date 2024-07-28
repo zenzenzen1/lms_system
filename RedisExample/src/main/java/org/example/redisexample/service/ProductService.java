@@ -19,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class ProductService {
     private final ProductRepository productRepository;
     private final ProductRedisService productRedisService;
+    @SuppressWarnings("unused")
     private final RedisService redisService;
     
     public static final String HASH_KEY = "Product";

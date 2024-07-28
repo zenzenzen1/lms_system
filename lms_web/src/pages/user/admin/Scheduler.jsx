@@ -5,19 +5,20 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setSchedulesAction, setSemestersAction } from '../../../redux/action/ScheduleAction';
 import { setRooms, setSlots, setSubjects } from '../../../redux/slice/ScheduleSlice';
-import { getAllRooms, getAllSlots, getAllSubjects, saveSchedule } from '../../../services/ScheduleService';
+import { getAllRooms, getAllSlots, getAllSubjects, getSchedules, saveSchedule } from '../../../services/ScheduleService';
 import { getAllUserAndUserProfile } from '../../../services/UserService';
 import ScheduleList from './ScheduleList';
 import { Toast } from 'primereact/toast';
 import { Button as PrimereactButton } from 'primereact/button';
 import { getCoursesBySemester } from '../../../services/courseService';
+import { getStudentIdByScheduleId } from '../../../services/attendanceService';
 
 const Scheduler = () => {
     const [show, setShow] = useState(false);
     // const [slots, setSlots] = useState([]);
     // const [subjects, setSubjects] = useState([]);
     // const [rooms, setRooms] = useState([]);
-    const [schedule, setSchedule] = useState({});
+    const [schedule, setSchedule] = useState([]);
     const [error, setError] = useState("");
     const [students, setStudents] = useState([]);
     const [courses, setCourses] = useState([]);
@@ -29,20 +30,59 @@ const Scheduler = () => {
     const handleSave = async () => {
         console.log(scheduleRequest);
         const _confirm = confirm("Save?");
-        console.log(_confirm);
         if (_confirm) {
             // save schedule
             saveSchedule(scheduleRequest).then(res => {
                 console.log(res);
-                dispatch(setSchedulesAction());
-                alert("success!");
-            }).catch(e => {
-                alert("error " + e.message);
+                // dispatch(setSchedulesAction())
+                return (res.data)
             })
+                .then(schedules => {
+                    schedules.map(async (value, index) => {
+                        const res = await getStudentIdByScheduleId(value.scheduleId);
+                        const students = res.data.map((value) => value.student);
+                        console.log({ value, students });
+                        setSchedule(schedules => [...schedules, { ...value, students }])
+                        return {
+                            ...value,
+                            students: students
+                        }
+                    })
+                    alert("success!");
+                })
+                .catch(e => {
+                    alert("error " + e.message);
+                })
         }
     }
+
+    // schedules.map(async (value, index) => {
+    //     const res = await getStudentIdByScheduleId(value.scheduleId);
+    //     const students = res.data.map((value) => value.student);
+    //     console.log(students);
+    //     setScheduleList(schedule => schedule.map((value) => value.scheduleId === value.scheduleId ? { ...value, students } : { ...value }))
+
     const { slots, subjects, rooms, semesters } = useSelector(state => state.schedule);
     useEffect(() => {
+        getSchedules().then(res => {
+            console.log(res);
+            return (res.data.content)
+        })
+            .then(schedules => {
+                schedule.length === 0 && schedules.map(async (value, index) => {
+                    const res = await getStudentIdByScheduleId(value.scheduleId);
+                    const students = res.data.map((value) => value.student);
+                    console.log({ value, students });
+                    setSchedule(schedules => [...schedules, { ...value, students }])
+                    // setSchedule(schedule => schedules.map((value) => value.scheduleId === value.scheduleId ? { ...value, students } : { ...value }))
+                    return {
+                        ...value,
+                        students: students
+                    }
+                })
+            }
+            )
+            ;
         (async () => {
             //         try {
             //             const [_slots, _subjects, _rooms] = await Promise.all([getAllSlots(), getAllSubjects(), getAllRooms()]);
@@ -59,7 +99,7 @@ const Scheduler = () => {
             const users = await getAllUserAndUserProfile();
             const s = users.filter(u => u.roles.find(r => r.name.toLowerCase() === "student"));
             setStudents(s)
-            
+
             //         } catch (error) {
             //             setError(error);
             //         }
@@ -93,7 +133,6 @@ const Scheduler = () => {
             }
         })
     }, [scheduleRequest.semesterCode])
-    console.log(rooms, courses, subjects, scheduleRequest);
 
     const handleChangeScheduleRequest = (e) => {
         setScheduleRequest(state => {
@@ -125,7 +164,7 @@ const Scheduler = () => {
             <Button variant="primary" onClick={handleShow}>
                 Create schedule
             </Button>
-            <ScheduleList />
+            <ScheduleList schedules={schedule} />
             <Modal show={show} onHide={handleClose} className='' size='xl'>
                 <Modal.Header closeButton>
                     <Modal.Title>Create schedule</Modal.Title>

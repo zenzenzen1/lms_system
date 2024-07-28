@@ -21,21 +21,22 @@ import ClassDetail from './pages/user/teacher/ClassDetail';
 import { removeToken } from './services/localStorageService';
 import Scheduler from './pages/user/teacher/Scheduler';
 function App() {
-  useEffect(() => {
-    const interval = setInterval(async () => {
-      const _isValidToken = await isValidToken();
-      if (!_isValidToken) {
-        removeToken();
-        if (window.location.pathname !== '/user/login')
-          window.location.href = '/user/login';
-      }
-    }, 20000);
-    return () => {
-      console.log("App component is unmounted");
-      clearInterval(interval);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  // useEffect(() => {
+  //   const interval = setInterval(async () => {
+  //     const _isValidToken = await isValidToken();
+  //     if (!_isValidToken) {
+  //       removeToken();
+  //       if (window.location.pathname !== '/user/login')
+  //         window.location.href = '/user/login';
+  //     }
+  //   }, 2000);
+  //   localStorage.setItem('checkTokenInterval', interval);
+  //   return () => {
+  //     console.log("App component is unmounted");
+  //     clearInterval(interval);
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // });
   return (
     <>
       <Provider store={store}>

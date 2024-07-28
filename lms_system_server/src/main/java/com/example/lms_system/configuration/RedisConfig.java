@@ -10,6 +10,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import redis.clients.jedis.Jedis;
+
 @Configuration
 public class RedisConfig {
 
@@ -39,22 +41,34 @@ public class RedisConfig {
         return template;
     }
 
+    @Bean
+    Jedis jedis() {
+        return new Jedis(redisHost, Integer.parseInt(redisPort));
+    }
+
     // @Bean
     // ObjectMapper redisObjectMapper() {
-    //     ObjectMapper objectMapper = new ObjectMapper();
-    //     SimpleModule simpleModule = new SimpleModule();
-    //     simpleModule.addSerializer(LocalDateTime.class, new
+    // ObjectMapper objectMapper = new ObjectMapper();
+    // SimpleModule simpleModule = new SimpleModule();
+    // simpleModule.addSerializer(LocalDateTime.class, new
     // LocalDateTimeSerializer(DateTimeFormatter.ISO_DATE_TIME));
-    //     simpleModule.addDeserializer(
-    //             LocalDateTime.class, new LocalDateTimeDeserializer(DateTimeFormatter.ISO_DATE_TIME));
-    //     objectMapper.registerModule(simpleModule);
-    //     return objectMapper;
+    // simpleModule.addDeserializer(
+    // LocalDateTime.class, new
+    // LocalDateTimeDeserializer(DateTimeFormatter.ISO_DATE_TIME));
+    // simpleModule.addSerializer(LocalDate.class, new
+    // LocalDateSerializer(dateTimeFormatter));
+    // simpleModule.addDeserializer(LocalDate.class, new
+    // LocalDateDeserializer(dateTimeFormatter));
+    // objectMapper.registerModule(simpleModule);
+    // return objectMapper;
     // }
-
+    //
     @Bean
     CommandLineRunner redisCommandLineRunner(RedisTemplate<String, Object> redisTemplate) {
         return args -> {
-            redisTemplate.opsForValue().set("test", "test");
+            redisTemplate.opsForValue().set("redisTemplateTest", "redisTemplateTest");
+            jedis().set("jedisTest", "jedisTest");
+            redisTemplate.delete(redisTemplate.keys("*"));
         };
     }
 }

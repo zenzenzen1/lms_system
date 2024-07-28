@@ -88,7 +88,7 @@ public class UserService {
                 .channel("channel1")
                 .receiver(user.getId())
                 .subject("welcome")
-                .body("Hello " + user.getUsername())
+                .body("Hello " + user)
                 .build();
         kafkaTemplate.send("create-user", notificationEvent);
 

@@ -3,10 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import { login } from '../../services/authenticationService';
+import { isValidToken, login } from '../../services/authenticationService';
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from '../../redux/slice/UserSlice';
 import { getMyInfo } from '../../services/UserService';
+import { removeToken } from '../../services/localStorageService';
+import { checkTokenInterval } from '../../configurations/configuration';
 
 const Login = () => {
     const [username, setUsername] = useState("")
@@ -30,7 +32,15 @@ const Login = () => {
             setError(res.data.message);
             return;
         }
-
+        const interval = setInterval(async () => {
+            const _isValidToken = await isValidToken();
+            if (!_isValidToken) {
+                removeToken();
+                if (window.location.pathname !== '/user/login')
+                    window.location.href = '/user/login';
+            }
+        }, checkTokenInterval);
+        localStorage.setItem('checkTokenInterval', interval);
         const userResponse = await getMyInfo();
         const _user = userResponse.data.result;
         const user = { ..._user, roles: _user.roles.map(role => role.name), permissions: _user.roles.map(p => [...p.permissions]) };
@@ -41,15 +51,30 @@ const Login = () => {
         if (user.roles.includes("ADMIN")) {
             navigate("/user/admin");
         }
-        else if(user.roles.includes("STUDENT")){
+        else if (user.roles.includes("STUDENT")) {
             navigate("/user/student");
         }
-        else if(user.roles.includes("TEACHER")){
+        else if (user.roles.includes("TEACHER")) {
             navigate("/user/teacher");
         }
 
     }
-
+    // useEffect(() => {
+    //     const interval = setInterval(async () => {
+    //       const _isValidToken = await isValidToken();
+    //       if (!_isValidToken) {
+    //         removeToken();
+    //         if (window.location.pathname !== '/user/login')
+    //           window.location.href = '/user/login';
+    //       }
+    //     }, 2000);
+    //     localStorage.setItem('checkTokenInterval', interval);
+    //     return () => {
+    //       console.log("App component is unmounted");
+    //       clearInterval(interval);
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    //   });
 
     return (
         <>

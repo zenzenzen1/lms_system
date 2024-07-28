@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.core.RedisTemplate;
 
 import com.example.lms_system.dto.response.identity_service.UserCreationRequest;
 import com.example.lms_system.dto.response.identity_service.UserResponse;
@@ -46,7 +47,8 @@ public class AppInit {
             UserRepository userRepository,
             CourseStudentRepository courseStudentRepository,
             IdentityClient identityClient,
-            AttendanceRepository attendanceRepository) {
+            AttendanceRepository attendanceRepository,
+            RedisTemplate<String, Object> redisTemplate) {
         return args -> {
             var subjects = List.of(
                     Subject.builder()

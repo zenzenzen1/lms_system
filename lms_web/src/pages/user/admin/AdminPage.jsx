@@ -10,6 +10,7 @@ import { getAllRooms, getAllSlots, getAllSubjects } from '../../../services/Sche
 import { setRooms, setSlots, setSubjects } from '../../../redux/slice/ScheduleSlice';
 import { setSemestersAction } from '../../../redux/action/ScheduleAction';
 import { getAllUserAndUserProfile } from '../../../services/UserService';
+import Menu from '../common/Menu';
 
 const AdminPage = () => {
     const [menu, setMenu] = useState({
@@ -20,8 +21,9 @@ const AdminPage = () => {
     const dispatch = useDispatch();
     const [content, setContent] = useState("this is content");
 
-    const _user = JSON.parse(getKey("persist:root")).user;
-    const user = JSON.parse(_user);
+    // const _user = JSON.parse(getKey("persist:root")).user;
+    // const user = JSON.parse(_user);
+    const user = useSelector(state => state.user);
     
     
     const handleUserClick = async () => {
@@ -62,7 +64,8 @@ const AdminPage = () => {
                 <div className='flex'>
                     <div className='w-1/6'>
                         <span className='text-blue-500'>Menu</span>
-                        <ul className='pl-1'>
+                        <ul className='pl-3 flex flex-col gap-1'>
+                            <Menu />
                             <li className='cursor-pointer' onClick={handleUserClick}>
                                 Show all users
                             </li>
