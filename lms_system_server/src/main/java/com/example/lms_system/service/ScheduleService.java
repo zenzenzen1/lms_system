@@ -2,6 +2,7 @@ package com.example.lms_system.service;
 
 import java.time.Duration;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -13,8 +14,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
+import com.example.kafka_dto.ScheduleStudent;
 import com.example.lms_system.dto.request.ScheduleRequest;
 import com.example.lms_system.entity.Attendance;
 import com.example.lms_system.entity.CourseStudent;
@@ -48,6 +51,7 @@ public class ScheduleService {
     private final CourseStudentRepository courseStudentRepository;
     private final AttendanceRepository attendanceRepository;
     private final RedisTemplate<String, Object> redisTemplate;
+    private final KafkaTemplate<String, Object> kafkaTemplate;
     // private final ObjectMapper redisObjectMapper;
 
     @Value("${app.redis.ttl_student_schedule}")
@@ -82,6 +86,7 @@ public class ScheduleService {
         return scheduleRepository.getScheduleByStudentId(studentId, startDate, endDate);
     }
 
+    // save schedules for students in specific slot, semester, course, room
     public Set<Schedule> saveSchedules(ScheduleRequest scheduleRequest) {
         System.out.println(scheduleRequest);
         if (scheduleRequest.getStudentIds() == null
@@ -129,10 +134,19 @@ public class ScheduleService {
                                 .student(student)
                                 .schedule(schedule)
                                 .build());
+
                         redisTemplate.delete(redisTemplate.keys("schedule" + student.getId() + "*"));
                     });
                 }
             }
+            students.forEach((student) -> {
+                kafkaTemplate.send(
+                        "create-schedule",
+                        ScheduleStudent.builder()
+                                .createdAt(LocalDateTime.now())
+                                .studentId(student.getId())
+                                .build());
+            });
         }
         // redisTemplate.delete(null)
 
@@ -150,6 +164,10 @@ public class ScheduleService {
 
     public Schedule findById(Long id) {
         return scheduleRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Schedule not found"));
+    }
+
+    public Object getSchedules() {
+        return scheduleRepository.findAll();
     }
 
     public Page<Schedule> getSchedules(int page, int size) {

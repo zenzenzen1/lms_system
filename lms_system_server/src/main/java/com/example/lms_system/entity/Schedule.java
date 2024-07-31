@@ -1,6 +1,5 @@
 package com.example.lms_system.entity;
 
-import java.io.Serializable;
 import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
@@ -29,7 +28,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 // @EntityListeners(ScheduleListener.class)
 @Table
-public class Schedule implements Serializable {
+public class Schedule {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

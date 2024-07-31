@@ -64,13 +64,14 @@ public class ScheduleController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<Page<Schedule>> getSchedules(
+    public Object getSchedules(
             @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Page<Schedule> schedulePage = scheduleService.getSchedules(page, size);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Schedule-page-number", String.valueOf(schedulePage.getNumber()));
         headers.add("Schedule-page-size", String.valueOf(schedulePage.getSize()));
         return ResponseEntity.ok().headers(headers).body(schedulePage);
+        // return ResponseEntity.ok().body(scheduleService.getSchedules());
     }
 
     @GetMapping("/details")

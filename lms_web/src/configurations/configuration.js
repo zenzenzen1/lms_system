@@ -6,6 +6,7 @@ const lms_prefix = "/lms";
 
 export const API = {
   LOGIN: "/identity/auth/token",
+  GOOGLE_LOGIN: "/identity/auth/google",
   MY_INFO: "/identity/users/userInfo",
   INTROSPECT: "/identity/auth/introspect",
   REGISTER: "/identity/users/registration",
@@ -25,11 +26,12 @@ export const API = {
   GET_ATTENDANCES_BY_COURSEID_STUDENTID: lms_prefix + "/attendances/courseId/studentId",
   GET_COURSES_BY_STUDENTID_SEMESTERCODE: lms_prefix + "/courses/studentId/semesterCode",
   GET_COURSES_BY_SEMESTER: lms_prefix + "/courses/semesterCode",
-  SAVE_ALL_ATTENDANCES: lms_prefix + "/attendances/saveAll"
+  SAVE_ALL_ATTENDANCES: lms_prefix + "/attendances/saveAll",
+  GET_NOTIFICATIONS_BY_USER_ID: "/notification/getNotificationsByUserId"
 };
 
 export const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"];
 
 export const years = [2021, 2022, 2023, 2024, 2025, 2026];
 
-export const checkTokenInterval = 20000;
+export const checkTokenInterval = 5000;

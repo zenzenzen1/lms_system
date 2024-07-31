@@ -1,0 +1,42 @@
+saveSchedulesForStudentdefaultMessage: "You were added into a course"
+
+spring:
+    application:
+        name: lms_notification_service
+    data:
+        mongodb:
+            database: notification
+            host: localhost
+            username: root
+            password: root
+            port: 27017
+            authentication-database: admin
+    kafka:
+        bootstrap-servers: localhost:9094
+        consumer: 
+            group-id: lms-notification-group
+            key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+            value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+            # value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+            auto-offset-reset: earliest
+        properties:
+            '[spring.json.trusted.packages]': '*'
+        producer:
+            key-serializer: org.apache.kafka.common.serialization.StringSerializer
+            value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    mail:
+        default-encoding: UTF-8
+        host: smtp.gmail.com
+        username: nguyenxuantruongub@gmail.com
+        password: xtadparertfekiom
+        port: 587
+        protocol: smtp
+        test-connection: false
+        properties:
+            mail:
+                smtp:
+                    auth: true
+                    starttls:
+                        enable: true
+server:
+    port: 8084

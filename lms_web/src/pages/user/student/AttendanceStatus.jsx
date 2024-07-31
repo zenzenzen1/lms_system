@@ -10,7 +10,15 @@ const AttendanceStatus = () => {
     const [attendances, setAttendances] = useState([]);
     const [courses, setCourses] = useState([]);
     // const [numberOfAbsent, setNumberOfAbsent] = useState(0);
-    const numberOfAbsent = useRef(0);
+    const numberOfAbsent = useMemo(() => {
+        let count = 0;
+        attendances.forEach((attendance) => {
+            if (attendance.attendanceStatus !== null && !attendance.attendanceStatus)
+                count++;
+        })
+        return count;
+    }, [attendances]);
+    
     const user = useSelector(state => state.user);
 
     useMemo(async () => {
@@ -40,7 +48,7 @@ const AttendanceStatus = () => {
         setAttendances(res.data);
         console.log(res);
     }
-
+    console.log(numberOfAbsent);
     
     return (
         <div className='row'>
@@ -84,10 +92,11 @@ const AttendanceStatus = () => {
                     })}
                 </ul>
             </div>
+            
             <div className='col-md-9'>
                 {attendances.length !== 0 &&
                     <div>
-                        <h4>Total: {attendances.length} results. Absent: {numberOfAbsent.current}/{attendances.length}</h4>
+                        <h4>Total: {attendances.length} results. Absent: {numberOfAbsent}/{attendances.length} <span className='text-red-400'>{`(${(numberOfAbsent/attendances.length * 100).toFixed(2)}%)`}</span></h4>
                         <Table hover>
                             <thead>
                                 <tr>
@@ -100,7 +109,6 @@ const AttendanceStatus = () => {
                             <tbody>
                                 {<>
                                     {attendances.map((a, index) => {
-                                        if(a.attendanceStatus !== null && !a.attendanceStatus) numberOfAbsent.current++;
                                         return (
                                             <tr key={index}>
                                                 <td>

@@ -8,6 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication
 @EnableFeignClients
 @EnableCaching
+// @EnableSpringDataWebSupport(pageSerializationMode = PageSerializationMode.DIRECT)
 public class LmsSystemApplication {
 
     public static void main(String[] args) {

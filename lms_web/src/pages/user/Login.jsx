@@ -3,12 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import { isValidToken, login } from '../../services/authenticationService';
+import { isValidToken, login, logOut, verifyToken } from '../../services/authenticationService';
 import { useDispatch, useSelector } from 'react-redux'
 import { setUser } from '../../redux/slice/UserSlice';
 import { getMyInfo } from '../../services/UserService';
 import { removeToken } from '../../services/localStorageService';
 import { checkTokenInterval } from '../../configurations/configuration';
+import OAuth from '../../components/OAuth';
 
 const Login = () => {
     const [username, setUsername] = useState("")
@@ -33,12 +34,7 @@ const Login = () => {
             return;
         }
         const interval = setInterval(async () => {
-            const _isValidToken = await isValidToken();
-            if (!_isValidToken) {
-                removeToken();
-                if (window.location.pathname !== '/user/login')
-                    window.location.href = '/user/login';
-            }
+            await verifyToken();
         }, checkTokenInterval);
         localStorage.setItem('checkTokenInterval', interval);
         const userResponse = await getMyInfo();
@@ -143,6 +139,7 @@ const Login = () => {
                                 {<i className='pi pi-spin pi-spinner'></i>}
                                 <span>Login</span>
                             </Button>
+                            <OAuth />
                         </div>
                     </div>
                 </form>

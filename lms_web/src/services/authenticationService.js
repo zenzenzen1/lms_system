@@ -2,6 +2,17 @@ import { getToken, removeToken, setToken } from "./localStorageService";
 import httpClient from "../configurations/httpClient";
 import { API } from "../configurations/configuration";
 
+export const googleLogin = async (googleAccount) => {
+  const response = await httpClient.post(API.GOOGLE_LOGIN, {
+    email: googleAccount.email,
+    fullName: googleAccount.displayName,
+  }).catch((error) => {
+    console.log(error);
+    return error;
+  });
+  return response;
+}
+
 export const login = async (username, password) => {
   const response = await httpClient.post(API.LOGIN, {
     username: username,
@@ -39,9 +50,16 @@ export const isValidToken = async () => {
   return response.data?.result?.valid;
 };
 
-export const verifyToken = async () => {
-  const _isValidToken = await isValidToken();
-  if (!_isValidToken) {
-    logOut();
-  }
+export const verifyToken = () => {
+  isValidToken()
+    .then((valid) => {
+      if (!valid) {
+        logOut();
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      logOut();
+    })
+    ;
 };

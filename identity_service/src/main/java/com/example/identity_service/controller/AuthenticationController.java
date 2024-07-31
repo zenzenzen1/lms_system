@@ -11,6 +11,7 @@ import com.example.identity_service.dto.request.AuthenticationRequest;
 import com.example.identity_service.dto.request.IntrospectRequest;
 import com.example.identity_service.dto.request.LogoutRequest;
 import com.example.identity_service.dto.request.RefreshTokenRequest;
+import com.example.identity_service.dto.request.UserCreationRequest;
 import com.example.identity_service.dto.response.ApiResponse;
 import com.example.identity_service.dto.response.AuthenticationResponse;
 import com.example.identity_service.dto.response.IntrospectResponse;
@@ -31,6 +32,17 @@ public class AuthenticationController {
     // public Object currentUser() {
     //     return SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     // }
+
+    @PostMapping("/google")
+    public ApiResponse<AuthenticationResponse> authenticate(@RequestBody UserCreationRequest request) {
+        return null;
+        // AuthenticationResponse result = authenticationService.googleAuthenticate(request);
+
+        // return ApiResponse.<AuthenticationResponse>builder()
+        //         .result(result)
+        //         .code(ResponseCode.SUCCESS.getCode())
+        //         .build();
+    }
 
     @PostMapping("/token")
     public ApiResponse<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {

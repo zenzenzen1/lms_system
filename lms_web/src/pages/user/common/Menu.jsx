@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 // eslint-disable-next-line react/prop-types
-const Menu = ({ className }) => {
+const Menu = ({ className, handleShowNotification, NotificationContent }) => {
     const navigate = useNavigate();
 
     const handleLogout = () => {
@@ -21,7 +21,8 @@ const Menu = ({ className }) => {
         <>
 
             <li className='w-fit cursor-pointer' onClick={handleLogout}>{"<-- Logout"}</li>
-            <li className='w-fit cursor-pointer'>Notification</li>
+            <li className='w-fit cursor-pointer' onClick={handleShowNotification}>{NotificationContent}
+            </li>
         </>
     )
 }

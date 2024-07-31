@@ -18,6 +18,7 @@ import com.example.identity_service.dto.request.AuthenticationRequest;
 import com.example.identity_service.dto.request.IntrospectRequest;
 import com.example.identity_service.dto.request.LogoutRequest;
 import com.example.identity_service.dto.request.RefreshTokenRequest;
+import com.example.identity_service.dto.request.UserCreationRequest;
 import com.example.identity_service.dto.response.AuthenticationResponse;
 import com.example.identity_service.dto.response.IntrospectResponse;
 import com.example.identity_service.entity.InvalidatedToken;
@@ -58,6 +59,10 @@ public class AuthenticationService {
 
     private final UserRepository userRepository;
     private final InvalidatedTokenRepository invalidatedTokenRepository;
+
+    public AuthenticationResponse googleAuthenticate(UserCreationRequest request) {
+        return null;
+    }
 
     public IntrospectResponse introspect(IntrospectRequest request) throws JOSEException, ParseException {
         var token = request.getToken();

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%d{yyyy-M-d'T'HH:mm:ss'Z'}] %-4relative [%thread] %-5level %logger{35} - %msg%n</pattern>
+        </encoder>
+    </appender>
+    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/lms_identity_service.log</file>
+        <append>false</append>
+        <encoder>
+            <pattern>
+                [%d{yyyy-M-d'T'HH:mm:ss'Z'}] [%C] [%t] [%L] [%-5p] %m%n 
+            </pattern>
+        </encoder>
+    </appender>
+    <!-- LOG everything at INFO level -->
+    <root level="info">
+        <!-- <appender-ref ref="STDOUT" /> -->
+        <appender-ref ref="FILE" />
+    </root> 
+</configuration> 
