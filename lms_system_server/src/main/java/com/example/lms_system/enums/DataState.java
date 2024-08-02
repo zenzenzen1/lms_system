@@ -1,8 +1,5 @@
 package com.example.lms_system.enums;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public enum DataState {
     ALL("ALL", -1),
     ACTIVE("Active", 1),
@@ -34,11 +31,11 @@ public enum DataState {
         return value;
     }
 
-    public static List<String> getValues() {
-        List<String> states = new ArrayList<>();
-        for (DataState state : DataState.values()) {
-            states.add(state.name);
-        }
-        return states;
-    }
+    // public static List<String> getValues() {
+    //     List<String> states = new ArrayList<>();
+    //     for (DataState state : DataState.values()) {
+    //         states.add(state.name);
+    //     }
+    //     return states;
+    // }
 }

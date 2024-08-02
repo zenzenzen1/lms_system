@@ -17,7 +17,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
-import com.example.kafka_dto.ScheduleStudent;
+import com.example.event.ScheduleStudent;
 import com.example.lms_system.dto.request.ScheduleRequest;
 import com.example.lms_system.entity.Attendance;
 import com.example.lms_system.entity.CourseStudent;

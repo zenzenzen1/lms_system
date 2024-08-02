@@ -31,7 +31,25 @@ public class AttendanceService {
     @SuppressWarnings("unused")
     private final RedisTemplate<String, Object> redisTemplate;
 
-    public List<Attendance> getAttendancesByCourseIdStudentId(Long cousreId, String studentId) {
+    public double getAbsentPercentage(String studentId, long courseId) {
+        long total = attendanceRepository.findAll().stream()
+                .filter(t -> t.getStudent().getId().equals(studentId)
+                        && t.getSchedule().getCourse().getCourseId() == courseId)
+                .count();
+        long numberOfAbsent = attendanceRepository.findAll().stream()
+                .filter(t -> {
+                    if (t.getStudent().getId().equals(studentId)
+                            && t.getSchedule().getCourse().getCourseId() == courseId) {
+                        return t.getAttendanceStatus() != null && !t.getAttendanceStatus();
+                    }
+                    return false;
+                })
+                .count();
+        System.out.println(total + " " + numberOfAbsent);
+        return ((numberOfAbsent * 1.0 / total) * 100);
+    }
+
+    public List<Attendance> getAttendancesByCourseIdStudentIdSlotId(Long cousreId, String studentId, int slotId) {
         return attendanceRepository.findAll().stream()
                 .filter(t -> t.getSchedule().getCourse().getCourseId() == cousreId
                         && t.getStudent().getId().equals(studentId))

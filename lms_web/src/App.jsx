@@ -20,6 +20,7 @@ import { isValidToken } from './services/authenticationService';
 import ClassDetail from './pages/user/teacher/ClassDetail';
 import { removeToken } from './services/localStorageService';
 import Scheduler from './pages/user/teacher/Scheduler';
+import ScheduleDetail from './pages/user/admin/ScheduleDetail';
 function App() {
   // useEffect(() => {
   //   const interval = setInterval(async () => {
@@ -55,6 +56,7 @@ function App() {
               <Route path="/user/admin" element={<AdminPage />} />
               <Route path="/user/student" element={<StudentPage />} />
               <Route path="/user/teacher" element={<TeacherPage />} />
+              <Route path="/user/admin/schedule-detail/*" element={<ScheduleDetail/>} />
               {/* <Route path="/user/teacher/schedule" element={<Scheduler />} /> */}
               <Route path='/user/teacher/class-detail/*' element={<ClassDetail />} />
             </Routes>

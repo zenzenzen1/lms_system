@@ -33,7 +33,8 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
     private String[] publicEndpoints = {
             "/identity/auth/token",
-            "/identity/auth/introspect",    
+            "/identity/auth/introspect",
+            "/identity/auth/google", 
             "/identity/users/registration",
     };
     

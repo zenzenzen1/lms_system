@@ -7,11 +7,12 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.stereotype.Component;
 
+
 import com.example.lms_notification_service.repository.NotificationRepository;
 
 import lombok.RequiredArgsConstructor;
 
-@SpringBootApplication
+@SpringBootApplication()
 @EnableKafka
 @EnableMongoRepositories
 public class LmsNotificationServiceApplication {
@@ -37,8 +38,8 @@ public class LmsNotificationServiceApplication {
 	}
 	
 	public static void main(String[] args) {
-		SpringApplication.run(LmsNotificationServiceApplication.class, args);
 		
+		SpringApplication.run(LmsNotificationServiceApplication.class, args);
 	}
 
 }

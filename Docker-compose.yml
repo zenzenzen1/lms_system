@@ -48,60 +48,77 @@ services:
             - MONGO_INITDB_ROOT_PASSWORD=root
         networks:
             - lms_network
-    lms-system-service:
-        hostname: lms-system-service
-        container_name: lms_system_service
-        build:
-            context: ./lms_system_server
-            dockerfile: Dockerfile
+    kafka:
+        image: 'bitnami/kafka:3.7.0'
+        container_name: kafka
+        hostname: kafka
         ports:
-            - "8081:8081"
+            - '9094:9094'
+        restart: always
+        environment:
+            - KAFKA_CFG_NODE_ID=0
+            - KAFKA_CFG_PROCESS_ROLES=controller,broker
+            - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
+            - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+            - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
+            - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+            - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
         networks:
             - lms_network
-        depends_on:
-            - db
-            - redis_service
-        environment:
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/lms_identity_service
-            - SPRING_DATASOURCE_USERNAME=postgres
-            - SPRING_DATASOURCE_PASSWORD=123
-            - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
-            - IDENTITY_SERVICE=http://identity-service:8080/identity
-        command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
-    identity_service:
-        hostname: identity-service
-        container_name: lms_identity_service
-        build:
-            context: ./identity_service
-            dockerfile: Dockerfile
-        ports:
-            - "8080:8080"
-        networks:
-            - lms_network
-        depends_on:
-            - db
-            - redis_service
-        environment:
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/lms_system
-            - SPRING_DATASOURCE_USERNAME=postgres
-            - SPRING_DATASOURCE_PASSWORD=123
-            - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
-            - LMS_SERVICE=http://lms-system-service:8081/lms
-        command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
-    api_gateway:
-        hostname: api-gateway
-        container_name: api_gateway
-        build:
-            context: ./api_gateway_lms
-            dockerfile: Dockerfile
-        ports:
-            - "8090:8090"
-        environment:
-            - IDENTITY_SERVICE=http://identity-service:8080/identity
-            - LMS_SERVICE=http://lms-system-service:8081/lms
-        command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
-        networks:
-            - lms_network
+    # lms-system-service:
+    #     hostname: lms-system-service
+    #     container_name: lms_system_service
+    #     build:
+    #         context: ./lms_system_server
+    #         dockerfile: Dockerfile
+    #     ports:
+    #         - "8081:8081"
+    #     networks:
+    #         - lms_network
+    #     depends_on:
+    #         - db
+    #         - redis_service
+    #     environment:
+    #         - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/lms_identity_service
+    #         - SPRING_DATASOURCE_USERNAME=postgres
+    #         - SPRING_DATASOURCE_PASSWORD=123
+    #         - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+    #         - IDENTITY_SERVICE=http://identity-service:8080/identity
+    #     command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
+    # identity_service:
+    #     hostname: identity-service
+    #     container_name: lms_identity_service
+    #     build:
+    #         context: ./identity_service
+    #         dockerfile: Dockerfile
+    #     ports:
+    #         - "8080:8080"
+    #     networks:
+    #         - lms_network
+    #     depends_on:
+    #         - db
+    #         - redis_service
+    #     environment:
+    #         - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/lms_system
+    #         - SPRING_DATASOURCE_USERNAME=postgres
+    #         - SPRING_DATASOURCE_PASSWORD=123
+    #         - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+    #         - LMS_SERVICE=http://lms-system-service:8081/lms
+    #     command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
+    # api_gateway:
+    #     hostname: api-gateway
+    #     container_name: api_gateway
+    #     build:
+    #         context: ./api_gateway_lms
+    #         dockerfile: Dockerfile
+    #     ports:
+    #         - "8090:8090"
+    #     environment:
+    #         - IDENTITY_SERVICE=http://identity-service:8080/identity
+    #         - LMS_SERVICE=http://lms-system-service:8081/lms
+    #     command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
+    #     networks:
+    #         - lms_network
 networks:
     lms_network:
         driver: bridge

@@ -2,6 +2,32 @@ import { API } from "../configurations/configuration";
 import httpClient from "../configurations/httpClient";
 import { getToken } from "./localStorageService";
 
+// export const getScheduleByCourseIdSlotIdRoomNumberSemesterCode = async(courseId, slotId, roomId, semesterCode) => {
+//     const res = httpClient.get(API.GET_SCHEDULES_BY_COURSEID_SLOTID_ROOMID_SEMESTERCODE, {
+//         params: {
+//             courseId,
+//             slotId,
+//             roomId,
+//             semesterCode
+//         },
+//         headers: {
+//             Authorization: `Bearer ${getToken()}`,
+//         }
+//     }).catch(e => e)
+
+//     return res;
+// };
+
+export const getScheduleByCourseIdSlotIdRoomNumberSemesterCode = async() => {
+    const res = httpClient.get(API.GET_SCHEDULES_BY_COURSEID_SLOTID_ROOMID_SEMESTERCODE, {
+        headers: {
+            Authorization: `Bearer ${getToken()}`,
+        }
+    }).catch(e => e)
+
+    return res;
+};
+
 export const getSemesters = async() => {
     const res = httpClient.get(API.ALL_SEMESTERS, {
         headers: {

@@ -10,7 +10,7 @@ import com.example.lms_notification_service.service.NotificationService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/notification")
+@RequestMapping()
 @RequiredArgsConstructor
 public class NotificationController {
     private final NotificationService notificationService;

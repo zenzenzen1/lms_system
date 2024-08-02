@@ -1,6 +1,7 @@
 saveSchedulesForStudentdefaultMessage: "You were added into a course"
 
 spring:
+    
     application:
         name: lms_notification_service
     data:
@@ -39,4 +40,6 @@ spring:
                     starttls:
                         enable: true
 server:
-    port: 8084
+    port: 8085
+    servlet:
+        context-path: /notification

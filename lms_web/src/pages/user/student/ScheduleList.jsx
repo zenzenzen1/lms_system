@@ -56,6 +56,7 @@ const ScheduleList = () => {
     useMemo(async () => {
         const res = await getSchedulesByStudentId(user.userProfile.id, firstDate.toLocaleDateString("en-CA"), lastDate.toLocaleDateString("en-CA"));
         setSchedules(res.data);
+        console.log(res.data);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [firstDate]);
 

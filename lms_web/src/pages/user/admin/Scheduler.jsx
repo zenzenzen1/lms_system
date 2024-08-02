@@ -19,6 +19,7 @@ const Scheduler = () => {
     // const [subjects, setSubjects] = useState([]);
     // const [rooms, setRooms] = useState([]);
     const [schedule, setSchedule] = useState([]);
+    const [schedulesDisplayed, setScheduleDisplayed] = useState([]);
     const [error, setError] = useState("");
     const [students, setStudents] = useState([]);
     const [courses, setCourses] = useState([]);
@@ -38,16 +39,17 @@ const Scheduler = () => {
                 return (res.data)
             })
                 .then(schedules => {
-                    schedules.map(async (value, index) => {
-                        const res = await getStudentIdByScheduleId(value.scheduleId);
-                        const students = res.data.map((value) => value.student);
-                        console.log({ value, students });
-                        setSchedule(schedules => [...schedules, { ...value, students }])
-                        return {
-                            ...value,
-                            students: students
-                        }
-                    })
+                    // schedules.map(async (value, index) => {
+                    //     const res = await getStudentIdByScheduleId(value.scheduleId);
+                    //     const students = res.data.map((value) => value.student);
+                    //     console.log({ value, students });
+                    //     setSchedule(schedules => [...schedules, { ...value, students }])
+                    //     return {
+                    //         ...value,
+                    //         students: students
+                    //     }
+                    // })
+                    setSchedule(schedules);
                     alert("success!");
                 })
                 .catch(e => {
@@ -64,38 +66,52 @@ const Scheduler = () => {
 
     const { slots, subjects, rooms, semesters } = useSelector(state => state.schedule);
     useEffect(() => {
-        getSchedules().then(res => {
-            console.log(res);
-            return (res.data.content)
-        })
-            .then(schedules => {
-                schedule.length === 0 && schedules.map(async (value, index) => {
-                    const res = await getStudentIdByScheduleId(value.scheduleId);
-                    const students = res.data.map((value) => value.student);
-                    console.log({ value, students });
-                    setSchedule(schedules => [...schedules, { ...value, students }])
-                    // setSchedule(schedule => schedules.map((value) => value.scheduleId === value.scheduleId ? { ...value, students } : { ...value }))
-                    return {
-                        ...value,
-                        students: students
-                    }
-                })
-            }
-            )
-            ;
         (async () => {
-            //         try {
-            //             const [_slots, _subjects, _rooms] = await Promise.all([getAllSlots(), getAllSubjects(), getAllRooms()]);
-            //             dispatch(setSlots(_slots.data.result));
-            //             dispatch(setSubjects(_subjects.data.result));
-            //             dispatch(setRooms(_rooms.data.result));
+            const schedules = await getSchedules().then(res => {
+                return (res.data.content)
+            })
+                .then(schedules => {
+                    return (
+                        // schedules.map(async (value, index) => {
+                        //     const res = await getStudentIdByScheduleId(value.scheduleId);
+                        //     const students = await res.data.map((value) => value.student)
+                        //     return {
+                        //         ...value, students
+                        //     }
+                        // })
+                        schedules.reduce((prev, curr, index, array) => {
+                            // value.then((v) => console.log(v))
+                            const i = prev.findIndex(t => t.course.semester.semesterCode === curr.course.semester.semesterCode && t.course.courseId == curr.course.courseId && t.room.roomId === curr.room.roomId && t.slot.slotId === curr.slot.slotId);
+                            console.log(i);
+                            if (+i === -1) {
+                                return [...prev, {
+                                    ...curr,
+                                    trainingDate: {
+                                        startDate: curr.trainingDate,
+                                        endDate: curr.trainingDate
+                                    }
+                                }]
+                            }else{
+                                const _prev = [...prev];
+                                _prev[i] = {
+                                    ..._prev[i],
+                                    trainingDate: {
+                                        startDate: (new Date(prev[i].trainingDate.startDate) > new Date(curr.trainingDate)) ? curr.trainingDate : prev[i].trainingDate.startDate,
+                                        endDate: (new Date(prev[i].trainingDate.endDate) < new Date(curr.trainingDate)) ? curr.trainingDate : prev[i].trainingDate.endDate
+                                    }
+                                }
+                                return [..._prev];
+                            }
+                        }, [])
+                    );
+                })
+            // schedules.map(async value => {
+            //     value.then(v => { console.log(v); })
+            // })
+            console.log(schedules);
+            setScheduleDisplayed(schedules);
 
-            //             setSchedule({
-            //                 slots: _slots.data.result,
-            //                 subjects: _subjects.data.result,
-            //                 rooms: _rooms.data.result
-            //             })
-            //             dispatch(setSemestersAction());
+
             const users = await getAllUserAndUserProfile();
             const s = users.filter(u => u.roles.find(r => r.name.toLowerCase() === "student"));
             setStudents(s)
@@ -105,7 +121,7 @@ const Scheduler = () => {
             //         }
         })();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [navigate])
+    }, [navigate, schedule])
 
 
     const parseDate = (date) => {
@@ -164,7 +180,7 @@ const Scheduler = () => {
             <Button variant="primary" onClick={handleShow}>
                 Create schedule
             </Button>
-            <ScheduleList schedules={schedule} />
+            <ScheduleList schedules={schedulesDisplayed} />
             <Modal show={show} onHide={handleClose} className='' size='xl'>
                 <Modal.Header closeButton>
                     <Modal.Title>Create schedule</Modal.Title>

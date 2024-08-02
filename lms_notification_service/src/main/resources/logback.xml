@@ -6,7 +6,7 @@
         </encoder>
     </appender>
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/lms_system_service.log</file>
+        <file>logs/lms_notification_service.log</file>
         <append>false</append>
         <encoder>
             <pattern>

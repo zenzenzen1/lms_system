@@ -44,7 +44,7 @@ const StudentPage = () => {
                 console.log(res.data);
                 setNotifications(res.data);
             });
-        }, 10000);
+        }, 2000);
         return () => {
             clearInterval(getNotificationsInterval);
         }
@@ -60,9 +60,9 @@ const StudentPage = () => {
                     Menu
                     <ul className='pl-3 mb-0 flex flex-col gap-1'>
                         <Menu className={"pl-3 mb-0"} handleShowNotification={handleShowNotification} NotificationContent={<>
-                            Notification <span className='text-red-500'>{"{" + notifications.length + "}"}</span>
+                            Notification {notifications && <span className='text-red-500'>{"{" + notifications.length + "}"}</span>}
                             <ul className=' list-decimal text-sm'>
-                            {showNotification && notifications.length > 0 && notifications.map((value, index) => {
+                            {showNotification && notifications && notifications.length > 0 && notifications.map((value, index) => {
                                 return <li className='p-0' key={index}>
                                     {value.message}
                                 </li>

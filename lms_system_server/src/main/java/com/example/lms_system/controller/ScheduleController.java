@@ -65,7 +65,7 @@ public class ScheduleController {
 
     @GetMapping("/all")
     public Object getSchedules(
-            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10000000") int size) {
         Page<Schedule> schedulePage = scheduleService.getSchedules(page, size);
         HttpHeaders headers = new HttpHeaders();
         headers.add("Schedule-page-number", String.valueOf(schedulePage.getNumber()));

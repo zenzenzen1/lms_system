@@ -1,6 +1,5 @@
 package com.example.lms_system.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -52,16 +51,16 @@ public class RedisService {
         return hashOperations.get(key, field);
     }
 
-    public List<Object> hashGetByFieldPrefix(String key, String fieldPrefix) {
-        List<Object> values = new ArrayList<>();
-        Map<String, Object> entries = hashOperations.entries(key);
-        entries.forEach((k, v) -> {
-            if (k.startsWith(fieldPrefix)) {
-                values.add(v);
-            }
-        });
-        return values;
-    }
+    // public List<Object> hashGetByFieldPrefix(String key, String fieldPrefix) {
+    //     // List<Object> values = new ArrayList
+    //     Map<String, Object> entries = hashOperations.entries(key);
+    //     entries.forEach((k, v) -> {
+    //         if (k.startsWith(fieldPrefix)) {
+    //             values.add(v);
+    //         }
+    //     });
+    //     return values;
+    // }
 
     public void hashSet(String key, String field, Object value) {
         hashOperations.put(key, field, value);

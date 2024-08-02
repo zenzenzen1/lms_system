@@ -35,13 +35,14 @@ public class AttendanceController {
 
     private final AttendanceService attendanceService;
 
-    @GetMapping("/courseId/studentId")
-    public Object getAttendancesByCourseId(@RequestParam Long courseId, @RequestParam String studentId) {
-        return attendanceService.getAttendancesByCourseIdStudentId(courseId, studentId);
+    @GetMapping("/courseId/studentId/slotId")
+    public Object getAttendancesByCourseIdStudentIdSlotId(
+            @RequestParam Long courseId, @RequestParam String studentId, @RequestParam int slotId) {
+        return attendanceService.getAttendancesByCourseIdStudentIdSlotId(courseId, studentId, slotId);
     }
 
     @PutMapping(value = "/saveAll", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Object saveAllAttendance(@RequestBody AttendanceRequest attendanceRequests) {
+    public Set<Attendance> saveAllAttendance(@RequestBody AttendanceRequest attendanceRequests) {
         // return attendanceRequests;
         return attendanceService.saveAllAttendance(attendanceRequests.getAttendanceRequests());
     }

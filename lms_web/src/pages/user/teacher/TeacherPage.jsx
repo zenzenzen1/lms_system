@@ -7,9 +7,11 @@ import Menu from '../common/Menu';
 const TeacherPage = ({ defaultContent = null }) => {
     const [content, setContent] = useState(defaultContent ?? <Scheduler />);
     const navigate = useNavigate();
+    
 
     return (
         <div>
+            
             Teacher page
             <div className='row'>
                 <div className='col-md-2'>

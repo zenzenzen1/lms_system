@@ -3,10 +3,10 @@ import httpClient from "../configurations/httpClient"
 import { getToken } from "./localStorageService";
 
 export const getAttendancesByCourseId = async (courseId, studentId) => {
-    const res = httpClient.get(API.GET_ATTENDANCES_BY_COURSEID_STUDENTID, {
+    const res = httpClient.get(API.GET_ATTENDANCES_BY_COURSEID_STUDENTID_SLOTID, {
         params: {
             courseId: courseId,
-            studentId
+            studentId,
         },
         headers: {
             Authorization: `Bearer ${getToken()}`,
@@ -15,6 +15,8 @@ export const getAttendancesByCourseId = async (courseId, studentId) => {
 
     return res;
 }
+
+
 
 export const getStudentIdByScheduleId = async (scheduleId) => {
     const res = httpClient.get(API.STUDENTS_BY_SCHEDULEID + `/${scheduleId}`, {

@@ -1,18 +1,16 @@
-package com.example.kafka_dto;
+package com.example.event;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ScheduleStudent implements Serializable {
-    private String studentId;
+public class Notification {
+    private String userId;
+    private String message;
     private LocalDateTime createdAt;
 }

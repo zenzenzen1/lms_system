@@ -137,7 +137,6 @@ const TeacherScheduleList = () => {
                                         {`${slot.startTime} -> ${slot.endTime}`}
                                     </td>
                                     {curr[0].map((value, index) => {
-                                        console.log(value);
                                         return (
                                             <td className={"text-sm"} key={index}>
                                                 {value

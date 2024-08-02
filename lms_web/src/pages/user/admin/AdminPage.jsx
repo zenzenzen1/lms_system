@@ -12,14 +12,15 @@ import { setSemestersAction } from '../../../redux/action/ScheduleAction';
 import { getAllUserAndUserProfile } from '../../../services/UserService';
 import Menu from '../common/Menu';
 
-const AdminPage = () => {
+// eslint-disable-next-line react/prop-types
+const AdminPage = ({defaultContent}) => {
     const [menu, setMenu] = useState({
         user: false,
         schedule: false
     });
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [content, setContent] = useState("this is content");
+    const [content, setContent] = useState(defaultContent);
 
     // const _user = JSON.parse(getKey("persist:root")).user;
     // const user = JSON.parse(_user);
@@ -66,14 +67,14 @@ const AdminPage = () => {
                         <span className='text-blue-500'>Menu</span>
                         <ul className='pl-3 flex flex-col gap-1'>
                             <Menu />
-                            <li className='cursor-pointer' onClick={handleUserClick}>
+                            <li className='cursor-pointer w-fit' onClick={handleUserClick}>
                                 Show all users
                             </li>
-                            <li className='cursor-pointer' onClick={() => setContent(<Scheduler/>)}>Schedule</li>
+                            <li className='cursor-pointer w-fit' onClick={() => setContent(<Scheduler key={Math.round(Math.random() * 1000)}/>)}>Schedule</li>
                         </ul>
                     </div>
                     <div className='w-5/6'>
-                        {content}
+                        {content || defaultContent}
                     </div>
 
                 </div>
