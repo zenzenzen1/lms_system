@@ -1,0 +1,790 @@
+[2024-7-31T16:07:14Z] [org.springframework.boot.StartupInfoLogger] [restartedMain] [50] [INFO ] Starting IdentityServiceApplication using Java 22.0.1 with PID 13172 (C:\Users\ptlam3\IdeaProjects\repo\lms_system\identity_service\target\classes started by ptlam3 in C:\Users\ptlam3\IdeaProjects\repo\lms_system)
+[2024-7-31T16:07:14Z] [org.springframework.boot.SpringApplication] [restartedMain] [654] [INFO ] No active profile set, falling back to 1 default profile: "default"
+[2024-7-31T16:07:15Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [restartedMain] [295] [INFO ] Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-7-31T16:07:15Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [restartedMain] [143] [INFO ] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-7-31T16:07:15Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [restartedMain] [211] [INFO ] Finished Spring Data repository scanning in 33 ms. Found 4 JPA repository interfaces.
+[2024-7-31T16:07:15Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [restartedMain] [295] [INFO ] Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-7-31T16:07:15Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [restartedMain] [143] [INFO ] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2024-7-31T16:07:15Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [restartedMain] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.identity_service.repository.InvalidatedTokenRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T16:07:15Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [restartedMain] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.identity_service.repository.PermissionRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T16:07:15Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [restartedMain] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.identity_service.repository.RoleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T16:07:15Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [restartedMain] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.identity_service.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T16:07:15Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [restartedMain] [211] [INFO ] Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
+[2024-7-31T16:07:15Z] [org.springframework.cloud.context.scope.GenericScope] [restartedMain] [282] [INFO ] BeanFactory id=d8bc11f3-3278-3624-9a46-d9288e977c4d
+[2024-7-31T16:07:15Z] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [restartedMain] [111] [INFO ] Tomcat initialized with port 8080 (http)
+[2024-7-31T16:07:15Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Starting service [Tomcat]
+[2024-7-31T16:07:15Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Starting Servlet engine: [Apache Tomcat/10.1.26]
+[2024-7-31T16:07:15Z] [org.apache.juli.logging.DirectJDKLog] [restartedMain] [173] [INFO ] Initializing Spring embedded WebApplicationContext
+[2024-7-31T16:07:15Z] [org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext] [restartedMain] [296] [INFO ] Root WebApplicationContext: initialization completed in 851 ms
+[2024-7-31T16:07:15Z] [org.hibernate.jpa.internal.util.LogHelper] [restartedMain] [31] [INFO ] HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-7-31T16:07:15Z] [org.hibernate.cache.internal.RegionFactoryInitiator] [restartedMain] [50] [INFO ] HHH000026: Second-level cache disabled
+[2024-7-31T16:07:15Z] [org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo] [restartedMain] [87] [INFO ] No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-7-31T16:07:15Z] [com.zaxxer.hikari.HikariDataSource] [restartedMain] [109] [INFO ] HikariPool-2 - Starting...
+[2024-7-31T16:07:15Z] [com.zaxxer.hikari.pool.HikariPool] [restartedMain] [554] [INFO ] HikariPool-2 - Added connection org.postgresql.jdbc.PgConnection@5a9900c8
+[2024-7-31T16:07:15Z] [com.zaxxer.hikari.HikariDataSource] [restartedMain] [122] [INFO ] HikariPool-2 - Start completed.
+[2024-7-31T16:07:15Z] [org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl] [restartedMain] [153] [WARN ] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+[2024-7-31T16:07:16Z] [org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator] [restartedMain] [59] [INFO ] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-7-31T16:07:16Z] [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean] [restartedMain] [437] [INFO ] Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-7-31T16:07:16Z] [org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration] [restartedMain] [236] [WARN ] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-7-31T16:07:16Z] [org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer] [restartedMain] [62] [WARN ] Unable to start LiveReload server
+[2024-7-31T16:07:17Z] [org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver] [restartedMain] [60] [INFO ] Exposing 1 endpoint beneath base path '/actuator'
+[2024-7-31T16:07:17Z] [org.springframework.boot.web.embedded.tomcat.TomcatWebServer] [restartedMain] [243] [INFO ] Tomcat started on port 8080 (http) with context path '/identity'
+[2024-7-31T16:07:17Z] [org.springframework.boot.StartupInfoLogger] [restartedMain] [56] [INFO ] Started IdentityServiceApplication in 3.214 seconds (process running for 415.401)
+[2024-7-31T16:07:18Z] [com.example.identity_service.configuration.ApplicationInitConfig] [restartedMain] [92] [WARN ] Admin user has been created with default password: admin
+[2024-7-31T16:07:18Z] [com.example.identity_service.configuration.ApplicationInitConfig] [restartedMain] [93] [WARN ] Teacher user has been created with default username: teacher1, password: teacher1
+[2024-7-31T16:07:18Z] [com.example.identity_service.configuration.ApplicationInitConfig] [restartedMain] [94] [WARN ] Student user has been created with default username: student1 password: student1
+[2024-7-31T16:07:18Z] [org.springframework.boot.devtools.autoconfigure.ConditionEvaluationDeltaLoggingListener] [restartedMain] [63] [INFO ] Condition evaluation unchanged
+[2024-7-31T16:07:24Z] [org.apache.juli.logging.DirectJDKLog] [http-nio-8080-exec-1] [173] [INFO ] Initializing Spring DispatcherServlet 'dispatcherServlet'
+[2024-7-31T16:07:24Z] [org.springframework.web.servlet.FrameworkServlet] [http-nio-8080-exec-1] [532] [INFO ] Initializing Servlet 'dispatcherServlet'
+[2024-7-31T16:07:24Z] [org.springframework.web.servlet.FrameworkServlet] [http-nio-8080-exec-1] [554] [INFO ] Completed initialization in 1 ms
+[2024-7-31T16:07:24Z] [com.example.identity_service.aspect.user.UserActivityLogger] [http-nio-8080-exec-1] [26] [INFO ] User activity: getUserByUsername from 127.0.0.1
+[2024-7-31T16:07:24Z] [com.example.identity_service.aspect.user.UserActivityLogger] [http-nio-8080-exec-2] [26] [INFO ] User activity: getUserByUsername from 127.0.0.1
+[2024-7-31T16:07:24Z] [com.example.identity_service.aspect.user.UserActivityLogger] [http-nio-8080-exec-3] [26] [INFO ] User activity: existsByUsername from 127.0.0.1
+[2024-7-31T16:07:24Z] [com.example.identity_service.aspect.user.UserActivityLogger] [http-nio-8080-exec-4] [26] [INFO ] User activity: createUser from 127.0.0.1
+[2024-7-31T16:07:24Z] [com.example.identity_service.service.UserService] [http-nio-8080-exec-4] [85] [INFO ] User profile: UserProfileResponse(id=23f0aaff-07b6-43fb-8b6b-f3426f15e894, userId=d33d34f9-5041-4c9c-a7ea-f48811484f54, fullName=user0, email=email0@gmail.com, dob=null, active=false)
+[2024-7-31T16:07:24Z] [org.apache.kafka.common.config.AbstractConfig] [http-nio-8080-exec-4] [372] [INFO ] ProducerConfig values: 
+	acks = -1
+	auto.include.jmx.reporter = true
+	batch.size = 16384
+	bootstrap.servers = [localhost:9094]
+	buffer.memory = 33554432
+	client.dns.lookup = use_all_dns_ips
+	client.id = lms_identity_service-producer-1
+	compression.type = none
+	connections.max.idle.ms = 540000
+	delivery.timeout.ms = 120000
+	enable.idempotence = true
+	enable.metrics.push = true
+	interceptor.classes = []
+	key.serializer = class org.apache.kafka.common.serialization.StringSerializer
+	linger.ms = 0
+	max.block.ms = 60000
+	max.in.flight.requests.per.connection = 5
+	max.request.size = 1048576
+	metadata.max.age.ms = 300000
+	metadata.max.idle.ms = 300000
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	partitioner.adaptive.partitioning.enable = true
+	partitioner.availability.timeout.ms = 0
+	partitioner.class = null
+	partitioner.ignore.keys = false
+	receive.buffer.bytes = 32768
+	reconnect.backoff.max.ms = 1000
+	reconnect.backoff.ms = 50
+	request.timeout.ms = 30000
+	retries = 2147483647
+	retry.backoff.max.ms = 1000
+	retry.backoff.ms = 100
+	sasl.client.callback.handler.class = null
+	sasl.jaas.config = null
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.login.callback.handler.class = null
+	sasl.login.class = null
+	sasl.login.connect.timeout.ms = null
+	sasl.login.read.timeout.ms = null
+	sasl.login.refresh.buffer.seconds = 300
+	sasl.login.refresh.min.period.seconds = 60
+	sasl.login.refresh.window.factor = 0.8
+	sasl.login.refresh.window.jitter = 0.05
+	sasl.login.retry.backoff.max.ms = 10000
+	sasl.login.retry.backoff.ms = 100
+	sasl.mechanism = GSSAPI
+	sasl.oauthbearer.clock.skew.seconds = 30
+	sasl.oauthbearer.expected.audience = null
+	sasl.oauthbearer.expected.issuer = null
+	sasl.oauthbearer.jwks.endpoint.refresh.ms = 3600000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.max.ms = 10000
+	sasl.oauthbearer.jwks.endpoint.retry.backoff.ms = 100
+	sasl.oauthbearer.jwks.endpoint.url = null
+	sasl.oauthbearer.scope.claim.name = scope
+	sasl.oauthbearer.sub.claim.name = sub
+	sasl.oauthbearer.token.endpoint.url = null
+	security.protocol = PLAINTEXT
+	security.providers = null
+	send.buffer.bytes = 131072
+	socket.connection.setup.timeout.max.ms = 30000
+	socket.connection.setup.timeout.ms = 10000
+	ssl.cipher.suites = null
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.3]
+	ssl.endpoint.identification.algorithm = https
+	ssl.engine.factory.class = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.certificate.chain = null
+	ssl.keystore.key = null
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLSv1.3
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.certificates = null
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	transaction.timeout.ms = 60000
+	transactional.id = null
+	value.serializer = class org.springframework.kafka.support.serializer.JsonSerializer
+
+[2024-7-31T16:07:24Z] [org.apache.kafka.common.telemetry.internals.KafkaMetricsCollector$StateLedger] [http-nio-8080-exec-4] [297] [INFO ] initializing Kafka metrics collector
+[2024-7-31T16:07:24Z] [org.apache.kafka.clients.producer.KafkaProducer] [http-nio-8080-exec-4] [597] [INFO ] [Producer clientId=lms_identity_service-producer-1] Instantiated an idempotent producer.
+[2024-7-31T16:07:24Z] [org.apache.kafka.common.utils.AppInfoParser$AppInfo] [http-nio-8080-exec-4] [124] [INFO ] Kafka version: 3.7.1
+[2024-7-31T16:07:24Z] [org.apache.kafka.common.utils.AppInfoParser$AppInfo] [http-nio-8080-exec-4] [125] [INFO ] Kafka commitId: e2494e6ffb89f828
+[2024-7-31T16:07:24Z] [org.apache.kafka.common.utils.AppInfoParser$AppInfo] [http-nio-8080-exec-4] [126] [INFO ] Kafka startTimeMs: 1722416844583
+[2024-7-31T16:07:24Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:24Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:24Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:24Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:24Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:24Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:24Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:24Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:24Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:25Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:25Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:25Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:25Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:25Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:25Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:26Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:26Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:26Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:27Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:27Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:27Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:28Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:28Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:28Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:29Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:29Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:29Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:30Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:30Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:30Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:31Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:31Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:31Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:32Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:32Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:32Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:33Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:33Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:33Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:34Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:34Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:34Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:35Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:35Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:35Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:36Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:36Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:36Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:37Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:37Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:37Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:38Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:38Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:38Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:39Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:39Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:39Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:40Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:40Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:40Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:41Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:41Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:41Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:42Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:42Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:42Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:43Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:43Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:43Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:44Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:44Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:44Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:44Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:44Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:44Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:45Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:45Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:45Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:46Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:46Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:46Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:47Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:47Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:47Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:48Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:48Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:48Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:49Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:49Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:49Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:50Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:50Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:50Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:51Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:51Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:51Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:52Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:52Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:52Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:53Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:53Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:53Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:54Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:54Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:54Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:55Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:55Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:55Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:56Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:56Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:56Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:57Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:57Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:57Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:58Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:58Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:58Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:07:59Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:07:59Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:07:59Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:00Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:00Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:00Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:01Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:01Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:01Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:02Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:02Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:02Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:03Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:03Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:03Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:04Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:04Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:04Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:05Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:05Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:05Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:06Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:06Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:06Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:07Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:07Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:07Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:08Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:08Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:08Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:09Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:09Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:09Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:10Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:10Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:10Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:11Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:11Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:11Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:12Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:12Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:12Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:13Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:13Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:13Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:14Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:14Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:14Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:15Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:15Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:15Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:16Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:16Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:16Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:17Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:17Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:17Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:18Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:18Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:18Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:19Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:19Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:19Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:20Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:20Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:20Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:21Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:21Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:21Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:22Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:22Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:22Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:23Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:23Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:23Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:24Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:24Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:24Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:24Z] [com.example.identity_service.aspect.user.UserActivityLogger] [http-nio-8080-exec-5] [26] [INFO ] User activity: existsByUsername from 127.0.0.1
+[2024-7-31T16:08:24Z] [com.example.identity_service.aspect.user.UserActivityLogger] [http-nio-8080-exec-6] [26] [INFO ] User activity: createUser from 127.0.0.1
+[2024-7-31T16:08:24Z] [org.springframework.core.log.LogAccessor] [http-nio-8080-exec-4] [261] [ERROR] Exception thrown when sending a message with key='null' and payload='NotificationEvent(channel=channel1, receiver=d33d34f9-5041-4c9c-a7ea-f48811484f54, templateCode=null...' to topic create-user:
+org.apache.kafka.common.errors.TimeoutException: Topic create-user not present in metadata after 60000 ms.
+[2024-7-31T16:08:24Z] [com.example.identity_service.exception.GlobalException] [http-nio-8080-exec-4] [24] [ERROR] Exception: 
+org.springframework.kafka.KafkaException: Send failed
+	at org.springframework.kafka.core.KafkaTemplate.doSend(KafkaTemplate.java:816)
+	at org.springframework.kafka.core.KafkaTemplate.observeSend(KafkaTemplate.java:773)
+	at org.springframework.kafka.core.KafkaTemplate.send(KafkaTemplate.java:550)
+	at com.example.identity_service.service.UserService.createUser(UserService.java:93)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:716)
+	at com.example.identity_service.service.UserService$$SpringCGLIB$$0.createUser(<generated>)
+	at com.example.identity_service.controller.UserController.createUser(UserController.java:49)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
+	at com.example.identity_service.aspect.user.UserActivityLogger.logUserActivity(UserActivityLogger.java:28)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:637)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:627)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:71)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.example.identity_service.controller.UserController$$SpringCGLIB$$0.createUser(<generated>)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:479)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:340)
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:82)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:128)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:128)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:323)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:224)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:113)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:389)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: org.apache.kafka.common.errors.TimeoutException: Topic create-user not present in metadata after 60000 ms.
+[2024-7-31T16:08:24Z] [org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver] [http-nio-8080-exec-4] [247] [WARN ] Resolved [org.springframework.kafka.KafkaException: Send failed]
+[2024-7-31T16:08:24Z] [com.example.identity_service.service.UserService] [http-nio-8080-exec-6] [85] [INFO ] User profile: UserProfileResponse(id=d85d4a9e-ab2d-46b8-90f4-a5dabfc3d8e8, userId=274d74bb-bd93-412f-b8ba-5299c21ef173, fullName=user1, email=email1@gmail.com, dob=null, active=false)
+[2024-7-31T16:08:25Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:25Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:25Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:26Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:26Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:26Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:27Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:27Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:27Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:28Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:28Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:28Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:28Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:28Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:28Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:29Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:29Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:29Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:30Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:30Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:30Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:32Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:32Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:32Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:32Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:32Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:32Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:34Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:34Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:34Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:34Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:34Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:34Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:35Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:35Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:35Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:36Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:36Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:36Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:37Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:37Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:37Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:38Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:38Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:38Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:39Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:39Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:39Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:40Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:40Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:40Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:41Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:41Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:41Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:42Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:42Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:42Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:43Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:43Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:43Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:44Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:44Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:44Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:45Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:45Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:45Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:46Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:46Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:46Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:47Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:47Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:47Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:48Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:48Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:48Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:49Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:49Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:49Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:50Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:50Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:50Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:51Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:51Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:51Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:52Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:52Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:52Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:53Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:53Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:53Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:54Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:54Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:54Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:55Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:55Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:55Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:56Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:56Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:56Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:57Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:57Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:57Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:58Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:58Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:58Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:59Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [997] [INFO ] [Producer clientId=lms_identity_service-producer-1] Node -1 disconnected.
+[2024-7-31T16:08:59Z] [org.apache.kafka.clients.NetworkClient] [kafka-producer-network-thread | lms_identity_service-producer-1] [830] [WARN ] [Producer clientId=lms_identity_service-producer-1] Connection to node -1 (localhost/127.0.0.1:9094) could not be established. Node may not be available.
+[2024-7-31T16:08:59Z] [org.apache.kafka.clients.NetworkClient$DefaultMetadataUpdater] [kafka-producer-network-thread | lms_identity_service-producer-1] [1144] [WARN ] [Producer clientId=lms_identity_service-producer-1] Bootstrap broker localhost:9094 (id: -1 rack: null) disconnected
+[2024-7-31T16:08:59Z] [com.example.identity_service.exception.GlobalException] [http-nio-8080-exec-6] [24] [ERROR] Exception: 
+org.apache.kafka.common.errors.InterruptException: java.lang.InterruptedException
+	at org.apache.kafka.clients.producer.KafkaProducer.doSend(KafkaProducer.java:1090)
+	at org.apache.kafka.clients.producer.KafkaProducer.send(KafkaProducer.java:964)
+	at org.springframework.kafka.core.DefaultKafkaProducerFactory$CloseSafeProducer.send(DefaultKafkaProducerFactory.java:1103)
+	at org.springframework.kafka.core.KafkaTemplate.doSend(KafkaTemplate.java:805)
+	at org.springframework.kafka.core.KafkaTemplate.observeSend(KafkaTemplate.java:773)
+	at org.springframework.kafka.core.KafkaTemplate.send(KafkaTemplate.java:550)
+	at com.example.identity_service.service.UserService.createUser(UserService.java:93)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:716)
+	at com.example.identity_service.service.UserService$$SpringCGLIB$$0.createUser(<generated>)
+	at com.example.identity_service.controller.UserController.createUser(UserController.java:49)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint.proceed(MethodInvocationProceedingJoinPoint.java:89)
+	at com.example.identity_service.aspect.user.UserActivityLogger.logUserActivity(UserActivityLogger.java:28)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethodWithGivenArgs(AbstractAspectJAdvice.java:637)
+	at org.springframework.aop.aspectj.AbstractAspectJAdvice.invokeAdviceMethod(AbstractAspectJAdvice.java:627)
+	at org.springframework.aop.aspectj.AspectJAroundAdvice.invoke(AspectJAroundAdvice.java:71)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at com.example.identity_service.controller.UserController$$SpringCGLIB$$0.createUser(<generated>)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:914)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:590)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:108)
+	at org.springframework.security.web.FilterChainProxy.lambda$doFilterInternal$3(FilterChainProxy.java:231)
+	at org.springframework.security.web.ObservationFilterChainDecorator$FilterObservation$SimpleFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:479)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$1(ObservationFilterChainDecorator.java:340)
+	at org.springframework.security.web.ObservationFilterChainDecorator.lambda$wrapSecured$0(ObservationFilterChainDecorator.java:82)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:128)
+	at org.springframework.security.web.access.intercept.AuthorizationFilter.doFilter(AuthorizationFilter.java:100)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:126)
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:120)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:100)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:179)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter.doFilterInternal(BearerTokenAuthenticationFilter.java:128)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:107)
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:93)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:91)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.header.HeaderWriterFilter.doHeadersAfter(HeaderWriterFilter.java:90)
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:75)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:82)
+	at org.springframework.security.web.context.SecurityContextHolderFilter.doFilter(SecurityContextHolderFilter.java:69)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:62)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:227)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.session.DisableEncodeUrlFilter.doFilterInternal(DisableEncodeUrlFilter.java:42)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.wrapFilter(ObservationFilterChainDecorator.java:240)
+	at org.springframework.security.web.ObservationFilterChainDecorator$AroundFilterObservation$SimpleAroundFilterObservation.lambda$wrap$0(ObservationFilterChainDecorator.java:323)
+	at org.springframework.security.web.ObservationFilterChainDecorator$ObservationFilter.doFilter(ObservationFilterChainDecorator.java:224)
+	at org.springframework.security.web.ObservationFilterChainDecorator$VirtualFilterChain.doFilter(ObservationFilterChainDecorator.java:137)
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:233)
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:191)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.servlet.handler.HandlerMappingIntrospector.lambda$createCacheFilter$3(HandlerMappingIntrospector.java:195)
+	at org.springframework.web.filter.CompositeFilter$VirtualFilterChain.doFilter(CompositeFilter.java:113)
+	at org.springframework.web.filter.CompositeFilter.doFilter(CompositeFilter.java:74)
+	at org.springframework.security.config.annotation.web.configuration.WebMvcSecurityConfiguration$CompositeFilterChainProxy.doFilter(WebMvcSecurityConfiguration.java:230)
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:352)
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:268)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:113)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:389)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1570)
+Caused by: java.lang.InterruptedException: null
+	at java.base/java.lang.Object.wait0(Native Method)
+	at java.base/java.lang.Object.wait(Object.java:375)
+	at org.apache.kafka.common.utils.SystemTime.waitObject(SystemTime.java:55)
+	at org.apache.kafka.clients.producer.internals.ProducerMetadata.awaitUpdate(ProducerMetadata.java:120)
+	at org.apache.kafka.clients.producer.KafkaProducer.waitOnMetadata(KafkaProducer.java:1149)
+	at org.apache.kafka.clients.producer.KafkaProducer.doSend(KafkaProducer.java:998)
+	... 159 common frames omitted
+[2024-7-31T16:08:59Z] [org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver] [http-nio-8080-exec-6] [247] [WARN ] Resolved [org.apache.kafka.common.errors.InterruptException: java.lang.InterruptedException]
+[2024-7-31T16:08:59Z] [org.apache.kafka.clients.producer.KafkaProducer] [SpringApplicationShutdownHook] [1346] [INFO ] [Producer clientId=lms_identity_service-producer-1] Closing the Kafka producer with timeoutMillis = 30000 ms.
+[2024-7-31T16:08:59Z] [org.apache.kafka.common.metrics.Metrics] [SpringApplicationShutdownHook] [684] [INFO ] Metrics scheduler closed
+[2024-7-31T16:08:59Z] [org.apache.kafka.common.metrics.Metrics] [SpringApplicationShutdownHook] [688] [INFO ] Closing reporter org.apache.kafka.common.metrics.JmxReporter
+[2024-7-31T16:08:59Z] [org.apache.kafka.common.metrics.Metrics] [SpringApplicationShutdownHook] [688] [INFO ] Closing reporter org.apache.kafka.common.telemetry.internals.ClientTelemetryReporter
+[2024-7-31T16:08:59Z] [org.apache.kafka.common.metrics.Metrics] [SpringApplicationShutdownHook] [694] [INFO ] Metrics reporters closed
+[2024-7-31T16:08:59Z] [org.apache.kafka.common.utils.AppInfoParser] [SpringApplicationShutdownHook] [88] [INFO ] App info kafka.producer for lms_identity_service-producer-1 unregistered
+[2024-7-31T16:08:59Z] [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean] [SpringApplicationShutdownHook] [650] [INFO ] Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-7-31T16:08:59Z] [com.zaxxer.hikari.HikariDataSource] [SpringApplicationShutdownHook] [349] [INFO ] HikariPool-2 - Shutdown initiated...
+[2024-7-31T16:08:59Z] [com.zaxxer.hikari.HikariDataSource] [SpringApplicationShutdownHook] [351] [INFO ] HikariPool-2 - Shutdown completed.

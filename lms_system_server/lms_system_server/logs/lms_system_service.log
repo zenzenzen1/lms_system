@@ -1,0 +1,87 @@
+[2024-7-31T15:29:00Z] [org.hibernate.validator.internal.util.Version] [background-preinit] [21] [INFO ] HV000001: Hibernate Validator 8.0.1.Final
+[2024-7-31T15:29:00Z] [org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer] [main] [78] [WARN ] 
+
+Found multiple occurrences of org.json.JSONObject on the class path:
+
+	jar:file:/C:/Users/nxtruong2/.m2/repository/com/vaadin/external/google/android-json/0.0.20131108.vaadin1/android-json-0.0.20131108.vaadin1.jar!/org/json/JSONObject.class
+	jar:file:/C:/Users/nxtruong2/.m2/repository/org/json/json/20231013/json-20231013.jar!/org/json/JSONObject.class
+
+You may wish to exclude one of them to ensure predictable runtime behavior
+
+[2024-7-31T15:29:00Z] [org.springframework.boot.StartupInfoLogger] [main] [50] [INFO ] Starting LmsSystemApplicationTests using Java 17.0.11 with PID 13552 (started by nxtruong2 in C:\Users\nxtruong2\IdeaProjects\lms_system\lms_system\lms_system_server)
+[2024-7-31T15:29:00Z] [org.springframework.boot.SpringApplication] [main] [654] [INFO ] No active profile set, falling back to 1 default profile: "default"
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [main] [295] [INFO ] Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [main] [143] [INFO ] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [main] [211] [INFO ] Finished Spring Data repository scanning in 210 ms. Found 9 JPA repository interfaces.
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [main] [295] [INFO ] Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [main] [143] [INFO ] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [main] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.lms_system.repository.AttendanceRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [main] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.lms_system.repository.CourseRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [main] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.lms_system.repository.CourseStudentRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [main] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.lms_system.repository.RoomRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [main] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.lms_system.repository.ScheduleRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [main] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.lms_system.repository.SemesterRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [main] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.lms_system.repository.SlotRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [main] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.lms_system.repository.SubjectRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationExtensionSupport] [main] [320] [INFO ] Spring Data Redis - Could not safely identify store assignment for repository candidate interface com.example.lms_system.repository.UserRepository; If you want this repository to be a Redis repository, consider annotating your entities with one of these annotations: org.springframework.data.redis.core.RedisHash (preferred), or consider extending one of the following types with your repository: org.springframework.data.keyvalue.repository.KeyValueRepository
+[2024-7-31T15:29:02Z] [org.springframework.data.repository.config.RepositoryConfigurationDelegate] [main] [211] [INFO ] Finished Spring Data repository scanning in 19 ms. Found 0 Redis repository interfaces.
+[2024-7-31T15:29:02Z] [org.springframework.cloud.context.scope.GenericScope] [main] [282] [INFO ] BeanFactory id=2f79f956-b4bf-38fb-bb57-03978498a42a
+[2024-7-31T15:29:03Z] [org.hibernate.jpa.internal.util.LogHelper] [main] [31] [INFO ] HHH000204: Processing PersistenceUnitInfo [name: default]
+[2024-7-31T15:29:04Z] [org.hibernate.Version] [main] [44] [INFO ] HHH000412: Hibernate ORM core version 6.5.2.Final
+[2024-7-31T15:29:04Z] [org.hibernate.cache.internal.RegionFactoryInitiator] [main] [50] [INFO ] HHH000026: Second-level cache disabled
+[2024-7-31T15:29:04Z] [org.springframework.orm.jpa.persistenceunit.SpringPersistenceUnitInfo] [main] [87] [INFO ] No LoadTimeWeaver setup: ignoring JPA class transformer
+[2024-7-31T15:29:04Z] [com.zaxxer.hikari.HikariDataSource] [main] [109] [INFO ] HikariPool-1 - Starting...
+[2024-7-31T15:29:04Z] [com.zaxxer.hikari.pool.HikariPool] [main] [554] [INFO ] HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@3e1c5e0d
+[2024-7-31T15:29:04Z] [com.zaxxer.hikari.HikariDataSource] [main] [122] [INFO ] HikariPool-1 - Start completed.
+[2024-7-31T15:29:04Z] [org.hibernate.engine.jdbc.dialect.internal.DialectFactoryImpl] [main] [153] [WARN ] HHH90000025: PostgreSQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+[2024-7-31T15:29:06Z] [org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator] [main] [59] [INFO ] HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+[2024-7-31T15:29:06Z] [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean] [main] [437] [INFO ] Initialized JPA EntityManagerFactory for persistence unit 'default'
+[2024-7-31T15:29:07Z] [org.springframework.data.jpa.repository.query.QueryEnhancerFactory] [main] [49] [INFO ] Hibernate is in classpath; If applicable, HQL parser will be used.
+[2024-7-31T15:29:07Z] [org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration] [main] [236] [WARN ] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+[2024-7-31T15:29:08Z] [org.springframework.boot.actuate.endpoint.web.EndpointLinksResolver] [main] [60] [INFO ] Exposing 1 endpoint beneath base path '/actuator'
+[2024-7-31T15:29:10Z] [org.springframework.boot.StartupInfoLogger] [main] [56] [INFO ] Started LmsSystemApplicationTests in 9.8 seconds (process running for 11.083)
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:10Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [com.example.lms_system.configuration.AuthenticationRequestInterceptor] [main] [19] [WARN ] No request attributes found
+[2024-7-31T15:29:11Z] [org.springframework.orm.jpa.AbstractEntityManagerFactoryBean] [SpringApplicationShutdownHook] [650] [INFO ] Closing JPA EntityManagerFactory for persistence unit 'default'
+[2024-7-31T15:29:11Z] [com.zaxxer.hikari.HikariDataSource] [SpringApplicationShutdownHook] [349] [INFO ] HikariPool-1 - Shutdown initiated...
+[2024-7-31T15:29:11Z] [com.zaxxer.hikari.HikariDataSource] [SpringApplicationShutdownHook] [351] [INFO ] HikariPool-1 - Shutdown completed.

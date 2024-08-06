@@ -10,6 +10,11 @@ import com.example.lms_system.entity.Schedule;
 @Mapper(componentModel = "spring")
 public interface ScheduleMapper {
     @Mapping(target = "scheduleId", ignore = true)
+    @Mapping(target = "trainingDate", ignore = true)
+    @Mapping(target = "subject", ignore = true)
+    @Mapping(target = "room", ignore = true)
+    @Mapping(target = "slot", ignore = true)
+    @Mapping(target = "course", ignore = true)
     Schedule toSchedule(ScheduleRequest request);
 
     ScheduleResponse toScheduleResponse(Schedule schedule);

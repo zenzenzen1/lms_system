@@ -78,5 +78,5 @@ public class CourseService {
                                     .orElseThrow(() -> new IllegalArgumentException("Course not found"));
         course = courseMapper.toCourse(request);
         return courseMapper.toCourseResponse(courseRepository.save(course));                            
-    }
+    }             
 }
