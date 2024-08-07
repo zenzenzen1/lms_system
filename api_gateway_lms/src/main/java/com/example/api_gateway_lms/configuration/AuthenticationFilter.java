@@ -32,6 +32,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
     private final ObjectMapper objectMapper;
 
     private String[] publicEndpoints = {
+            "/lms/schedules/export-to-excel",
             "/identity/auth/token",
             "/identity/auth/introspect",
             "/identity/auth/google", 
@@ -46,13 +47,11 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         log.info("AuthenticationFilter ... path: {}", exchange.getRequest().getURI().getPath());
         
         if(isPublicEndpoint(exchange.getRequest())) {
-            log.info("Public endpoint");
             return chain.filter(exchange);
         }
         
         // Get token from authorization header
         List<String> authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION);
-        System.out.println("request: " + exchange.getRequest());
         if (CollectionUtils.isEmpty(authHeader)) {
             return unauthenticated(exchange.getResponse());
         }

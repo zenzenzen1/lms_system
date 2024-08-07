@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
@@ -26,6 +25,8 @@ import lombok.RequiredArgsConstructor;
 public class AttendanceService {
 
     private final AttendanceRepository attendanceRepository;
+
+    @SuppressWarnings("unused")
     private final AttendanceMapper attendanceMapper;
 
     @SuppressWarnings("unused")
@@ -87,13 +88,15 @@ public class AttendanceService {
         // endDate);
     }
 
-    public Set<Attendance> getStudentsByScheduleId(long scheduleId) {
+    public List<Attendance> getStudentsByScheduleId(long scheduleId) {
         return attendanceRepository.findAll().stream()
                 .filter(a -> a.getSchedule().getScheduleId() == scheduleId)
-                .collect(Collectors.toSet());
+                .sorted((o1, o2) ->
+                        o1.getStudent().getId().compareTo(o2.getStudent().getId()))
+                .toList();
     }
 
-    public Set<Attendance> saveAllAttendance(Set<AttendanceRequest> attendance) {
+    public List<Attendance> saveAllAttendance(List<AttendanceRequest> attendance) {
         return attendanceRepository
                 .saveAll(attendance.stream()
                         .map(t -> {
@@ -101,15 +104,22 @@ public class AttendanceService {
                                     .findById(t.getAttendanceId())
                                     .orElse(null);
                             if (_attendance != null) {
-                                attendanceMapper.updateAttendance(_attendance, t);
+                                // attendanceMapper.updateAttendance(_attendance, t);
+                                _attendance.setAttendanceStatus(t.isAttendanceStatus());
+                                _attendance.setAttendanceNote(t.getAttendanceNote());
+                                redisTemplate.delete(redisTemplate.keys(
+                                        "schedule" + _attendance.getStudent().getId() + "*"));
                                 return _attendance;
                             }
                             return null;
                         })
+                        .filter(Objects::nonNull)
                         .toList())
                 .stream()
                 .filter(Objects::nonNull)
-                .collect(Collectors.toSet());
+                .sorted((o1, o2) ->
+                        o1.getStudent().getId().compareTo(o2.getStudent().getId()))
+                .collect(Collectors.toList());
     }
 
     public void saveAttendance(Attendance attendance) {

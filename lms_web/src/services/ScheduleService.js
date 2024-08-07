@@ -18,17 +18,39 @@ import { getToken } from "./localStorageService";
 //     return res;
 // };
 
-export const getScheduleByCourseIdSlotIdRoomNumberSemesterCode = async() => {
+export const getScheduleByCourseIdSlotIdRoomNumberSemesterCode = async () => {
     const res = httpClient.get(API.GET_SCHEDULES_BY_COURSEID_SLOTID_ROOMID_SEMESTERCODE, {
         headers: {
-            Authorization: `Bearer ${getToken()}`,
+            Authorization: `Bearer ${getToken()}`
         }
     }).catch(e => e)
 
     return res;
 };
 
-export const getSemesters = async() => {
+export const importFromExcel = async (file) => {
+    const formData = new FormData();
+    formData.append('files', file);
+    const res = await httpClient.post(API.IMPORT_FROM_EXCEL_SCHEDULES, formData, {
+        headers: {
+            'content-type': 'application/vnd.ms-excel',
+            Authorization: `Bearer ${getToken()}`
+        }
+    });
+
+    return res;
+}
+
+export const exportToExcelSchedules = async () => {
+    const res = await httpClient.get(API.EXPORT_TO_EXCEL_SCHEDULES, {
+        headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    }).catch(e => e);
+    return res;
+}
+
+export const getSemesters = async () => {
     const res = httpClient.get(API.ALL_SEMESTERS, {
         headers: {
             Authorization: `Bearer ${getToken()}`
@@ -42,7 +64,7 @@ export const saveSchedule = async (scheduleRequest) => {
         headers: {
             Authorization: `Bearer ${getToken()}`
         }
-    }).catch(e => e);
+    })
     return res;
 }
 

@@ -1,12 +1,18 @@
 package com.example.lms_system.service;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -16,6 +22,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.event.ScheduleStudent;
 import com.example.lms_system.dto.request.ScheduleRequest;
@@ -52,10 +59,32 @@ public class ScheduleService {
     private final AttendanceRepository attendanceRepository;
     private final RedisTemplate<String, Object> redisTemplate;
     private final KafkaTemplate<String, Object> kafkaTemplate;
+    private final ExcelService excelService;
     // private final ObjectMapper redisObjectMapper;
 
     @Value("${app.redis.ttl_student_schedule}")
     private int ttlStudentSchedule;
+
+    public Object importFromExcel(MultipartFile files) {
+        try {
+            return excelService.getSchedulesFromExcelFile(files.getInputStream());
+        } catch (IOException e) {
+            throw new RuntimeException("Cannot read file");
+        }
+    }
+
+    public void exportIntoExcelFile(HttpServletResponse response) {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=ScheduleFile" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<Schedule> schedules = scheduleRepository.findAll();
+        excelService.exportScheduleExcel(response, schedules);
+    }
 
     public Object getScheduleByStudentId(String studentId, LocalDate startDate, LocalDate endDate) {
         // var schedules = scheduleRepository.findAll().stream().filter(t -> t.get)
@@ -109,7 +138,7 @@ public class ScheduleService {
             // var i = semester.get().getStartDate();
             var i = now;
                     // i.isBefore(semester.get().getEndDate());
-                    i.isBefore(now.plusDays(10));
+                    i.isBefore(now.plusDays(1));
                     i = i.plusDays(1)) {
                 //
                 if (i.isAfter(now) && !Utils.checkIsWeekend(i)) {

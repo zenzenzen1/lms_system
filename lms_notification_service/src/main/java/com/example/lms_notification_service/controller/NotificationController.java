@@ -14,9 +14,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NotificationController {
     private final NotificationService notificationService;
-    
+
     @GetMapping("/getNotificationsByUserId/{userId}")
-    public Object getNotificationsByUserId(@PathVariable String userId){  
+    public Object getNotificationsByUserId(@PathVariable String userId) {
         return notificationService.getNotificationsByUserId(userId);
     }
 }

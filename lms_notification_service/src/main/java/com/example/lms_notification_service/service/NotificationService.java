@@ -13,8 +13,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class NotificationService {
     private final NotificationRepository notificationRepository;
-    
-    public List<Notification> getNotificationsByUserId(String userId){
+
+    public List<Notification> getNotificationsByUserId(String userId) {
         return notificationRepository.findByUserId(userId);
     }
 }

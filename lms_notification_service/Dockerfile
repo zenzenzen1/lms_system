@@ -1,12 +1,14 @@
-
-
 FROM maven:3.9.8-sapmachine-22 as build
-WORKDIR /app/identity_service
+WORKDIR /app/lms_notification_service
 COPY . .
-# ENTRYPOINT [ "mvn" ]
-# CMD [ "install" ]
+COPY ./lms_system_server /app/lms_system_server
+RUN  cd ../lms_system_server && mvn install
+RUN cd /app/lms_notification_service
+ENV key=value
+# RUN mvn install:install-file -DcreateChecksum=true -Dclassifier=sources -Dfile="lms_system-0.0.1-SNAPSHOT.jar" -DgroupId="com.example" -DartifactId="lms_system" -Dversion="0.0.1-SNAPSHOT" -Dpackaging=jar -DgeneratePom=true -Dclassifier=sources
 # RUN mvn install
-# RUN ./mvnw package -DskipTests
+CMD mvn spring-boot:run -DskipTests
+
 
 # RUN mvn package -f /app/identity_service/pom.xml
 # RUN mvn spring-boot:run -Dspring-boot.run.profiles=prod
@@ -20,6 +22,6 @@ COPY . .
 # WORKDIR /app
 # COPY ./target/identity_service-0.0.1-SNAPSHOT.jar app.jar
 
-# EXPOSE 8080
+# EXPOSE 8080   
 # ENTRYPOINT [ "java", "-jar", "app.jar" ]
 # CMD [ "java", "-jar", "identity_service.jar" ]

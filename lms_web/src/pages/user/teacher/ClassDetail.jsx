@@ -4,9 +4,11 @@ import { Button, Table } from 'react-bootstrap';
 import { InputText } from 'primereact/inputtext';
 import TeacherPage from './TeacherPage';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { verifyToken } from '../../../services/authenticationService';
 
 // eslint-disable-next-line react/prop-types
 const ClassDetail = () => {
+    verifyToken();
     const location = useLocation();
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false);
@@ -18,20 +20,20 @@ const ClassDetail = () => {
     useEffect(() => {
         (async () => {
             const res = await getStudentIdByScheduleId(scheduleId);
-            console.log(res.data);
             setAttendance(res.data);
-            setAttendanceRequest(res.data);
+            setAttendanceRequest(res.data.map(a => { return { ...a, attendanceStatus: a.attendanceStatus || false } }));
         })();
     }, [scheduleId]);
 
     const handleChangeAttendanceStatus = (attendanceId) => {
-        setAttendanceRequest(attendance => {
-            return attendance.map((value) => {
-                return value.attendanceId === attendanceId ? { ...value, attendanceStatus: !value.attendanceStatus } : value
+        setAttendanceRequest((attendances) => {
+            return attendances.map((value, index) => {
+                return value.attendanceId === attendanceId ? { ...value, attendanceStatus: !value.attendanceStatus, isChanged: (attendanceRequest[index].attendanceStatus !== attendance[index].attendanceStatus || attendanceRequest[index].attendanceNote !== attendance[index].attendanceNote) } : value
             })
         })
     }
-
+    console.log({attendance, attendanceRequest});
+    
     const handleSaveAttendances = async () => {
         // const attendancRequests = attendance.map(a => {
 
@@ -53,14 +55,15 @@ const ClassDetail = () => {
         //     }
         // });
 
-        const attendancRequests = attendanceRequest.reduce((prev, curr, index, array) => {
+        const attendanceRequests = attendanceRequest.reduce((prev, curr, index, array) => {
             return [...prev, { attendanceId: curr.attendanceId, attendanceNote: curr.attendanceNote, attendanceStatus: curr.attendanceStatus }]
         }, []);
 
         if (b) {
-            const res = await saveAttendances(attendancRequests);
+            const res = await saveAttendances(attendanceRequests);
             setAttendance(res.data);
             setAttendanceRequest(res.data);
+            
             alert("Save success");
         }
         else {
@@ -99,28 +102,32 @@ const ClassDetail = () => {
                     <Table >
                         <thead>
                             <tr>
+                                <th>Index</th>
                                 <th>Image</th>
                                 <th>Student Name</th>
                                 <th>Attendance</th>
                                 <th>Attendance Note</th>
+                                {/* <th className='w-fit pl-0 pr-0 text-center'>Modified?</th> */}
                             </tr>
                         </thead>
                         <tbody>
 
                             {attendanceRequest.map((value, index) => {
+                                console.log(value.attendanceStatus);
                                 return (
-                                    <tr key={index}>
+                                    <tr key={index} className='text-green-600'>
+                                        <td>{index + 1}</td>
                                         <td>?</td>
                                         <td className=''>
                                             {value.student.fullName}
                                         </td>
                                         <td>
-                                            <input name={value.student.id} id={"attend" + value.student.id} onChange={() => handleChangeAttendanceStatus(value.attendanceId)} type='radio'
+                                            <input id={"attend" + value.student.id} onChange={() => handleChangeAttendanceStatus(value.attendanceId)} type='radio'
                                                 checked={value.attendanceStatus}
                                                 value={true}
                                             />
                                             <label htmlFor={"attend" + value.student.id}>Attend</label>
-                                            <input name={value.student.id} className='ml-2' type='radio' id={`absent${value.student.id}`}
+                                            <input className='ml-2' type='radio' id={`absent${value.student.id}`}
                                                 checked={!value.attendanceStatus}
                                                 onChange={() => handleChangeAttendanceStatus(value.attendanceId)}
                                                 value={false}
@@ -136,6 +143,9 @@ const ClassDetail = () => {
                                                 }}
                                             />
                                         </td>
+                                        {/* <td className='pl-0 pr-0 text-center' style={{width: "1px"}}>
+                                            {value.isChanged ? <span className='text-green-600'>v</span> : <span className='text-red-600'>x</span>}
+                                        </td> */}
                                     </tr>
                                 )
                             })}

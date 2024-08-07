@@ -59,6 +59,8 @@ const TeacherScheduleList = () => {
 
     useMemo(async () => {
         const res = await getAttendancesByTeacherId(user.userProfile.id, firstDate.toLocaleDateString("en-CA"), lastDate.toLocaleDateString("en-CA"));
+        console.log(res.data);
+        
         setSchedules(res.data);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [firstDate]);
@@ -137,6 +139,7 @@ const TeacherScheduleList = () => {
                                         {`${slot.startTime} -> ${slot.endTime}`}
                                     </td>
                                     {curr[0].map((value, index) => {
+                                        console.log(value);
                                         return (
                                             <td className={"text-sm"} key={index}>
                                                 {value
@@ -155,7 +158,8 @@ const TeacherScheduleList = () => {
                                                             }}
                                                             // target='_blank'
                                                             >
-                                                                {value.subject_code}
+                                                                {value.subject_code} <br/>
+                                                                {value.room_number}
                                                             </span>
                                                         </span>
                                                     </>)

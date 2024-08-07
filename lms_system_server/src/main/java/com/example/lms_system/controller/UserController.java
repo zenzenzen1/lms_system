@@ -33,6 +33,13 @@ public class UserController {
     //     return new String();
     // }
 
+    @GetMapping("/students/scheduleId/{scheduleId}")
+    public ApiResponse<Object> getStudentsByScheduleId(@PathVariable long scheduleId) {
+        return ApiResponse.<Object>builder()
+                .result(userService.getStudentsByScheduleId(scheduleId))
+                .build();
+    }
+
     @PutMapping
     public ApiResponse<UserResponse> updateUser(@RequestBody UserRequest userRequest) {
         return ApiResponse.<UserResponse>builder()

@@ -34,7 +34,7 @@ const Login = () => {
             return;
         }
         const interval = setInterval(async () => {
-            await verifyToken();
+            verifyToken();
         }, checkTokenInterval);
         localStorage.setItem('checkTokenInterval', interval);
         const userResponse = await getMyInfo();
@@ -74,6 +74,9 @@ const Login = () => {
 
     return (
         <>
+        <div>
+            
+        </div>
             <div>
 
                 <span className='text-red-400'>{error}</span>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { getKey } from '../../../services/localStorageService';
 import { Link, useNavigate } from 'react-router-dom';
@@ -37,8 +37,12 @@ const AdminPage = ({defaultContent}) => {
         setContent(<UserList />)
     }
     
+    verifyToken();
+    
     useEffect(() => {
         (async () => {
+            
+            
             try {
                 const [_slots, _subjects, _rooms] = await Promise.all([getAllSlots(), getAllSubjects(), getAllRooms()]);
                 dispatch(setSlots(_slots.data.result));
@@ -74,7 +78,7 @@ const AdminPage = ({defaultContent}) => {
                         </ul>
                     </div>
                     <div className='w-5/6'>
-                        {content || defaultContent}
+                        {content || defaultContent || <Scheduler />}
                     </div>
 
                 </div>

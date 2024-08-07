@@ -28,7 +28,8 @@ public class CourseService {
         var courses = courseRepository.findAll().stream()
                 .filter(course -> course.getSemester().getSemesterCode().equals(semesterCode))
                 .filter(t -> courseStudentRepository.findAll().stream()
-                        .filter(cs -> cs.getCourse().getCourseId() == t.getCourseId())
+                        .filter(cs -> cs.getStudent().getId().equals(studentId)
+                                && cs.getCourse().getCourseId() == t.getCourseId())
                         .findFirst()
                         .isPresent())
                 .collect(Collectors.toSet());

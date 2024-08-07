@@ -7,14 +7,20 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.3.2</version>
-        <relativePath /> <!-- lookup parent from repository -->
+        <relativePath />
+        <!-- lookup parent from repository -->
+
+        <!-- <groupId>com.example</groupId>
+        <artifactId>lms</artifactId>
+        <version>1.0-SNAPSHOT</version> -->
     </parent>
     <groupId>com.example</groupId>
     <artifactId>lms_system</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>lms_system</name>
-    <description>Demo project for Spring Boot</description>
-    <url />
+    <packaging>jar</packaging>
+    <url>https://maven.apache.org</url>
+
     <licenses>
         <license />
     </licenses>
@@ -51,18 +57,29 @@
             <artifactId>spring-kafka</artifactId>
         </dependency>
 
-
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>5.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.1.0</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <scope>runtime</scope>
+            <version>42.7.3</version>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
@@ -124,6 +141,11 @@
             <groupId>io.lettuce</groupId>
             <artifactId>lettuce-core</artifactId>
         </dependency>
+
+        <!-- <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency> -->
     </dependencies>
     <dependencyManagement>
         <dependencies>

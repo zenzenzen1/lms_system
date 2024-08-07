@@ -66,8 +66,9 @@ public class RedisService {
         hashOperations.put(key, field, value);
     }
 
-    public void set(String key, Object value) {
+    public void set(String key, Object value, long timeInSeconds) {
         redisTemplate.opsForValue().set(key, value);
+        redisTemplate.opsForValue().set(key, value, timeInSeconds, TimeUnit.SECONDS);
     }
 
     public void setTimeToLive(String key, long timeoutInDays) {

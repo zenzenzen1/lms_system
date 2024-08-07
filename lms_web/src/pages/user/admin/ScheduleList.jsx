@@ -1,5 +1,5 @@
 import { DataTable } from 'primereact/datatable';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { setSchedulesAction } from '../../../redux/action/ScheduleAction';
@@ -8,7 +8,7 @@ import { getStudentIdByScheduleId } from '../../../services/attendanceService';
 import ScheduleDetail from './ScheduleDetail';
 
 // eslint-disable-next-line react/prop-types
-const ScheduleList = ({ schedules = [] }) => {
+const ScheduleList = ({ schedules = [], _isScheduleList = true, _setIsScheduleList }) => {
     const { slots, subjects, rooms } = useSelector(state => state.schedule);
     // const [scheduleList, setScheduleList] = useState(useSelector(state => state.schedule.schedules))
     // const [scheduleList, setScheduleList] = useState(schedules);
@@ -50,23 +50,26 @@ const ScheduleList = ({ schedules = [] }) => {
     }
 
     const [scheduleSelected, setscheduleSelected] = useState(null);
-    const [isScheduleList, setIsScheduleList] = useState(true);
+    // const [isScheduleList, setIsScheduleList] = useState(_isScheduleList);
+    const [isScheduleList, setIsScheduleList] = [_isScheduleList, _setIsScheduleList];
     schedules = schedules.map((value, index) => {
         return {
             ...value,
             index: <Link
                 // to={"/user/admin/schedule-detail"} state={{ schedule: value }}
                 onClick={(e) => {
-                    console.log({scheduleSelected, isScheduleList});
+                    console.log({ scheduleSelected, isScheduleList });
                     setscheduleSelected(value);
                     setIsScheduleList(false);
-                    if(!isScheduleList){
+                    if (!isScheduleList) {
                         setIsScheduleList(true);
                         setscheduleSelected(null);
                     }
                 }}>{index + 1}</Link>
         }
     })
+    
+
     return (
         !isScheduleList && scheduleSelected ? <>
             <div>
@@ -77,6 +80,10 @@ const ScheduleList = ({ schedules = [] }) => {
             </div>
         </>
             : <div>
+                <div>
+                    
+
+                </div>
                 <DataTable value={schedules} tableStyle={{ minWidth: '50rem' }}
                     className='text-sm'
                     size='small'
@@ -101,15 +108,16 @@ const ScheduleList = ({ schedules = [] }) => {
                                 </Link>
                             </>)
                     }}></Column>
+                    <Column header="Instructor" body={(e) => e.course.teacher.id} />
                     <Column sortable field="trainingDate" body={(e) => {
                         return (<>{`${e.trainingDate.startDate} -> ${e.trainingDate.endDate}`}</>)
                     }} header="Training Date" ></Column>
                     <Column field="room" header="Room" body={(e) => { return (<>{e.room && `${e.room.roomNumber}`}</>) }}></Column>
-                    <Column sortable field="slot" header="Slot"
+                    <Column sortable field="slot.slotId" header="Slot"
                         // sortFunction={e => { console.log(e); }}
                         body={(e) => { return (<>{e.slot && `${e.slot.slotId}: ${e.slot.startTime} -> ${e.slot.endTime}`}</>) }}
                     ></Column>
-                    <Column header="Students Enrolled" body={StudentsEnrolledTemplate} />
+                    {/* <Column header="Students Enrolled" body={StudentsEnrolledTemplate} /> */}
                     {/* <Column field="teacher" header="Teacher" body={(e) => { return (<>{`${e.teacher.firstName} ${e.teacher.lastName}`}</>) }}></Column> */}
                     {/* <Column field="attendanceTaken" header="Attendance taken?"></Column> */}
                 </DataTable>

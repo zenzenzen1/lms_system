@@ -50,7 +50,8 @@ export const isValidToken = async () => {
   return response.data?.result?.valid;
 };
 
-export const verifyToken = () => {
+export const verifyToken = async () => {
+  console.log("Authenticating token...");
   isValidToken()
     .then((valid) => {
       if (!valid) {

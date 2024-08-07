@@ -6,7 +6,8 @@ export const getCoursesByStudentIdSemesterCode = async(studentId, semesterCode) 
     const res = httpClient.get(API.GET_COURSES_BY_STUDENTID_SEMESTERCODE, {
         params: {
             studentId: studentId,
-            semesterCode: semesterCode
+            semesterCode: semesterCode,
+            slotId: 0
         },
         headers: {
             Authorization: `Bearer ${getToken()}`

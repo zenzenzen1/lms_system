@@ -21,4 +21,10 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Long> {
                     "select cs.*, s.training_date, s.room_id, s.slot_id, s.subject_code, c.semester_code, c.course_id, c.teacher_id, su.subject_name from schedule s join course c on s.course_id = c.course_id join subject su on su.subject_code = c.subject_code join course_student cs on cs.course_id = c.course_id AND cs.student_id = ?1 and s.training_date >= ?2 AND s.training_date <= ?3",
             nativeQuery = true)
     Set<Map<String, Object>> getScheduleByTeacherId(String teacherId, LocalDate startDate, LocalDate endDate);
+
+    @Query(
+            value =
+                    "select exists(select  s.*, c.teacher_id, c.semester_code from schedule s join course c on s.course_id = c.course_id where slot_id = ?1 and semester_code = ?2 and c.teacher_id = ?3)",
+            nativeQuery = true)
+    boolean existsBySemesterTeacherIdRoomId(Long slotId, String semesterCode, String teacherId);
 }

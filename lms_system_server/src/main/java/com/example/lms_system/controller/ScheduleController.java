@@ -1,9 +1,12 @@
 package com.example.lms_system.controller;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Set;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.lms_system.dto.request.ScheduleRequest;
 import com.example.lms_system.entity.Room;
@@ -37,6 +41,16 @@ public class ScheduleController {
 
     @Autowired
     private final DateTimeFormatter dateTimeFormatter;
+
+    @PostMapping("/importFromExcel")
+    public Object importFromExcel(@RequestParam MultipartFile files) {
+        return scheduleService.importFromExcel(files);
+    }
+
+    @GetMapping("/export-to-excel")
+    public void exportIntoExcelFile(HttpServletResponse response) throws IOException {
+        scheduleService.exportIntoExcelFile(response);
+    }
 
     @GetMapping("/teacherId/{teacherId}")
     public Object getScheduleByTeacherId(

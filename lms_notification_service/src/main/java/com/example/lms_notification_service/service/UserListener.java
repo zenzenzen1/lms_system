@@ -12,7 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 @Slf4j
 public class UserListener {
-    @KafkaListener(groupId = "lms-notification-group", id = "create-user", topics = {"create-user"})
+    @KafkaListener(
+            groupId = "lms-notification-group",
+            id = "create-user",
+            topics = {"create-user"})
     public void listen(IdentityNotificationEvent event) {
         log.info("Received message from user service: {}", event);
     }

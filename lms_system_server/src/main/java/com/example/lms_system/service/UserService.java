@@ -2,6 +2,8 @@ package com.example.lms_system.service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -23,6 +25,12 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
     // private final IdentityClient identityClient;
+
+    public Set<UserResponse> getStudentsByScheduleId(long scheduleId) {
+        return userRepository.getStudentsByScheduleId(scheduleId).stream()
+                .map(userMapper::toUserResponse)
+                .collect(Collectors.toSet());
+    }
 
     public UserResponse updateUser(UserRequest userRequest) {
         var target = userMapper.toUser(userRequest);

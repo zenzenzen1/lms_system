@@ -7,6 +7,7 @@ export const getAttendancesByCourseId = async (courseId, studentId) => {
         params: {
             courseId: courseId,
             studentId,
+            slotId: 0
         },
         headers: {
             Authorization: `Bearer ${getToken()}`,

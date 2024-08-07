@@ -14,18 +14,17 @@ import lombok.extern.slf4j.Slf4j;
 public class MessageService {
     @SuppressWarnings("unused")
     private final EmailService emailService;
-    
+
     @KafkaListener(groupId = "lms-notification-group", id = "notification-message", topics = "notification-message")
     public void listen(MessageDTO messageDTO) {
         log.info("Received message: {}", messageDTO);
         emailService.sendEmail(messageDTO);
     }
-    
-    
+
     // @KafkaListener(topics = "create-schedule")
-    // public void listenCreateSchedule(ScheduleStudent scheduleStudent) { 
+    // public void listenCreateSchedule(ScheduleStudent scheduleStudent) {
     //     log.info("Received message from schedule service: {}", scheduleStudent);
     //     // emailService.sendEmail(messageDTO);
     // }
-    
+
 }

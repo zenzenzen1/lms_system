@@ -3,7 +3,6 @@ package com.example.lms_system.controller;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpHeaders;
@@ -27,10 +26,12 @@ import com.example.lms_system.entity.User;
 import com.example.lms_system.service.AttendanceService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(path = {"/attendances", "/attendances/"})
+@Slf4j
 public class AttendanceController {
 
     private final AttendanceService attendanceService;
@@ -42,13 +43,17 @@ public class AttendanceController {
     }
 
     @PutMapping(value = "/saveAll", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Set<Attendance> saveAllAttendance(@RequestBody AttendanceRequest attendanceRequests) {
+    public Object saveAllAttendance(@RequestBody AttendanceRequest attendanceRequests) {
         // return attendanceRequests;
+        log.info(
+                "size: {} - {}",
+                attendanceRequests.getAttendanceRequests().size(),
+                attendanceRequests.getAttendanceRequests());
         return attendanceService.saveAllAttendance(attendanceRequests.getAttendanceRequests());
     }
 
     @GetMapping("/scheduleId/{scheduleId}")
-    public Set<Attendance> getStudentsByScheduleId(@PathVariable Long scheduleId) {
+    public Object getStudentsByScheduleId(@PathVariable Long scheduleId) {
         return attendanceService.getStudentsByScheduleId(scheduleId);
     }
 

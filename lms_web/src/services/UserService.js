@@ -2,6 +2,15 @@ import { API } from "../configurations/configuration"
 import httpClient from "../configurations/httpClient"
 import { getToken } from "./localStorageService";
 
+export const getStudentsByScheduleId = async (scheduleId) => {
+  const res = await httpClient.get(`${API.GET_STUDENTS_BY_SCHEDULE_ID}/${scheduleId}`, {
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  }).catch(e => e);
+  return res;
+};
+
 export const insertUser = async (data) => {
   const user = await httpClient.post(API.REGISTER, data).catch((e) => e.message);
   return user;

@@ -12,7 +12,7 @@ const AttendanceStatus = () => {
     // const [numberOfAbsent, setNumberOfAbsent] = useState(0);
     const numberOfAbsent = useMemo(() => {
         let count = 0;
-        attendances.forEach((attendance) => {
+        attendances && attendances.forEach((attendance) => {
             if (attendance.attendanceStatus !== null && !attendance.attendanceStatus)
                 count++;
         })
@@ -94,7 +94,7 @@ const AttendanceStatus = () => {
             </div>
             
             <div className='col-md-9'>
-                {attendances.length !== 0 &&
+                {attendances && attendances.length !== 0 &&
                     <div>
                         <h4>Total: {attendances.length} results. Absent: {numberOfAbsent}/{attendances.length} <span className='text-red-400'>{`(${(numberOfAbsent/attendances.length * 100).toFixed(2)}%)`}</span></h4>
                         <Table hover>

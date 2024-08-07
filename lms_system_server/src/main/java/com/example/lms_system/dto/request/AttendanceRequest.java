@@ -1,6 +1,6 @@
 package com.example.lms_system.dto.request;
 
-import java.util.Set;
+import java.util.List;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -21,5 +21,5 @@ public class AttendanceRequest {
 
     String attendanceNote;
 
-    Set<AttendanceRequest> attendanceRequests;
+    List<AttendanceRequest> attendanceRequests;
 }

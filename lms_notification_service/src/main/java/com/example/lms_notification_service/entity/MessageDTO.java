@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MessageDTO implements Serializable{
+public class MessageDTO implements Serializable {
     private String to, toName, subject, content;
 }

@@ -56,7 +56,7 @@ const ScheduleList = () => {
     useMemo(async () => {
         const res = await getSchedulesByStudentId(user.userProfile.id, firstDate.toLocaleDateString("en-CA"), lastDate.toLocaleDateString("en-CA"));
         setSchedules(res.data);
-        console.log(res.data);
+        console.log(res.data); 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [firstDate]);
 
@@ -167,7 +167,7 @@ const ScheduleList = () => {
                                                         <br />
                                                         attendance: {value.attendance_status ? <><span className='text-green-500'>Attend</span></>
                                                             : <>
-                                                                {value.attendance_status === null ? <><span className='text-gray-700'>????</span></> : <><span className='text-red-500'>Absent</span></>}
+                                                                {value.attendance_status === null ? <><span className='text-gray-700 text-xl'>-</span></> : <><span className='text-red-500'>Absent</span></>}
                                                                 
                                                             </>}
                                                     </>)
