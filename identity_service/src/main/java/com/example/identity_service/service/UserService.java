@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.example.event.dto.NotificationEvent;
 import com.example.identity_service.dto.request.UserCreationRequest;
 import com.example.identity_service.dto.request.UserUpdateRequest;
+import com.example.identity_service.dto.response.UserProfileResponse;
 import com.example.identity_service.dto.response.UserResponse;
 import com.example.identity_service.entity.User;
 import com.example.identity_service.enums.Role;
@@ -48,12 +49,38 @@ public class UserService {
         return userRepository.existsByUsername(username);
     }
 
+    public List<UserProfileResponse> getUsersWithProfile() {
+        return userRepository.findAll().stream()
+                .map(user -> {
+                    var profile = lmsClient.getUserProfileByUserId(user.getId());
+                    return UserProfileResponse.builder()
+                            .id(profile.toString())
+                            .build();
+                })
+                .collect(Collectors.toList());
+    }
+
     public Set<UserResponse> getUsersByRole(String role) {
         return userRepository.findAll().stream()
-                .filter(user ->
-                        user.getRoles().stream().anyMatch(t -> t.getName().equalsIgnoreCase(role)))
+                .filter(user -> user.getRoles().stream().anyMatch(t -> t.getName().equalsIgnoreCase(role)))
                 .map(user -> userMapper.toUserResponse(user))
                 .collect(Collectors.toSet());
+    }
+
+    // @PostAuthorize(returnObject)
+    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_GET_ALL_USERS')")
+    public List<UserResponse> getIdentityUsers() {
+        return userRepository.findAll().stream()
+                .map(user -> userMapper.toUserResponse(user))
+                .collect(Collectors.toList());
+    }
+
+    // @PostAuthorize(returnObject)
+    // @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_GET_ALL_USERS')")
+    public List<User> getUsers() {
+        return userRepository.findAll();
     }
 
     public User createUser(UserCreationRequest request) {
@@ -93,13 +120,6 @@ public class UserService {
         kafkaTemplate.send("create-user", notificationEvent);
 
         return user;
-    }
-
-    // @PostAuthorize(returnObject)
-    // @PreAuthorize("hasRole('ADMIN')")
-    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_GET_ALL_USERS')")
-    public List<User> getUsers() {
-        return userRepository.findAll();
     }
 
     // @PostAuthorize("returnObject.username == authentication.name")

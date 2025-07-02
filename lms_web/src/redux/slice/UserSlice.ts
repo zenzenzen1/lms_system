@@ -1,32 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { UserResponseType } from "src/types/type";
 
-type userType = {
-    id: string,
-    username: string,
-    fullName: string,
-    email: string,
-    phoneNumber: string,
-    dob: string,
-    userId: string,
-    role: string[]
-}
-
-const initialState: userType = {
-    id: "",
-    fullName: "",
-    role: [],
-    email: "",
-    phoneNumber: "",
-    dob: "",
-    userId: "",
-    username: ""
-}
 
 export const userSlice = createSlice({
     name: "user",
-    initialState: initialState,
+    initialState: {} as UserResponseType,
     reducers: {
-        setUser: (state, action: {payload: userType}) => {
+        setUser: (state, action: {payload: UserResponseType}) => {
             // state.id = action.payload.id;
             // state.userId = action.payload.userId;
             // state.fullName = action.payload.fullName;

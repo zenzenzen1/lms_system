@@ -1,7 +1,6 @@
 saveSchedulesForStudentdefaultMessage: "You were added into a course"
 
 spring:
-    
     application:
         name: lms_notification_service
     data:
@@ -9,7 +8,7 @@ spring:
             database: notification
             host: ${MONGO_HOST:localhost}
             username: root
-            password: root
+            password: "123"
             port: 27017
             authentication-database: admin
     kafka:

@@ -26,6 +26,9 @@ export const store = configureStore({
             },
         }),
 });
-export const RootType = typeof store.getState;
+export type RootType = typeof store.getState;
+
+export type RootStateType = ReturnType<RootType>;
+
 
 export const persistor = persistStore(store);

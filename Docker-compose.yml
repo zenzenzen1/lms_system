@@ -39,13 +39,13 @@ services:
     mongo:
         hostname: mongo-host
         container_name: lms_mongo_db
-        image: mongo
+        image: bitnami/mongodb:latest
         restart: always
         ports:
             - '27017:27017'
         environment:
-            - MONGO_INITDB_ROOT_USERNAME=root
-            - MONGO_INITDB_ROOT_PASSWORD=root
+          - MONGODB_ROOT_USER=root
+          - MONGODB_ROOT_PASSWORD=123
         networks:
             - lms_network
     kafka:
@@ -65,9 +65,9 @@ services:
             - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
         networks:
             - lms_network
-    lms-system-service:
-        hostname: lms-system-service
-        container_name: lms_system_service
+    schedule-service:
+        hostname: schedule-service
+        container_name: lms_schedule_service
         build:
             # context: ./lms_system_server
             # dockerfile: Dockerfile
@@ -89,10 +89,11 @@ services:
             - SPRING_DATASOURCE_USERNAME=postgres
             - SPRING_DATASOURCE_PASSWORD=123
             - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
-            - IDENTITY_SERVICE=http://identity-service:8080/identity 
+            - IDENTITY_SERVICE=http://identity-service:8001/identity 
             - MONGO_HOST=mongo-host
         # command: cd lms_system_server
         command: mvn -f lms_system_server/pom.xml spring-boot:run -Dspring-boot.run.profiles=prod
+      
     identity_service:
         hostname: identity-service
         container_name: lms_identity_service
@@ -100,7 +101,7 @@ services:
             context: ./identity_service
             dockerfile: Dockerfile
         ports:
-            - "8080:8080"
+            - "8001:8001"
         networks:
             - lms_network
         depends_on:
@@ -122,25 +123,28 @@ services:
         ports:
             - "8090:8090"
         environment:
-            - IDENTITY_SERVICE=http://identity-service:8080/identity
+            - IDENTITY_SERVICE=http://identity-service:8001/identity
             - LMS_SERVICE=http://lms-system-service:8081/lms
         command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
         networks:
             - lms_network
-    # lms_notification_service:
-    #     hostname: lms-notification-service
-    #     container_name: lms-notification
-    #     build:
-    #         context: ./lms_notification_service
-    #         dockerfile: Dockerfile
-    #     ports:
-    #         - "8085:8085"
-    #     environment:
-    #         - MONGO_HOST=mongo-host
-    #         - KAFKA_HOST=kafka 
-    #     command: mvn spring-boot:run
-    #     networks:
-    #         - lms_network
+    lms_notification_service:
+        hostname: lms-notification-service
+        container_name: lms-notification
+        build:
+            context: ./lms_notification_service
+            dockerfile: Dockerfile
+        ports:
+            - "8085:8085"
+        environment:
+            - MONGO_HOST=mongo-host
+            - KAFKA_HOST=kafka 
+        command: mvn spring-boot:run -DskipTests
+        depends_on:
+            - mongo
+            - kafka
+        networks:
+            - lms_network
 networks:
     lms_network:
         driver: bridge

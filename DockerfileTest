@@ -38,5 +38,5 @@ COPY ./lms_system_server lms_system_server
 # FROM openjdk:8-alpine
 # WORKDIR /opt/app
 # COPY --from=builder /opt/app/target/my-1.0.0.jar .
-# EXPOSE 8080
+# EXPOSE 8001
 # CMD [ "java", "-jar", "/opt/app/my-1.0.0.jar" ]

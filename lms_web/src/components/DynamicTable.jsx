@@ -1,8 +1,6 @@
 import { DataTable } from 'primereact/datatable';
 
 import { Column } from 'primereact/column';
-import "primereact/resources/primereact.min.css";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
 import { useState } from 'react';
 import { FilterMatchMode } from 'primereact/api';
 import { InputText } from 'primereact/inputtext';

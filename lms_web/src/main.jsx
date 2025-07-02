@@ -1,25 +1,21 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-// import './index.css'
-
-import Tailwind from "primereact/passthrough/tailwind";
-
-// import "primereact/resources/themes/bootstrap4-light-blue/theme.css";
-import { PrimeReactProvider } from 'primereact/api';
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
-import "primeflex/primeflex.css";
-import { twMerge } from 'tailwind-merge';
+import App from './App'
+import './index.css'
+import { Provider } from 'react-redux'
+import { persistor, store } from './redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-  // <React.StrictMode>
-  //   <App />
-  // </React.StrictMode>
-    <PrimeReactProvider
-      // value={{ ptOptions: { mergeSections: true, mergeProps: true, classNameMergeFunction: twMerge } }}
-    >
-      <App />
-    </PrimeReactProvider>
+    // <React.StrictMode>
+    //   <App />
+    // </React.StrictMode>
+    // value={{ ptOptions: { mergeSections: true, mergeProps: true, classNameMergeFunction: twMerge } }}
+    <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+            <App />
+        </PersistGate>
+    </Provider>
+
 )

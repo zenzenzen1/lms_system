@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Configuration;
 
 import com.example.lms_notification_service.entity.Notification;
 import com.example.lms_notification_service.repository.NotificationRepository;
-import com.example.lms_system.entity.Attendance;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,11 +26,11 @@ public class AppInit {
                         .message("Test if mongodb is successed")
                         .createdAt(LocalDateTime.now())
                         .build());
-            Attendance attendance =
-                    Attendance.builder().attendanceId(0).attendanceNote("test").build();
-            log.error("Attendance: {}", attendance);
-            log.error(
-                    "if you see this message, dont worry, it means you imported lms_system_server service successfully");
+            // Attendance attendance =
+            //         Attendance.builder().attendanceId(0).attendanceNote("test").build();
+            // log.error("Attendance: {}", attendance);
+            // log.error(
+            //         "if you see this message, dont worry, it means you imported lms_system_server service successfully");
         };
     }
 }

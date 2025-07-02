@@ -5,6 +5,10 @@ target/
 !**/src/test/**/target/
 **/*.log
 
+/*example*/
+/*Example*/
+lms_system_server/
+
 ### STS ###
 .apt_generated
 .classpath

@@ -12,7 +12,6 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class MessageService {
-    @SuppressWarnings("unused")
     private final EmailService emailService;
 
     @KafkaListener(groupId = "lms-notification-group", id = "notification-message", topics = "notification-message")

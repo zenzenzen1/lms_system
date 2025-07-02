@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.2</version>
+		<version>3.5.3</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
@@ -81,22 +81,28 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
+        
+        <dependency>
+            <groupId>com.example</groupId>
+            <artifactId>common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
 
-		<dependency>
+		<!-- <dependency>
 			<groupId>com.example</groupId>
 			<artifactId>lms_system</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<!-- <scope>system</scope>
-			<systemPath>/root/.m2/repository/com/example/lms_system/0.0.1-SNAPSHOT/lms_system-0.0.1-SNAPSHOT.jar</systemPath> -->
+			<! <scope>system</scope>
+			<systemPath>/root/.m2/repository/com/example/lms_system/0.0.1-SNAPSHOT/lms_system-0.0.1-SNAPSHOT.jar</systemPath> >
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-data-mongodb</artifactId>
 				</exclusion>
-				<!-- <exclusion>
+				<! <exclusion>
 					<groupId>org.postgresql</groupId>
 					<artifactId>postgresql</artifactId>
-				</exclusion> -->
+				</exclusion> >
 				<exclusion>
 					<artifactId>lms_system</artifactId>
 					<groupId>org.springframework.boot</groupId>
@@ -122,7 +128,7 @@
 					<groupId>org.mapstruct</groupId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency> -->
 
 		<!-- <dependency>
 			<groupId>com.example</groupId>
@@ -165,7 +171,7 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!-- <plugin>
 				<groupId>com.diffplug.spotless</groupId>
 				<artifactId>spotless-maven-plugin</artifactId>
 				<version>${spotless.version}</version>
@@ -181,7 +187,6 @@
 						</indent>
 						<palantirJavaFormat />
 						<importOrder>
-							<!-- Specify either order or file, but not both -->
 							<order>java,jakarta,org,com,com.diffplug,</order>
 						</importOrder>
 					</java>
@@ -194,7 +199,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin> -->
 		</plugins>
 	</build>
 	<profiles>

@@ -108,8 +108,7 @@ public class AuthenticationService {
             String jti = signToken.getJWTClaimsSet().getJWTID();
             Date expiryTime = signToken.getJWTClaimsSet().getExpirationTime();
 
-            InvalidatedToken invalidatedToken =
-                    InvalidatedToken.builder().id(jti).expiryTime(expiryTime).build();
+            InvalidatedToken invalidatedToken = InvalidatedToken.builder().id(jti).expiryTime(expiryTime).build();
             invalidatedTokenRepository.save(invalidatedToken);
         } catch (AppException e) {
             log.warn("Token already expired");
@@ -167,14 +166,13 @@ public class AuthenticationService {
 
         var jti = signedJWT.getJWTClaimsSet().getJWTID();
         var expiryTime = signedJWT.getJWTClaimsSet().getExpirationTime();
-        InvalidatedToken invalidatedToken =
-                InvalidatedToken.builder().id(jti).expiryTime(expiryTime).build();
+        InvalidatedToken invalidatedToken = InvalidatedToken.builder().id(jti).expiryTime(expiryTime).build();
         invalidatedTokenRepository.save(invalidatedToken);
 
         var username = signedJWT.getJWTClaimsSet().getSubject();
         System.out.println(username);
-        var user =
-                userRepository.findByUsername(username).orElseThrow(() -> new AppException(ErrorCode.UNAUTHENTICATED));
+        var user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new AppException(ErrorCode.UNAUTHENTICATED));
         var token = generateToken(user);
         return AuthenticationResponse.builder()
                 .token(token)
@@ -191,21 +189,17 @@ public class AuthenticationService {
         // ? user.getRoles().stream().findFirst().get()
         // : user.getRoles().stream().reduce("", (prev, curr) -> prev + " " + curr);
 
-        return String.join(
-                " ",
-                user.getRoles().stream()
-                        .map(r -> {
-                            return r.getName()
-                                    + (CollectionUtils.isEmpty(r.getPermissions())
-                                            ? ""
-                                            : " "
-                                                    + String.join(
-                                                            " ",
-                                                            r.getPermissions().stream()
-                                                                    .map(p -> p.getName())
-                                                                    .toArray(String[]::new)));
-                        })
-                        .toArray(String[]::new));
+        return String.join(" ", user.getRoles().stream().map(r -> {
+            return r.getName() + (CollectionUtils.isEmpty(r.getPermissions())
+                    ? ""
+                    : " "
+                            + String.join(
+                                    " ",
+                                    r.getPermissions().stream()
+                                            .map(p -> p.getName())
+                                            .toArray(String[]::new)));
+        })
+                .toArray(String[]::new));
 
         // return "";
     }

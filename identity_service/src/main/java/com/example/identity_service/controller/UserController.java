@@ -3,8 +3,6 @@ package com.example.identity_service.controller;
 import java.util.List;
 import java.util.Set;
 
-import jakarta.validation.Valid;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,6 +20,7 @@ import com.example.identity_service.dto.response.UserResponse;
 import com.example.identity_service.entity.User;
 import com.example.identity_service.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +36,22 @@ public class UserController {
     // public Object getUserProfile(@PathVariable String userId) {
     //     return userProfileClient.getUserProfile(userId);
     // }
-
+    
+    // @GetMapping()
+    // public ApiResponse<List<UserResponse>> getIdentityUsers() {
+    //     return ApiResponse.<List<UserResponse>>builder()
+    //             .result(userService.getIdentityUsers())
+    //             .build();
+    // }
+    
+    @GetMapping("/profiles")
+    public ApiResponse<Object> getUsersWithProfile() {
+        return ApiResponse.<Object>builder()
+                .result("This is a placeholder for user profiles endpoint")
+                .build();
+    }
+    
+    
     @GetMapping("/existByUsername/{username}")
     public boolean existsByUsername(@PathVariable String username) {
         return userService.existsByUsername(username);

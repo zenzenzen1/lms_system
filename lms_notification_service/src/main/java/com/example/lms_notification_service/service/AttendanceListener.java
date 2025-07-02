@@ -13,10 +13,7 @@ import lombok.RequiredArgsConstructor;
 public class AttendanceListener {
     private final EmailService emailService;
 
-    @KafkaListener(
-            id = "send-attendance-status-email",
-            groupId = "lms-notification-group",
-            topics = "send-email-attendance-status")
+    @KafkaListener(id = "send-attendance-status-email", groupId = "lms-notification-group", topics = "send-email-attendance-status")
     public void sendAttendanceStatusEmail(AttendanceStatusNotification attendanceStatusNotification) {
         emailService.sendEmail(MessageDTO.builder()
                 .to(attendanceStatusNotification.getEmail())

@@ -1,0 +1,93 @@
+package com.example.schedule_service.controller;
+
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.schedule_service.entity.User;
+import com.example.schedule_service.entity.dto.request.UserRequest;
+import com.example.schedule_service.entity.dto.response.ApiResponse;
+import com.example.schedule_service.entity.dto.response.UserResponse;
+import com.example.schedule_service.service.UserService;
+
+import lombok.RequiredArgsConstructor;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping(path = {"/users", "/users/"})
+public class UserController {
+    private final UserService userService;
+
+    // @GetMapping("/course/{courseId}")
+    // public String getStudentsI(@PathVariable Long courseId) {
+    //     return new String();
+    // }
+
+    @GetMapping("/students/scheduleId/{scheduleId}")
+    public ApiResponse<Object> getStudentsByScheduleId(@PathVariable long scheduleId) {
+        return ApiResponse.<Object>builder()
+                .result(userService.getStudentsByScheduleId(scheduleId))
+                .build();
+    }
+
+    @PutMapping
+    public ApiResponse<UserResponse> updateUser(@RequestBody UserRequest userRequest) {
+        return ApiResponse.<UserResponse>builder()
+                .result(userService.updateUser(userRequest))
+                .build();
+    }
+
+    @PostMapping
+    public UserResponse insertUser(@RequestBody UserRequest userRequest) {
+        return userService.insertUser(userRequest);
+    }
+
+    @GetMapping
+    public ApiResponse<List<UserResponse>> getAllUser() {
+        return ApiResponse.<List<UserResponse>>builder()
+                .result(userService.getAllUser())
+                .build();
+    }
+
+    // @GetMapping({"/getUserByRole/{role}"})
+    // public ApiResponse<Object> getMethodName(@PathVariable String role) {
+    // return ApiResponse.<Object>builder()
+    // .result(userService.getUserByRole(role))
+    // .build();
+    // }
+
+    @GetMapping("/userId/{userId}")
+    public UserResponse getUserByUserId(@PathVariable String userId) {
+        return userService.getUserByUserId(userId);
+    }
+
+    @PostMapping("/deleteAllUsers")
+    public void postMethodName() {
+        userService.deleteAllUser();
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<Page<User>> getAttendances(
+            @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Page<User> userPage = userService.getUsers(page, size);
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("User-page-number", String.valueOf(userPage.getNumber()));
+        headers.add("User-page-size", String.valueOf(userPage.getSize()));
+        return ResponseEntity.ok().headers(headers).body(userPage);
+    }
+
+    @GetMapping("/details")
+    public ResponseEntity<User> getUserDetails(@RequestParam String id) {
+        return ResponseEntity.ok(userService.findById(id));
+    }
+}

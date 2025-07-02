@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+    db_test:
+      container_name: lms_postgres_db_test
+      image: postgres
+      restart: always
+      environment:
+          - POSTGRES_USER=postgres
+          - POSTGRES_PASSWORD=123
+          # - POSTGRES_DB=testdb
+      ports:
+          - '5440:5432'
+      volumes:
+          - ./sql/initdb_test.sql:/docker-entrypoint-initdb.d/init-script.sql
+          

@@ -42,7 +42,7 @@ spring:
   #             - email
   #             - profile : OISUFOEIFUEOIFUOIEUFOIEUFOEIUF
 server:
-  port: 8080
+  port: 8001
   servlet:
     context-path: /identity
   error: 
@@ -53,11 +53,11 @@ server:
 jwt:
   signerKey: "erBbQWxtozTCcuxiDMgfAlp0xI22EoEGRVhLZMt3N9WTCbbYpPPfYDOstWVUSEqN"
   issuer: "zenzen1"
-  valid-duration: 3000 # seconds
-  refreshable-duration: 4500 # seconds
+  valid-duration: 18000 # seconds
+  refreshable-duration: 36000 # seconds
 app:
   services:
-    lms: ${LMS_SERVICE:http://localhost:8081/lms}
+    lms: ${SCHEDULE_SERVICE:http://localhost:8086/lms_schedule_service}
     # lms: http://lms-system-service:8081/lms
   redis:
     # redis-host: ${REDIS_HOST:127.0.0.1}

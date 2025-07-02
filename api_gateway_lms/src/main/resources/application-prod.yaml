@@ -3,7 +3,7 @@
 
 app:
   api-prefix: /api/v1
-  identityUrl: ${IDENTITY_SERVICE:http://localhost:8080/identity}
+  identityUrl: ${IDENTITY_SERVICE:http://localhost:8001/identity}
 
 server:
   port: 8090

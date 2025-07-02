@@ -20,10 +20,7 @@ public class ScheduleListener {
     @Value("${saveSchedulesForStudentdefaultMessage}")
     private String saveSchedulesForStudentdefaultMessage;
 
-    @KafkaListener(
-            groupId = "lms-notification-group",
-            id = "create-schedule",
-            topics = {"create-schedule"})
+    @KafkaListener(groupId = "lms-notification-group", id = "create-schedule", topics = { "create-schedule" })
     public void listen(ScheduleStudent scheduleStudent) {
         notificationRepository.save(Notification.builder()
                 .createdAt(scheduleStudent.getCreatedAt())

@@ -1,0 +1,69 @@
+package com.example.schedule_service.service;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+
+import com.example.schedule_service.entity.Room;
+import com.example.schedule_service.entity.dto.response.RoomResponse;
+import com.example.schedule_service.repository.RoomRepository;
+
+import lombok.RequiredArgsConstructor;
+
+@RequiredArgsConstructor
+@Service
+public class RoomService {
+
+    private final RoomRepository roomRepository;
+
+    public void saveRoom(Room room) {
+        roomRepository.save(room);
+    }
+
+    public Room findById(Long id) {
+        return roomRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Room not found"));
+    }
+
+    public void deleteById(Long id) {
+        roomRepository.deleteById(id);
+    }
+
+    private Pageable createPageRequest(int page, int size) {
+        return PageRequest.of(page, size);
+    }
+
+    public Page<Room> getRooms(int page, int size) {
+        List<Room> rooms = roomRepository.findAll();
+
+        Pageable pageRequest = createPageRequest(page, size);
+
+        int start = (int) pageRequest.getOffset();
+        int end = Math.min((start + pageRequest.getPageSize()), rooms.size());
+
+        List<Room> pageContent = rooms.subList(start, end);
+        return new PageImpl<>(pageContent, pageRequest, rooms.size());
+    }
+
+    public List<Room> getRoomListFromPage(int page, int size) {
+        Pageable pageRequest = createPageRequest(page, size);
+        Page<Room> rooms = roomRepository.findAll(pageRequest);
+
+        return rooms.hasContent() ? rooms.getContent() : Collections.emptyList();
+    }
+
+    public Set<RoomResponse> getAllRooms() {
+        return roomRepository.findAll().stream()
+                .map(room -> RoomResponse.builder()
+                        .roomId(room.getRoomId())
+                        .roomNumber(room.getRoomNumber())
+                        .build())
+                .collect(Collectors.toSet());
+    }
+}
