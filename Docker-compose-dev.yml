@@ -1,19 +1,45 @@
 version: '3.8'
 services:
-    db:
-        container_name: lms_postgres_db
+    nexus:
+      image: sonatype/nexus3
+      ports:
+        - "9081:8081"   # Nexus web UI
+        - "9082:8082"   
+      environment:
+        INSTALL4J_ADD_VM_PARAMS: "-Xms512m -Xmx1024m -XX:MaxDirectMemorySize=2G -Djava.util.prefs.userRoot=/nexus-data/javaprefs"
+        NEXUS_SECURITY_RANDOMPASSWORD: false
+      healthcheck:
+        test: ["CMD", "curl", "-f", "http://localhost:9081"]
+        interval: 30s
+        timeout: 10s
+        retries: 10
+    #   volumes:
+    #     - ./nexus-data:/nexus-data
+    identity-service-db:
         image: postgres
         restart: always
         environment:
             - POSTGRES_USER=postgres
             - POSTGRES_PASSWORD=123
         ports:
-            - '5432:5432'
+            - '5500:5432'
         volumes:
-            - ./sql/initdb.sql:/docker-entrypoint-initdb.d/init-script.sql
+            - ./sql/identity_service_initdb.sql:/docker-entrypoint-initdb.d/init-script.sql
         networks:
             - lms_network
-    pgadmin_service:
+    schedule-service-db:
+        image: postgres
+        restart: always
+        environment:
+            - POSTGRES_USER=postgres
+            - POSTGRES_PASSWORD=123
+        ports:
+            - '5501:5432'
+        volumes:
+            - ./sql/schedule_service_initdb.sql:/docker-entrypoint-initdb.d/init-script.sql
+        networks:
+            - lms_network
+    pgadmin-service:
         image: dpage/pgadmin4
         restart: always
         environment:
@@ -22,10 +48,11 @@ services:
         ports:
             - "8070:80"
         depends_on:
-            - db
+            - identity-service-db
+            - schedule-service-db
         networks:
             - lms_network
-    redis_service:
+    redis-service:
         hostname: redis-host
         image: redis:7.2.5
         container_name: lms_redis_service
@@ -60,7 +87,7 @@ services:
             - KAFKA_CFG_PROCESS_ROLES=controller,broker
             - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=0@kafka:9093
             - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
-            - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
+            - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://kafka:9094
             - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
             - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
         networks:
@@ -69,30 +96,30 @@ services:
         hostname: schedule-service
         container_name: lms_schedule_service
         build:
-            # context: ./lms_system_server
-            # dockerfile: Dockerfile
-            context: .
-            dockerfile: DockerfileTest
+            context: ./schedule_service
+            dockerfile: Dockerfile
+            # context: .
+            # dockerfile: DockerfileTest
         ports:
-            - "8081:8081"
-            - "8085:8085"
+            # - "8081:8081"
+            - "8086:8086"
         networks:
             - lms_network
         depends_on:
-            - db
-            - redis_service
+            - schedule-service-db
+            - redis-service
+            - identity_service
         environment:
             - REDIS_HOST=redis-host
             - REDIS_PORT=6379
             - KAFKA_HOST=kafka:9094
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/lms_system
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://schedule-service-db:5432/schedule_service
             - SPRING_DATASOURCE_USERNAME=postgres
             - SPRING_DATASOURCE_PASSWORD=123
             - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
-            - IDENTITY_SERVICE=http://identity-service:8001/identity 
+            - IDENTITY_SERVICE=http://identity-service:8001/identity
             - MONGO_HOST=mongo-host
-        # command: cd lms_system_server
-        command: mvn -f lms_system_server/pom.xml spring-boot:run -Dspring-boot.run.profiles=prod
+        # command: mvn -f lms_system_server/pom.xml spring-boot:run -Dspring-boot.run.profiles=prod
       
     identity_service:
         hostname: identity-service
@@ -105,15 +132,17 @@ services:
         networks:
             - lms_network
         depends_on:
-            - db
-            - redis_service
+            - identity-service-db
+            - redis-service
         environment:
-            - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/lms_identity_service
+            - LMS_SCHEDULE_SERVICE=http://schedule-service:8086/lms_schedule_service
+            - REDIS_HOST=redis-host
+            - REDIS_PORT=6379
+            - SPRING_DATASOURCE_URL=jdbc:postgresql://identity-service-db:5432/lms_identity_service
             - SPRING_DATASOURCE_USERNAME=postgres
             - SPRING_DATASOURCE_PASSWORD=123
             - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
-            - LMS_SERVICE=http://lms-system-service:8081/lms
-        command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
+        # command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
     api_gateway:
         hostname: api-gateway
         container_name: api_gateway
@@ -124,7 +153,12 @@ services:
             - "8090:8090"
         environment:
             - IDENTITY_SERVICE=http://identity-service:8001/identity
-            - LMS_SERVICE=http://lms-system-service:8081/lms
+            - NOTIFICATION_SERVICE=http://lms-notification-service:8085/notification
+            - LMS_SCHEDULE_SERVICE=http://schedule-service:8086/lms_schedule_service
+        depends_on:
+            - identity_service
+            - schedule-service
+            - lms_notification_service
         command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
         networks:
             - lms_network
@@ -137,12 +171,35 @@ services:
         ports:
             - "8085:8085"
         environment:
+            # - NEXUS_URL=http://nexus:8081/repository/maven-public/
             - MONGO_HOST=mongo-host
-            - KAFKA_HOST=kafka 
-        command: mvn spring-boot:run -DskipTests
+            - MONGO_USERNAME=root
+            - MONGO_PASSWORD=123
+            - MONGO_PORT=27017
+            - KAFKA_HOST=kafka:9094
+        # command: mvn spring-boot:run -DskipTests
         depends_on:
             - mongo
             - kafka
+            - nexus
+        networks:
+            - lms_network
+    lms_web:
+        build:
+            context: ./lms_web
+            dockerfile: dev.Dockerfile
+            # args:
+            #     - VITE_API_GATEWAY_URL=http://api-gateway:8090/api/v1
+            #     - VITE_FIREBASE_API_KEY="AIzaSyB2YO8qiqCJpO1RswmujgFP_WwENhTSUWY"
+        environment:
+            # - VITE_API_GATEWAY_URL=http://api-gateway:8090/api/v1
+            - VITE_API_GATEWAY_URL=http://localhost:8090/api/v1
+            - VITE_FIREBASE_API_KEY=AIzaSyB2YO8qiqCJpO1RswmujgFP_WwENhTSUWY
+        ports:
+            - "5175:5175"
+        depends_on:
+            - api_gateway
+        # command: npm run dev
         networks:
             - lms_network
 networks:

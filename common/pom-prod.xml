@@ -32,13 +32,13 @@
         <repository>
             <id>nexus-releases</id>
             <name>maven-releases</name>
-            <url>http://localhost:9081/repository/maven-releases/</url>
+            <url>https://nexus-lms.azurewebsites.net/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
             <name>maven-snapshots</name>
-            <url>http://localhost:9081/repository/maven-snapshots/</url>
+            <url>https://nexus-lms.azurewebsites.net/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
-    
+
 </project>

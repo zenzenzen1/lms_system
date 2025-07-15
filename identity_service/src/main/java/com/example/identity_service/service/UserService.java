@@ -13,7 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.event.dto.NotificationEvent;
+import com.example.event.IdentityNotification;
 import com.example.identity_service.dto.request.UserCreationRequest;
 import com.example.identity_service.dto.request.UserUpdateRequest;
 import com.example.identity_service.dto.response.UserProfileResponse;
@@ -111,7 +111,7 @@ public class UserService {
         var userProfile = lmsClient.createUserProfile(profileRequest);
         log.info("User profile: {}", userProfile);
 
-        NotificationEvent notificationEvent = NotificationEvent.builder()
+        IdentityNotification notificationEvent = IdentityNotification.builder()
                 .channel("channel1")
                 .receiver(user.getId())
                 .subject("welcome")

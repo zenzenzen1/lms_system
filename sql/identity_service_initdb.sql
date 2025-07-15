@@ -1,0 +1,1 @@
+create DATABASE "lms_identity_service";

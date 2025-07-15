@@ -9,7 +9,7 @@ spring:
       # value-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   datasource:
-    url: "${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/lms_identity_service}"
+    url: "${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5500/lms_identity_service}"
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:123}
   jpa: 
@@ -57,11 +57,9 @@ jwt:
   refreshable-duration: 36000 # seconds
 app:
   services:
-    lms: ${SCHEDULE_SERVICE:http://localhost:8086/lms_schedule_service}
+    lms: ${LMS_SCHEDULE_SERVICE:http://localhost:8086/lms_schedule_service}
     # lms: http://lms-system-service:8081/lms
   redis:
-    # redis-host: ${REDIS_HOST:127.0.0.1}
-    # redis-port: ${REDIS_PORT:6379}
-    redis-host: "127.0.0.1"
-    redis-port: 6379
+    redis-host: ${REDIS_HOST:127.0.0.1}
+    redis-port: ${REDIS_PORT:6379}
     

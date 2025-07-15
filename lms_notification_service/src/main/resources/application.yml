@@ -7,9 +7,9 @@ spring:
         mongodb:
             database: notification
             host: ${MONGO_HOST:localhost}
-            username: root
-            password: "123"
-            port: 27017
+            username: ${MONGO_USERNAME:root}
+            password: ${MONGO_PASSWORD:123}
+            port: ${MONGO_PORT:27017}
             authentication-database: admin
     kafka:
         bootstrap-servers: ${KAFKA_HOST:localhost:9094}

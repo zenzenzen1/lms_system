@@ -20,6 +20,12 @@ spring:
             - Path=${app.api-prefix}/identity/**
           filters:
             - StripPrefix=2
+        - id: lms_schedule_service
+          uri: ${SCHEDULE_SERVICE}
+          predicates:
+            - Path=${app.api-prefix}/lms_schedule_service/**
+          filters:
+            - StripPrefix=2
         - id: lms
           uri: ${LMS_SERVICE}
           predicates:

@@ -1,1 +1,37 @@
+### Maven
 target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+.repository/
+.flattened-pom.xml
+
+### Gradle
+build/
+.gradle/
+
+### IDE related files
+.idea/
+.vscode/
+*.iml
+.project
+.classpath
+.settings/
+
+### Git related files
+.git/
+.gitignore
+
+### OS generated files
+.DS_Store
+Thumbs.db
+
+### Logs
+*.log
+logs/
+
+### Other
+tmp/
+*.jar.original

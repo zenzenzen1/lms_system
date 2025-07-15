@@ -62,12 +62,12 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
         </dependency>
-        <dependency>
+        <!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
-		</dependency>
+		</dependency> -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -94,83 +94,22 @@
             <version>1.0-SNAPSHOT</version>
         </dependency>
 
-        <!-- <dependency>
-			<groupId>com.example</groupId>
-			<artifactId>lms_system</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-			<! <scope>system</scope>
-        <systemPath>/root/.m2/repository/com/example/lms_system/0.0.1-SNAPSHOT/lms_system-0.0.1-SNAPSHOT.jar</systemPath>
-        >
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-data-mongodb</artifactId>
-				</exclusion>
-				<! <exclusion>
-					<groupId>org.postgresql</groupId>
-					<artifactId>postgresql</artifactId>
-				</exclusion> >
-				<exclusion>
-					<artifactId>lms_system</artifactId>
-					<groupId>org.springframework.boot</groupId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.projectlombok</groupId>
-					<artifactId>lombok</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>redis.clients</groupId>
-					<artifactId>jedis</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.springframework.data</groupId>
-					<artifactId>spring-data-redis</artifactId>
-				</exclusion>
-				<exclusion>
-					<artifactId>lms_system</artifactId>
-					<groupId>org.mapstruct</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency> -->
-
-        <!-- <dependency>
-			<groupId>com.example</groupId>
-			<artifactId>lms-system</artifactId>
-			<version>1.0</version>
-		</dependency> -->
     </dependencies>
     <!-- <repositories>
         <repository>
-            <id>nexus-snapshots</id>
-            <url>http://localhost:9081/repository/maven-public/</url>
+            <id>nexus</id>
+            <url>https://nexus-lms.azurewebsites.net/repository/maven-public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </repositories> -->
 
     <build>
-        <!-- <defaultGoal>install</defaultGoal> -->
-
         <plugins>
-            <!-- <plugin>
-				<groupId>com.example</groupId>
-				<artifactId>lms_system</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-				<executions>
-					<execution>
-						<phase>deploy</phase>
-						<goals>
-							<goal>compiler</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<goalPrefix>plugin</goalPrefix>
-					<outputDirectory>target/dir</outputDirectory>
-				</configuration>
-			</plugin> -->
 
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -184,35 +123,6 @@
                     </excludes>
                 </configuration>
             </plugin>
-            <!-- <plugin>
-				<groupId>com.diffplug.spotless</groupId>
-				<artifactId>spotless-maven-plugin</artifactId>
-				<version>${spotless.version}</version>
-				<configuration>
-					<java>
-						<removeUnusedImports />
-						<toggleOffOn />
-						<trimTrailingWhitespace />
-						<endWithNewline />
-						<indent>
-							<tabs>true</tabs>
-							<spacesPerTab>4</spacesPerTab>
-						</indent>
-						<palantirJavaFormat />
-						<importOrder>
-							<order>java,jakarta,org,com,com.diffplug,</order>
-						</importOrder>
-					</java>
-				</configuration>
-				<executions>
-					<execution>
-						<phase>compile</phase>
-						<goals>
-							<goal>apply</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin> -->
         </plugins>
     </build>
     <profiles>
@@ -238,35 +148,6 @@
                     </plugin>
                 </plugins>
             </build>
-        </profile>
-        <profile>
-
-            <id>itTest</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-failsafe-plugin</artifactId>
-                        <version>2.22.2</version>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>integration-test</goal>
-                                    <goal>verify</goal>
-                                </goals>
-                                <configuration>
-                                    <includes>
-                                        <include>**/*IT.java</include>
-                                    </includes>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
         </profile>
     </profiles>
 

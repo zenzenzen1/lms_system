@@ -80,7 +80,6 @@ const Login = () => {
 
     return (<>
         <div>
-            <span className='text-red-400'>{error}</span>
             <ToastContainer
                 draggable
             />
@@ -108,15 +107,16 @@ const Login = () => {
                                 const res = await login(values.username, values.password);
                                 if (res.data.code != 1000) {
                                     setError(res.data.message);
+                                    setLoading(false);
                                     return;
                                 }
-                                const interval = setInterval(async () => {
-                                    verifyToken();
-                                }, checkTokenInterval);
-                                localStorage.setItem('checkTokenInterval', interval);
-                                const userResponse = await getMyInfo();
-                                const _user = userResponse.data.result;
-                                const user = { ..._user, roles: _user.roles.map(role => role.name), permissions: _user.roles.map(p => [...p.permissions]) };
+                                    const interval = setInterval(async () => {
+                                        verifyToken();
+                                    }, checkTokenInterval);
+                                    localStorage.setItem('checkTokenInterval', interval);
+                                    const userResponse = await getMyInfo();
+                                    const _user = userResponse.data.result;
+                                    const user = { ..._user, roles: _user.roles.map(role => role.name), permissions: _user.roles.map(p => [...p.permissions]) };
                                 console.log(user);
     
                                 dispatch(setUser(user))
@@ -149,6 +149,7 @@ const Login = () => {
                                         <a href="pages-reset-password.html">Quên mật khẩu?</a>
                                     </small> */}
                                 </div>
+                                <span className='text-red-400'>{error}</span>
                                 <div className="text-center mt-3">
                                     {/* <a href="index.html" className="btn btn-lg btn-primary">Sign in</a> */}
                                     <button disabled={loading} type="submit" className="btn btn-lg btn-primary"

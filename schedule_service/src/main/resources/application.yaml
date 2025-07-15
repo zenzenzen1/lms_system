@@ -12,12 +12,9 @@ spring:
   application:
     name: schedule_service
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/lms_system}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5501/schedule_service}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:123}
-    # url: jdbc:postgresql://localhost:5432/lms_system
-    # username: postgres
-    # password: 123
   jpa: 
     hibernate: 
       ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}

@@ -162,7 +162,32 @@ public class AppInit {
                 }
             }
             // var users = List.of(teacher, student);
-            
+            var fall25 = semesters.stream()
+                    .filter(s -> s.getSemesterCode().equals("FA25"))
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("Fall 2025 semester not found"));
+            var courses = List.of(
+                    Course.builder()
+                            .subject(subjects.get(0))
+                            .semester(fall25)
+                            .teacher(teacher)
+                            .build(),
+                    Course.builder()
+                            .subject(subjects.get(1))
+                            .semester(fall25)
+                            .teacher(teacher)
+                            .build(),
+                    Course.builder()
+                            .subject(subjects.get(2))
+                            .semester(fall25)
+                            .teacher(teacher)
+                            .build(),
+                    Course.builder()
+                            .subject(subjects.get(3))
+                            .semester(fall25)
+                            .teacher(teacher)
+                            .build());
+            courseRepository.saveAll(courses);
             for (int i = 0; i < 20; i++) {
                 try {
                     if (identityClient.existsByUsername(("user" + i))) {
@@ -195,32 +220,7 @@ public class AppInit {
             // .course(courses.get(0))
             // .student(student)
             // .build()));
-            var fall25 = semesters.stream()
-                    .filter(s -> s.getSemesterCode().equals("FA25"))
-                    .findFirst()
-                    .orElseThrow(() -> new RuntimeException("Fall 2025 semester not found"));
-            var courses = List.of(
-                    Course.builder()
-                            .subject(subjects.get(0))
-                            .semester(fall25)
-                            .teacher(teacher)
-                            .build(),
-                    Course.builder()
-                            .subject(subjects.get(1))
-                            .semester(fall25)
-                            .teacher(teacher)
-                            .build(),
-                    Course.builder()
-                            .subject(subjects.get(2))
-                            .semester(fall25)
-                            .teacher(teacher)
-                            .build(),
-                    Course.builder()
-                            .subject(subjects.get(3))
-                            .semester(fall25)
-                            .teacher(teacher)
-                            .build());
-            courseRepository.saveAll(courses);
+            
 
             // var courseStudents = List.of(
             // CourseStudent.builder()
