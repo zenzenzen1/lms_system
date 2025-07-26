@@ -6,6 +6,9 @@ import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
+import org.testcontainers.containers.PostgreSQLContainer;
+import org.testcontainers.junit.jupiter.Container;
 
 import com.example.schedule_service.base.BaseContainerTest;
 import com.example.schedule_service.entity.Schedule;
@@ -30,6 +33,12 @@ public class ScheduleServiceTest extends BaseContainerTest{
     @Autowired private UserRepository userRepository;
     @Autowired private CourseStudentRepository courseStudentRepository;
     @Autowired private AttendanceRepository attendanceRepository;
+    
+    @Container @ServiceConnection
+    @SuppressWarnings("resource")
+    static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:latest")
+            .withInitScript("sql/initdb_test.sql")
+    ;
     
     @Test
     void test_saveSchedule_shouldSuccess() throws IdNotFoundException{

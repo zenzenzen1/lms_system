@@ -1,3 +1,9 @@
+-- Create sequences for auto-generated IDs with increment size of 50 to match Hibernate's default
+CREATE SEQUENCE IF NOT EXISTS schedule_seq START 1 INCREMENT 50;
+CREATE SEQUENCE IF NOT EXISTS course_seq START 1 INCREMENT 50;
+CREATE SEQUENCE IF NOT EXISTS attendance_seq START 1 INCREMENT 50;
+CREATE SEQUENCE IF NOT EXISTS slot_seq START 1 INCREMENT 50;
+
 -- public."class" definition
 
 -- Drop table

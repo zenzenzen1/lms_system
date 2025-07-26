@@ -92,7 +92,7 @@ const ScheduleList = ({ schedules = [], _isScheduleList = true, _setIsScheduleLi
         <>
             <ToastContainer />
             <div className='relative'>
-                <Button label="Thêm mới" icon="pi pi-plus" severity="success" className=" btn-lg ml-2 w-28! px-2!" onClick={() => { setShowDialog(true) }} />
+                <Button label="Create" icon="pi pi-plus" severity="success" className=" btn-lg ml-2 w-28! px-2!" onClick={() => { setShowDialog(true) }} />
                 <Button label="Excel" icon="pi pi-file-excel" className=" btn btn-success btn-lg ml-2 w-28!" />
                 {/* <Button  className='absolute border-green-700 right-10 before:bg-green-50'>
                     <Link target='_self' to={user.roles.includes("ADMIN") && CONFIG.API_GATEWAY + API.EXPORT_TO_EXCEL_SCHEDULES} onClick={() => {

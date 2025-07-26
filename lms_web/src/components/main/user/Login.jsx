@@ -86,7 +86,7 @@ const Login = () => {
             <div className="w-full  flex justify-center h-full items-center">
                 <div className="bg-white max-md:w-xl md:p-10 md:w-2xl h-fit lg:p-6 lg:w-xl max-md:p-10  max-sm:p-5 shadow-lg mb-11">
                     <div className="text-center">
-                        <h3>Đăng Nhập</h3>
+                        <h3>Login</h3>
                     </div>
                     <Formik
                         validationSchema={Yup.object({
