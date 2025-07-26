@@ -1,6 +1,17 @@
 version: '3.8'
 services:
+    jenkins:
+      image: jenkins/jenkins:2.516.1-lts
+      container_name: jenkins
+      ports:
+        - "8181:8080"  # Web UI
+        - "50009:50000"  # Agent communication
+      # volumes:
+      #   - jenkins_home:/var/jenkins_home
+      restart: always
     nexus:
+      container_name: nexus
+      hostname: nexus
       image: sonatype/nexus3
       ports:
         - "9081:8081"   # Nexus web UI
@@ -13,6 +24,9 @@ services:
         interval: 30s
         timeout: 10s
         retries: 10
+      networks:
+          - lms_network
+      restart: always
     #   volumes:
     #     - ./nexus-data:/nexus-data
     identity-service-db:
@@ -92,14 +106,33 @@ services:
             - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
         networks:
             - lms_network
+    kafka-dev:
+        image: 'bitnami/kafka:3.7.0'
+        container_name: kafka_dev
+        hostname: kafka
+        ports:
+            - '9095:9095'
+        restart: always
+        environment:
+            - KAFKA_CFG_NODE_ID=1
+            - KAFKA_CFG_PROCESS_ROLES=controller,broker
+            - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+            - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9095
+            - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092,EXTERNAL://localhost:9095
+            - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,EXTERNAL:PLAINTEXT,PLAINTEXT:PLAINTEXT
+            - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+        networks:
+            - lms_network
     schedule-service:
         hostname: schedule-service
         container_name: lms_schedule_service
         build:
-            context: ./schedule_service
-            dockerfile: Dockerfile
+            context: .
+            dockerfile: ./schedule_service/Dockerfile
             # context: .
             # dockerfile: DockerfileTest
+            args:
+              - NEXUS_URL=http://192.168.1.137:9081/repository/maven-public/
         ports:
             # - "8081:8081"
             - "8086:8086"
@@ -108,7 +141,6 @@ services:
         depends_on:
             - schedule-service-db
             - redis-service
-            - identity_service
         environment:
             - REDIS_HOST=redis-host
             - REDIS_PORT=6379
@@ -116,7 +148,7 @@ services:
             - SPRING_DATASOURCE_URL=jdbc:postgresql://schedule-service-db:5432/schedule_service
             - SPRING_DATASOURCE_USERNAME=postgres
             - SPRING_DATASOURCE_PASSWORD=123
-            - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+            - SPRING_JPA_HIBERNATE_DDL_AUTO=update
             - IDENTITY_SERVICE=http://identity-service:8001/identity
             - MONGO_HOST=mongo-host
         # command: mvn -f lms_system_server/pom.xml spring-boot:run -Dspring-boot.run.profiles=prod
@@ -125,8 +157,10 @@ services:
         hostname: identity-service
         container_name: lms_identity_service
         build:
-            context: ./identity_service
-            dockerfile: Dockerfile
+            context: .
+            dockerfile: ./identity_service/Dockerfile
+            args:
+              - NEXUS_URL=http://192.168.1.137:9081/repository/maven-public/
         ports:
             - "8001:8001"
         networks:
@@ -135,13 +169,14 @@ services:
             - identity-service-db
             - redis-service
         environment:
+            - KAFKA_HOST=kafka:9094
             - LMS_SCHEDULE_SERVICE=http://schedule-service:8086/lms_schedule_service
             - REDIS_HOST=redis-host
             - REDIS_PORT=6379
             - SPRING_DATASOURCE_URL=jdbc:postgresql://identity-service-db:5432/lms_identity_service
             - SPRING_DATASOURCE_USERNAME=postgres
             - SPRING_DATASOURCE_PASSWORD=123
-            - SPRING_JPA_HIBERNATE_DDL_AUTO=create-drop
+            - SPRING_JPA_HIBERNATE_DDL_AUTO=update
         # command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
     api_gateway:
         hostname: api-gateway
@@ -149,6 +184,8 @@ services:
         build:
             context: ./api_gateway_lms
             dockerfile: Dockerfile
+            args:
+              - APP_VERSION=0.0.1-SNAPSHOT
         ports:
             - "8090:8090"
         environment:
@@ -159,15 +196,17 @@ services:
             - identity_service
             - schedule-service
             - lms_notification_service
-        command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
+        # command: mvn spring-boot:run -Dspring-boot.run.profiles=prod
         networks:
             - lms_network
     lms_notification_service:
         hostname: lms-notification-service
         container_name: lms-notification
         build:
-            context: ./lms_notification_service
-            dockerfile: Dockerfile
+            context: .
+            dockerfile: ./lms_notification_service/Dockerfile
+            args:
+              - NEXUS_URL=http://192.168.1.137:9081/repository/maven-public/
         ports:
             - "8085:8085"
         environment:
@@ -187,19 +226,17 @@ services:
     lms_web:
         build:
             context: ./lms_web
-            dockerfile: dev.Dockerfile
-            # args:
-            #     - VITE_API_GATEWAY_URL=http://api-gateway:8090/api/v1
-            #     - VITE_FIREBASE_API_KEY="AIzaSyB2YO8qiqCJpO1RswmujgFP_WwENhTSUWY"
-        environment:
-            # - VITE_API_GATEWAY_URL=http://api-gateway:8090/api/v1
-            - VITE_API_GATEWAY_URL=http://localhost:8090/api/v1
-            - VITE_FIREBASE_API_KEY=AIzaSyB2YO8qiqCJpO1RswmujgFP_WwENhTSUWY
+            dockerfile: Dockerfile
+            args:
+                - VITE_API_GATEWAY_URL=http://localhost:8090/api/v1
+                - VITE_FIREBASE_API_KEY="AIzaSyB2YO8qiqCJpO1RswmujgFP_WwENhTSUWY"
+        # environment:
+        #     - VITE_API_GATEWAY_URL=http://localhost:8090/api/v1
+        #     - VITE_FIREBASE_API_KEY=AIzaSyB2YO8qiqCJpO1RswmujgFP_WwENhTSUWY
         ports:
-            - "5175:5175"
-        depends_on:
-            - api_gateway
-        # command: npm run dev
+            - "5175:80"
+        # depends_on:
+        #     - api_gateway
         networks:
             - lms_network
 networks:

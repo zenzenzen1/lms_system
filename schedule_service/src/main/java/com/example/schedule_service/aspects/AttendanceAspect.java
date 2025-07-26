@@ -28,7 +28,6 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class AttendanceAspect {
     private final KafkaTemplate<String, Object> kafkaTemplate;
-
     private final RedisTemplate<String, Object> redisTemplate;
 
     private final AttendanceService attendanceService;
@@ -56,7 +55,7 @@ public class AttendanceAspect {
         return result;
     }
 
-    @Async
+    @Async("asyncTaskExecutor")
     @AfterReturning(
             pointcut = "execution(* com.example.lms_system.controller.AttendanceController.saveAllAttendance(..))",
             returning = "result")

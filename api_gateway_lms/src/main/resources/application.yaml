@@ -3,7 +3,7 @@
 
 app:
   api-prefix: /api/v1
-  identityUrl: http://localhost:8001/identity
+  identityUrl: ${IDENTITY_SERVICE:http://localhost:8001/identity}
 
 server:
   port: 8090
@@ -36,3 +36,31 @@ spring:
                 - Path=${app.api-prefix}/notification/**
               filters:
                 - StripPrefix=2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    health:
+      show-details: always
+
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+    config-url: /v3/api-docs/swagger-config
+    disable-swagger-default-url: true
+    urls:
+      - url: /v3/api-docs/identity_service
+        name: Identity Service
+      - url: /v3/api-docs/lms_schedule_service  
+        name: Schedule Service
+      - url: /v3/api-docs/notification_service
+        name: Notification Service
+      - url: /v3/api-docs
+        name: API Gateway

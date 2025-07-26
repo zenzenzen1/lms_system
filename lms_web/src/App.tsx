@@ -83,6 +83,7 @@ function App() {
                     <Route path="/user-table" element={<UserTable />} />
                     <Route path='/album-table' element={<AlbumTable />} />
                     <Route path='/user/login' element={<Login />} />
+                    <Route path='/' element={<Login />} />
                     {/* <Route path='/user/profile' element={<UserProfile />} /> */}
                     {user && user.roles && user.roles.includes("ADMIN") && (
                         <Route path={urlRolePrefix.admin} element={<AdminPage />} >

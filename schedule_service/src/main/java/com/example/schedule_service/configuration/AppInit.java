@@ -46,7 +46,7 @@ public class AppInit {
      * Initialization methods for application startup.
      */
     @Bean
-    @Profile("!test")
+    @Profile("dev")
     CommandLineRunner commandLineRunner(
             CourseRepository courseRepository,
             SemesterRepository semesterRepository,
@@ -161,6 +161,27 @@ public class AppInit {
                     }
                 }
             }
+            for (int i = 0; i < 20; i++) {
+                try {
+                    if (identityClient.existsByUsername(("user" + i))) {
+                        UserResponse user = identityClient.getUserByUsername("user" + i);
+                        userRepository.save(User.builder()
+                                .fullName("user" + i)
+                                .email("email" + i + "@gmail.com")
+                                .userId(user.getId())
+                                .build());
+                        continue;
+                    }
+                    identityClient.createUser(UserCreationRequest.builder()
+                            .username("user" + i)
+                            .password("user" + i)
+                            .fullName("user" + i)
+                            .email("email" + i + "@gmail.com")
+                            .build());
+
+                } catch (Exception e) {
+                }
+            }
             // var users = List.of(teacher, student);
             var fall25 = semesters.stream()
                     .filter(s -> s.getSemesterCode().equals("FA25"))
@@ -188,33 +209,6 @@ public class AppInit {
                             .teacher(teacher)
                             .build());
             courseRepository.saveAll(courses);
-            for (int i = 0; i < 20; i++) {
-                try {
-                    if (identityClient.existsByUsername(("user" + i))) {
-                        UserResponse user = identityClient.getUserByUsername("user" + i);
-                        userRepository.save(User.builder()
-                                .fullName("user" + i)
-                                .email("email" + i + "@gmail.com")
-                                .userId(user.getId())
-                                .build());
-                        continue;
-                    }
-                    identityClient.createUser(UserCreationRequest.builder()
-                            .username("user" + i)
-                            .password("user" + i)
-                            .fullName("user" + i)
-                            .email("email" + i + "@gmail.com")
-                            .build());
-
-                } catch (Exception e) {
-                    // UserResponse user = identityClient.getUserByUsername("user" + i);
-                    // userRepository.save(User.builder()
-                    // .fullName("user" + i)
-                    // .email("email" + i + "@gmail.com")
-                    // .userId(user.getId())
-                    // .build());
-                }
-            }
 
             // student.setCourseStudents(Set.of(CourseStudent.builder()
             // .course(courses.get(0))

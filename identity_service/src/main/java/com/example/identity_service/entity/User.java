@@ -20,12 +20,9 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 // import com.example.identity_service.enums.Role;
 
-@Entity
-@Data
-@Getter
-@Setter
-@RequiredArgsConstructor
+@Data @Getter @Setter @RequiredArgsConstructor
 @Table(name = "users")
+@Entity 
 @Builder
 @AllArgsConstructor
 // @NoArgsConstructor

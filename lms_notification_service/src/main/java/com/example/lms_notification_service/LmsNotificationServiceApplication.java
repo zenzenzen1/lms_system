@@ -43,4 +43,6 @@ public class LmsNotificationServiceApplication {
 
         SpringApplication.run(LmsNotificationServiceApplication.class, args);
     }
+    
+    
 }

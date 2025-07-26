@@ -13,6 +13,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 import redis.clients.jedis.Jedis;
 
 @Configuration
+// @Profile("!test")
 public class RedisConfig {
 
     @Value("${app.redis.redis-host}")
