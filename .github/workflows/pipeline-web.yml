@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - ci/pipeline
+      - main
     paths:
       - lms_web/**
       - .github/workflows/pipeline-web.yml

@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - ci/pipeline
+      - main
     paths:
       - schedule_service/**
       - .github/workflows/pipeline-schedule-service.yml
