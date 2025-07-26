@@ -27,4 +27,19 @@ public class RoomServiceTest extends BaseContainerTest {
         var rooms = roomService.getAllRooms();
         assertEquals(3, rooms.size());
     }
+    
+    @Test
+    void getRoomById_shouldReturnRoom() {
+        var room = roomService.findById(1L);
+        assertEquals("AL-R301", room.getRoomNumber());
+    }
+    
+    @Test
+    void getRoomById_shouldThrowExceptionWhenRoomNotFound() {
+        try {
+            roomService.findById(999_999L);
+        } catch (IllegalArgumentException e) {
+            assertEquals("Room not found", e.getMessage());
+        }
+    }
 }
