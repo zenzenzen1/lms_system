@@ -12,7 +12,8 @@ spring:
             port: ${MONGO_PORT:27017}
             authentication-database: admin
     kafka:
-        bootstrap-servers: ${KAFKA_HOST:localhost:9094}
+        bootstrap-servers: 
+            - ${KAFKA_HOST:localhost:9095}
         consumer:   
             group-id: lms-notification-group
             key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

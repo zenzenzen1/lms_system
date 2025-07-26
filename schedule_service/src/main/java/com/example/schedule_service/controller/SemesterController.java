@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,15 +48,8 @@ public class SemesterController {
         return ResponseEntity.ok(semesterService.findById(id));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Semester> addSemester(
-            @RequestParam String id,
-            @RequestParam LocalDate startDate,
-            @RequestParam LocalDate endDate,
-            @RequestParam(defaultValue = "") String description) {
-        if (semesterService.findById(id) != null)
-            return ResponseEntity.badRequest().build();
-        Semester semester = new Semester(id, startDate, endDate, description);
+    @PostMapping()
+    public ResponseEntity<Semester> addSemester(@RequestBody Semester semester) {
         semesterService.saveSemester(semester);
         return new ResponseEntity<>(semester, HttpStatus.OK);
     }

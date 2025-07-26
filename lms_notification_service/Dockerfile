@@ -1,16 +1,20 @@
 # Stage 1: build
-FROM maven:3.9.8-sapmachine-22 as build
+FROM maven:3.9.8-sapmachine-22 AS build
 WORKDIR /app/lms_notification_service
-COPY . .
-COPY ./settings.xml /root/.m2/settings.xml
-RUN mvn -s ./settings.xml -f ./pom-prod.xml install -DskipTests
+ARG NEXUS_URL="http://localhost:9081/repository/maven-public/"
+COPY  lms_notification_service/ .
+COPY ../settings.xml /root/.m2/settings.xml
+RUN mvn -f ./pom-prod.xml install -DskipTests
 
 # Stage 2: run
 FROM eclipse-temurin:17-jdk-alpine
 WORKDIR /app
-COPY --from=build /app/lms_notification_service/target/lms_notification_service-0.0.1-SNAPSHOT.jar ./app.jar
+ARG APP_VERSION=0.0.1-SNAPSHOT
+COPY --from=build /app/lms_notification_service/target/lms_notification_service-${APP_VERSION}.jar /app/
 EXPOSE 8085
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENV ACTIVE_PROFILE=dev
+ENV JAR_VERSION=${APP_VERSION}
+ENTRYPOINT ["sh", "-c", "java -jar -Dspring.profiles.active=$ACTIVE_PROFILE /app/lms_notification_service-${JAR_VERSION}.jar"]
 
 
 

@@ -1,4 +1,4 @@
-FROM node:22.16-bookworm as build-stage
+FROM node:22-alpine AS build-stage
 WORKDIR /app
 # ARG VITE_FIREBASE_API_KEY
 # ARG VITE_API_GATEWAY_URL

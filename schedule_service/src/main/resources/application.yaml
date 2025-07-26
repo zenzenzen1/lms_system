@@ -9,6 +9,8 @@ app:
     ttl_student_schedule: 300 # seconds
 
 spring:
+  profiles:
+    active: ${ACTIVE_PROFILE:dev}
   application:
     name: schedule_service
   datasource:
@@ -22,9 +24,9 @@ spring:
     properties: 
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
-        '[format_sql]': false
+        '[format_sql]': saveSchedulesForStudentdefaultMessage
   kafka:
-    bootstrap-servers: ${KAFKA_HOST:localhost:9094}
+    bootstrap-servers: ${KAFKA_HOST:localhost:9095}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       # value-serializer: org.apache.kafka.common.serialization.StringSerializer

@@ -1,0 +1,82 @@
+name: lms schedule service API pipeline
+
+on:
+  push:
+    branches:
+      - ci/pipeline
+    paths:
+      - schedule_service/**
+      - .github/workflows/pipeline-schedule-service.yml
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    name: Compile project
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 17
+        uses: actions/setup-jdk@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Compile project
+        run: |
+          cd schedule_service
+          ./mvnw clean compile
+  test:
+    runs-on: ubuntu-latest
+    name: Run tests
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 17
+        uses: actions/setup-jdk@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Run tests
+        run: |
+          cd schedule_service
+          ./mvnw clean test
+  build:
+    runs-on: ubuntu-latest
+    name: Build project
+    needs: [compile, test]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 17
+        uses: actions/setup-jdk@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Build project
+        run: |
+          cd schedule_service
+          ./mvnw clean package
+  build-image:
+    runs-on: ubuntu-latest
+    name: Build Docker image
+    needs: [build]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up JDK 17
+        uses: actions/setup-jdk@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Extract version
+        id: extract_version
+        run: |
+          cd schedule_service
+          echo VERSION=$(./mvnw -q -Dexec.executable='echo' -Dexec.args='${project.version}' --non-recursive exec:exec) >> $GITHUB_OUTPUT
+      
