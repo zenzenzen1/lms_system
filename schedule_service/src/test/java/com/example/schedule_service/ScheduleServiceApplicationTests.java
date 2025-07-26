@@ -1,13 +1,13 @@
-// package com.example.schedule_service;
+package com.example.schedule_service;
 
-// import org.junit.jupiter.api.Test;
-// import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
 
-// @SpringBootTest
-// class ScheduleServiceApplicationTests {
+@SpringBootTest
+class ScheduleServiceApplicationTests {
 
-// 	@Test
-// 	void contextLoads() {
-// 	}
+	@Test
+	void contextLoads() {
+	}
 
-// }
+}

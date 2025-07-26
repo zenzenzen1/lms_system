@@ -1,9 +1,11 @@
 
 spring:
+  profiles:
+    active: ${ACTIVE_PROFILE:dev}
   application:
     name: lms_identity_service
   kafka:
-    bootstrap-servers: localhost:9094
+    bootstrap-servers: ${KAFKA_HOST:localhost:9095}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       # value-serializer: org.apache.kafka.common.serialization.StringSerializer

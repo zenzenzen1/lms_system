@@ -7,6 +7,7 @@ import java.util.Set;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -28,6 +29,7 @@ public class ApplicationInitConfig {
     private final PasswordEncoder passwordEncoder;
 
     @Bean
+    @Profile("!test")
     ApplicationRunner applicationRunner(
             UserRepository userRepository,
             RoleRepository roleRepository,

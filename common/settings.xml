@@ -1,32 +1,33 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 https://maven.apache.org/xsd/settings-1.0.0.xsd">
-    <!-- <mirrors>
+    <mirrors>
         <mirror>
             <id>central</id>
-            <mirrorOf>*</mirrorOf>
+            <name>Maven Central</name>
             <url>https://repo.maven.apache.org/maven2</url>
+            <mirrorOf>central</mirrorOf>
         </mirror>
         <mirror>
             <id>nexus</id>
-            <mirrorOf>nexus</mirrorOf>
-            <url>https://nexus-lms.azurewebsites.net/repository/maven-public/</url>
             <name>Nexus Repository</name>
+            <url>${NEXUS_URL}</url>
+            <mirrorOf>nexus</mirrorOf>
         </mirror>
-    </mirrors> -->
+    </mirrors>
     <profiles>
         <profile>
             <id>nexus</id>
             <repositories>
-                <repository>
+                 <repository>
                     <id>central</id>
                     <name>Central Repository</name>
                     <url>https://repo.maven.apache.org/maven2</url>
-                    <layout>default</layout>
                 </repository>
                 <repository>
                     <id>nexus</id>
-                    <url>https://nexus-lms.azurewebsites.net/repository/maven-public/</url>
+                    <!-- <url>https://nexus-lms.azurewebsites.net/repository/maven-public/</url> -->
+                    <url>${NEXUS_URL}</url>
                     <releases><enabled>true</enabled></releases>
                     <snapshots><enabled>true</enabled></snapshots>
                 </repository>

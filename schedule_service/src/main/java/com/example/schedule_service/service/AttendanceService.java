@@ -12,6 +12,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.schedule_service.entity.Attendance;
 import com.example.schedule_service.entity.Schedule;
@@ -109,7 +112,8 @@ public class AttendanceService {
         // return scheduleRepository.getScheduleByTeacherId(teacherId, startate,
         // endDate);
     }
-
+    
+    @Transactional(readOnly = true)
     public List<AttendanceResponse> getStudentsByScheduleId(long scheduleId) {
         // return attendanceRepository.findAll().stream()
         // .filter(a -> a.getSchedule().getScheduleId() == scheduleId)
@@ -120,7 +124,8 @@ public class AttendanceService {
                 .stream().map(a -> attendanceMapper.toAttendanceResponse(a))
                 .toList();
     }
-
+    
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
     public List<AttendanceResponse> saveAllAttendance(List<AttendanceRequest> attendance) {
         return attendanceRepository
                 .saveAll(attendance.stream()
