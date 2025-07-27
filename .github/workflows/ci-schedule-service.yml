@@ -1,13 +1,13 @@
-name: lms schedule service API pipeline
+name: lms schedule service ci pipeline
 
 on:
   push:
     branches:
-      - cidemo
+      - test
       - main
     paths:
       - schedule_service/**
-      - .github/workflows/pipeline-schedule-service.yml
+      - .github/workflows/ci-schedule-service.yml
 jobs:
   compile:
     runs-on: ubuntu-latest

@@ -8,7 +8,7 @@ import { AttendanceType } from 'src/types/type';
 import { getStudentIdByScheduleId, saveAttendances } from '../../../../services/attendanceService';
 import { verifyToken } from '../../../../services/authenticationService';
 
-// eslint-disable-next-line react/prop-types
+//
 const ClassDetail = () => {
     verifyToken();
     const location = useLocation();

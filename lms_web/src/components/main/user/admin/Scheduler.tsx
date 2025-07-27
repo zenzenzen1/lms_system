@@ -39,7 +39,7 @@ const validationSchema = Yup.object().shape({
 interface ChildFormProps {
     formikRef: React.RefObject<FormikProps<ScheduleRequestType>>;
 }
-// eslint-disable-next-line react/prop-types
+//
 const Scheduler = ({ formikRef }: ChildFormProps) => {
     const [show, setShow] = useState(false);
     const [slots, setSlots] = useState<SlotType[]>([]);

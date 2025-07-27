@@ -8,7 +8,7 @@ import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import Button from 'react-bootstrap/esm/Button';
 
-// eslint-disable-next-line react/prop-types
+//
 const ScheduleDetail = ({ schedule = {} }) => {
     // const location = useLocation();
     // const schedule = location.state.schedule;
