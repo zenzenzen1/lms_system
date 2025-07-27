@@ -8,6 +8,13 @@ on:
     paths:
       - schedule_service/**
       - .github/workflows/ci-schedule-service.yml
+  pull_request: 
+    branches:
+      - test
+      - main
+    paths:
+      - schedule_service/**
+      - .github/workflows/ci-schedule-service.yml
 jobs:
   compile:
     runs-on: ubuntu-latest
