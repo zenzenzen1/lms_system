@@ -5,6 +5,7 @@ on:
     branches:
       - test
       - main
+      - dev
     paths:
       - schedule_service/**
       - .github/workflows/ci-schedule-service.yml
