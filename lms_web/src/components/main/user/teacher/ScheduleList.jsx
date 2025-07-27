@@ -54,7 +54,7 @@ const TeacherScheduleList = () => {
             firstMonday.setDate(firstMonday.getDate() + 7);
         }
         return _weeks;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        
     }, [firstMondayOfYear, year]);
 
     useMemo(async () => {

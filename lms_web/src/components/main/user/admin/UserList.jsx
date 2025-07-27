@@ -25,7 +25,6 @@ const UserList = () => {
         return () => {
             
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [navigate])
     console.log(users);
     return (

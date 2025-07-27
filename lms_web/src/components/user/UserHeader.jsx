@@ -10,7 +10,6 @@ const UserHeader = () => {
         
     }
     return (
-        // eslint-disable-next-line react/prop-types
         <div>
             <header className='bg-slate-200 shadow-md '>
 

@@ -5,7 +5,6 @@ import { TeacherSidebarTabs } from 'src/configurations/common/sidebar';
 import Header from 'src/components/common/Header';
 import { verifyToken } from '../../../../services/authenticationService';
 
-// eslint-disable-next-line react/prop-types
 const TeacherPage = ({ defaultContent = null }) => {
     const navigate = useNavigate();
     const [showSideBar, setShowSideBar] = useState(true);

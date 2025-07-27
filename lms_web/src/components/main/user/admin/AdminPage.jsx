@@ -17,7 +17,7 @@ import {adminSidebarTabs} from "../../../../configurations/common/sidebar";
 import SideBar from '../../../common/SideBar';
 import Header from '../../../common/Header';
 
-// eslint-disable-next-line react/prop-types
+//
 const AdminPage = ({ defaultContent }) => {
     const [menu, setMenu] = useState({
         user: false,

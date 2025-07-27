@@ -2,7 +2,6 @@ name: lms web pipeline
 on:
   push:
     branches:
-      - cidemo
       - main
     paths:
       - lms_web/**

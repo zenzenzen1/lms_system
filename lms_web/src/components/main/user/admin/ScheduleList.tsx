@@ -12,7 +12,7 @@ import { Dialog } from 'primereact/dialog';
 import Scheduler from './Scheduler';
 import type { FormikProps } from 'formik';
 
-// eslint-disable-next-line react/prop-types
+//
 const ScheduleList = ({ schedules = [], _isScheduleList = true, _setIsScheduleList }) => {
     const { slots, subjects, rooms } = useSelector(state => state.schedule);
     // const [scheduleList, setScheduleList] = useState(useSelector(state => state.schedule.schedules))

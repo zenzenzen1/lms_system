@@ -1,0 +1,31 @@
+name: test lint web application
+
+on:
+  push:
+    branches:
+      - test
+      - main
+    paths:
+      - lms_web/**
+      - .github/workflows/ci-web.yml
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    name: Run lint checks
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.x'
+      - name: Install dependencies
+        run: |
+          cd lms_web
+          npm ci
+          npm run lint
+          npm run build
+
+        

@@ -49,7 +49,7 @@ const ScheduleList = () => {
             firstMonday.setDate(firstMonday.getDate() + 7);
         }
         return _weeks;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        
     }, [year, firstMondayOfYear]);
     useMemo(async () => {
         const res = await getSchedulesByStudentId(user.userProfile.id, firstDate.toLocaleDateString("en-CA"), lastDate.toLocaleDateString("en-CA"));

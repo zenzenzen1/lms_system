@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useRef, useState } from 'react';
 import { Toast } from 'primereact/toast';
 import { FileUpload } from 'primereact/fileupload';
