@@ -1,11 +1,17 @@
 name: lms web pipeline
 on:
-  push:
+#   push:
+#     branches:
+#       - main
+#     paths:
+#       - lms_web/**
+#       - .github/workflows/cd-web.yml
+  pull_request:
     branches:
       - main
     paths:
       - lms_web/**
-      - .github/workflows/pipeline-web.yml
+      - .github/workflows/cd-web.yml
 jobs:
   build:
     name: Build docker image
@@ -39,3 +45,4 @@ jobs:
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/lms_web:${{ steps.extract_version.outputs.VERSION }}
           build-args:
             VITE_API_GATEWAY_URL=http://localhost:8090/api/v1
+

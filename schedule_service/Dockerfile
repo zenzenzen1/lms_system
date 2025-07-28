@@ -1,14 +1,17 @@
 # Stage 1: build
 FROM maven:3.9.8-sapmachine-22 AS build
 WORKDIR /app/schedule_service
+
 ARG NEXUS_URL="http://localhost:9081/repository/maven-public/"
+COPY ../common/settings.xml /root/.m2/settings.xml
+
 COPY schedule_service/ .
 # COPY ./settings.xml /root/.m2/settings.xml
-COPY ../common/settings.xml /root/.m2/settings.xml
-RUN mvn  install -DskipTests
+COPY ../common /app/common
+RUN cd /app/common && mvn clean install -DskipTests && cd /app/schedule_service && mvn install -DskipTests
 
 # Stage 2: run
-FROM eclipse-temurin:17-jdk-alpine
+FROM amazoncorretto:17-alpine
 ARG PROFILE=dev
 ARG APP_VERSION=0.0.1-SNAPSHOT
 
