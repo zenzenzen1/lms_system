@@ -131,8 +131,8 @@ services:
             dockerfile: ./schedule_service/Dockerfile
             # context: .
             # dockerfile: DockerfileTest
-            args:
-              - NEXUS_URL=http://192.168.1.137:9081/repository/maven-public/
+            # args:
+            #   - NEXUS_URL=http://192.168.1.137:9081/repository/maven-public/
         ports:
             # - "8081:8081"
             - "8086:8086"
