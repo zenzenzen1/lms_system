@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - test
-      - main
       - dev
     paths:
       - lms_web/**
@@ -12,7 +11,6 @@ on:
   pull_request: 
     branches:
       - test
-      - main
     paths:
       - lms_web/**
       - .github/workflows/ci-web.yml

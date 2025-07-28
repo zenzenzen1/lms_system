@@ -5,7 +5,13 @@ on:
       - main
     paths:
       - lms_web/**
-      - .github/workflows/pipeline-web.yml
+      - .github/workflows/cd-web.yml
+  pull_request:
+    branches:
+      - main
+    paths:
+      - lms_web/**
+      - .github/workflows/cd-web.yml
 jobs:
   build:
     name: Build docker image
