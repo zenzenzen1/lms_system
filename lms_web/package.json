@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.6",
+    "@stomp/stompjs": "^7.1.1",
     "@tailwindcss/vite": "^4.1.10",
     "axios": "^1.9.0",
     "bootstrap": "^5.3.3",
@@ -34,6 +35,7 @@
     "react-toastify": "^11.0.5",
     "react-transition-group": "^4.4.5",
     "redux-persist": "^6.0.0",
+    "sockjs-client": "^1.6.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss": "^4.1.10",
     "yup": "^1.6.1"
@@ -43,6 +45,7 @@
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
     "@types/redux-persist": "^4.3.1",
+    "@types/sockjs-client": "^1.5.4",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "eslint": "^8.57.0",
     "eslint-plugin-eslint-comments": "^3.2.0",

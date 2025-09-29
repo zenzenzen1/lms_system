@@ -1,30 +1,65 @@
-# spring.application.name=api_gateway
-# server.port=8082
-
 app:
   api-prefix: /api/v1
-  identityUrl: ${IDENTITY_SERVICE:http://localhost:8001/identity}
+  identityUrl: ${IDENTITY_SERVICE:http://LMS-IDENTITY-SERVICE}
+#   identityUrl: ${IDENTITY_SERVICE:http://localhost:8001/identity}
 
 server:
   port: 8090
 
+# spring:
+#   application:
+#     name: api_gateway
+#   cloud:
+#     gateway:
+#       discovery:
+#         locator:
+#           enabled: true
+#       routes:
+#         - id: identity_service
+#           uri: lb://LMS_IDENTITY_SERVICE
+#           predicates:
+#             - Path=${app.api-prefix}/identity/**
+#           filters:
+#             - StripPrefix=1
+#         - id: lms_schedule_service
+#           uri: ${LMS_SCHEDULE_SERVICE:lb:http://LMS_SCHEDULE_SERVICE/lms_schedule_service}
+#           predicates:
+#             - Path=${app.api-prefix}/lms_schedule_service/**
+#           filters:
+#             - StripPrefix=2
+#         - id: notification_service
+#           uri: ${NOTIFICATION_SERVICE:lb:http://LMS_NOTIFICATION_SERVICE/notification}
+#           predicates:
+#             - Path=${app.api-prefix}/notification/**
+#           filters:
+#             - StripPrefix=2
+          
+    
 spring:
   application:
     name: api_gateway
+  config:
+    import: optional:configserver:http://localhost:8101
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: false
+          lower-case-service-id: true
       server:
         webflux:
           routes:
             - id: identity_service
-              uri: ${IDENTITY_SERVICE:http://localhost:8001/identity}
+            #   uri: ${IDENTITY_SERVICE:http://localhost:8001/identity}
+              uri: ${IDENTITY_SERVICE:lb:http://LMS-IDENTITY-SERVICE}
               predicates:
                 - Path=${app.api-prefix}/identity/**
               filters:
                 - StripPrefix=2
 
             - id: lms_schedule_service
-              uri: ${LMS_SCHEDULE_SERVICE:http://localhost:8086/lms_schedule_service}
+              uri: ${LMS_SCHEDULE_SERVICE:lb:http://SCHEDULE-SERVICE}
+            #   uri: ${LMS_SCHEDULE_SERVICE:http://localhost:8086/lms_schedule_service}
               predicates:
                 - Path=${app.api-prefix}/lms_schedule_service/**
               filters:
@@ -41,7 +76,8 @@ management:
   endpoints:
     web:
       exposure:
-        include: health,info,gateway
+        # include: health,info,gateway
+        include: "*"
   endpoint:
     health:
       show-details: always

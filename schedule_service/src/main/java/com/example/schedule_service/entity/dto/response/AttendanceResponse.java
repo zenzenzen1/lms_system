@@ -18,7 +18,8 @@ public class AttendanceResponse {
     Long attendanceId;
     Boolean attendanceStatus;
     String attendanceNote;
-    UserResponse student;
+    // UserResponse student;
+    String studentId;
     
     Schedule schedule;
 }

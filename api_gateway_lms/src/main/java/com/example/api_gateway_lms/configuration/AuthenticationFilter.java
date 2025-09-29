@@ -12,7 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.server.ServerWebExchange;
 
 import com.example.api_gateway_lms.dto.response.ApiResponse;
@@ -35,26 +34,26 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             "/lms/schedules/export-to-excel",
             "/identity/auth/token",
             "/identity/auth/introspect",
-            "/identity/auth/google", 
+            "/identity/auth/google",
             "/identity/users/registration",
     };
-    
+
     @Value("${app.api-prefix}")
     private String apiPrefix;
-    
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         log.info("AuthenticationFilter ... path: {}", exchange.getRequest().getURI().getPath());
-        
-        if(isPublicEndpoint(exchange.getRequest())) {
+
+        if (isPublicEndpoint(exchange.getRequest())) {
             return chain.filter(exchange);
         }
-        
+
         // Get token from authorization header
         List<String> authHeader = exchange.getRequest().getHeaders().get(HttpHeaders.AUTHORIZATION);
-        if (CollectionUtils.isEmpty(authHeader)) {
-            return unauthenticated(exchange.getResponse());
-        }
+        // if (CollectionUtils.isEmpty(authHeader)) {
+        //     return unauthenticated(exchange.getResponse());
+        // }
 
         // verify token
         if (authHeader != null) {
@@ -64,15 +63,21 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
                 log.info("Result {}", result);
                 if (result.getResult().isValid()) {
                     return chain.filter(exchange);
-                }
-                else{
+                    // ServerHttpRequest mutatedRequest = exchange.getRequest().mutate()
+                    //         .header(HeaderKey.USER_ID, result.getResult().getUserId()) // add user id
+                    //         .header(HeaderKey.USER_ROLES, result.getResult().getRoles()) // add roles
+                    //         .header("Authorization", "Bearer " + token)
+                    //         .header("Access-Control-Expose-Headers", "Authorization")
+                    //         .build();
+                    // return chain.filter(exchange.mutate().request(mutatedRequest).build());
+                } else {
                     return unauthenticated(exchange.getResponse());
                 }
             })
-            .onErrorResume(t -> {
-                log.error("Error", t);
-                return unauthenticated(exchange.getResponse());
-            });
+                    .onErrorResume(t -> {
+                        log.error("Error", t);
+                        return unauthenticated(exchange.getResponse());
+                    });
         }
         // identity service
 
@@ -97,17 +102,17 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         response.setStatusCode(HttpStatus.UNAUTHORIZED);
         response.getHeaders().add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
         return response.writeWith(Mono
-                .just(response.bufferFactory().wrap(body == null ? "unauthenticated".getBytes() : (body + response.toString()).getBytes())));
+                .just(response.bufferFactory().wrap(body == null ? "unauthenticated".getBytes() : (body).getBytes())));
     }
-    
-    private boolean isPublicEndpoint(ServerHttpRequest request){
+
+    private boolean isPublicEndpoint(ServerHttpRequest request) {
         String path = request.getURI().getPath();
-        for(String publicEndpoint : publicEndpoints){
-            if(path.matches(apiPrefix + publicEndpoint)){
+        for (String publicEndpoint : publicEndpoints) {
+            if (path.matches(apiPrefix + publicEndpoint)) {
                 return true;
             }
         }
         return false;
-    
+
     }
 }

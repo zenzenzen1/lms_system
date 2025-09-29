@@ -2,6 +2,8 @@ package com.example.schedule_service.entity;
 
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -9,12 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,11 +35,12 @@ public class Course {
 
     // String code;
 
-    @ManyToOne
-    @JoinColumn(name = "teacher_id", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.CASCADE)
+    // @ManyToOne
+    // @JoinColumn(name = "teacher_id", referencedColumnName = "id")
+    // @OnDelete(action = OnDeleteAction.CASCADE)
     // @JsonBackReference
-    User teacher;
+    // User teacher;
+    String teacherId;
 
     @OneToMany(mappedBy = "course")
     @JsonIgnore

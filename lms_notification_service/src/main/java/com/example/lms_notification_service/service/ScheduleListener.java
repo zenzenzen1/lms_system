@@ -24,7 +24,7 @@ public class ScheduleListener {
     public void listen(ScheduleStudent scheduleStudent) {
         notificationRepository.save(Notification.builder()
                 .createdAt(scheduleStudent.getCreatedAt())
-                .userId(scheduleStudent.getStudentId())
+                .userId(scheduleStudent.getStudentId().toString())
                 .message(saveSchedulesForStudentdefaultMessage)
                 .build());
         log.info("Received message from schedule service: {}", scheduleStudent);

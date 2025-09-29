@@ -1,14 +1,13 @@
 package com.example.schedule_service.entity;
 
-import com.example.schedule_service.entity.key.CourseStudentKey;
-
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
-
-
+import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,18 +22,22 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(uniqueConstraints = { @UniqueConstraint(columnNames = { "student_id", "course_id" }) })
 public class CourseStudent {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long courseStudentId;
 
-    @EmbeddedId
-    CourseStudentKey id;
+    // @EmbeddedId
+    // CourseStudentKey id;
+
+    // @ManyToOne()
+    // @MapsId("studentId")
+    // @JoinColumn(name = "student_id")
+    // User student;
+    String studentId;
 
     @ManyToOne()
-    @MapsId("studentId")
-    @JoinColumn(name = "student_id")
-    User student;
-
-    @ManyToOne()
-    @MapsId("courseId")
     @JoinColumn(name = "course_id")
     Course course;
 

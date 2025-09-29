@@ -57,8 +57,8 @@ public class ScheduleAspect {
                 courseRepository
                         .findById(scheduleRequest.getCourseId())
                         .get()
-                        .getTeacher()
-                        .getId());
+                        .getTeacherId()
+                        );
         log.info("schedule requesst: {}, isValid: {}", scheduleRequest, existsBySemesterTeacherIdRoomId);
         if (existsBySemesterTeacherIdRoomId) {
             throw new AppException(ErrorCode.ADD_SCHEDULE_ERROR);

@@ -3,6 +3,7 @@ package com.example.api_gateway_lms.configuration;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
@@ -12,7 +13,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.support.WebClientAdapter;
 import org.springframework.web.service.invoker.HttpServiceProxyFactory;
 
-import com.example.api_gateway_lms.repository.IdentityClient;
+import com.example.api_gateway_lms.client.IdentityClient;
 
 @Configuration
 public class WebClientConfiguration {
@@ -20,8 +21,14 @@ public class WebClientConfiguration {
     private String identityUrl;
     
     @Bean
-    WebClient webClient() {
-        return WebClient.builder()
+    @LoadBalanced
+    WebClient.Builder loadBalancedWebClientBuilder() {
+        return WebClient.builder();
+    }
+    
+    @Bean
+    WebClient webClient(WebClient.Builder builder) {
+        return builder
                 .baseUrl(identityUrl)
                 .build();
     }

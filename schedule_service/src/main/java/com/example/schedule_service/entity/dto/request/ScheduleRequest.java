@@ -2,6 +2,7 @@ package com.example.schedule_service.entity.dto.request;
 
 import java.util.Set;
 
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,5 +21,7 @@ public class ScheduleRequest {
     Long roomId;
     // String subjectCode;
     Long courseId;
+    
+    @NotEmpty(message = "studentIds must not be empty")
     Set<String> studentIds;
 }

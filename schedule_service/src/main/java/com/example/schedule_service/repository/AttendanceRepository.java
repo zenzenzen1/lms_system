@@ -18,7 +18,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     Set<Map<String, Object>> getScheduleByTeacherId(String teacherId, LocalDate startDate, LocalDate endDate);
     
     List<Attendance> findAllBySchedule_ScheduleIdIn(List<Long> scheduleIds);
-    Attendance findByStudent_UserIdAndSchedule_ScheduleId(String studentId, Long scheduleId);
-    List<Attendance> findAllBySchedule_ScheduleIdOrderByStudent_Id(Long scheduleId);
-    List<Attendance> findAllBySchedule_Course_CourseIdAndStudent_IdOrderBySchedule_TrainingDate(Long courseId, String studentId);
+    Attendance findByStudentIdAndSchedule_ScheduleId(String studentId, Long scheduleId);
+    List<Attendance> findAllBySchedule_ScheduleIdOrderByStudentId(Long scheduleId);
+    List<Attendance> findAllBySchedule_Course_CourseIdAndStudentIdOrderBySchedule_TrainingDate(Long courseId, String studentId);
 }

@@ -27,7 +27,6 @@ import com.example.schedule_service.repository.ScheduleRepository;
 import com.example.schedule_service.repository.SemesterRepository;
 import com.example.schedule_service.repository.SlotRepository;
 import com.example.schedule_service.repository.SubjectRepository;
-import com.example.schedule_service.repository.UserRepository;
 
 import jakarta.servlet.ServletOutputStream;
 import jakarta.servlet.http.HttpServletResponse;
@@ -44,7 +43,7 @@ public class ExcelService {
     private final SemesterRepository semesterRepository;
     private final RoomRepository roomRepository;
     private final SubjectRepository subjectRepository;
-    private final UserRepository userRepository;
+    // private final UserRepository userRepository;
 
     public static boolean isValidExelFile(MultipartFile file) {
         String contentType = file.getContentType();
@@ -92,18 +91,18 @@ public class ExcelService {
                 var semester = semesterRepository.findById(semseterCode);
                 var room = roomRepository.findById(roomId);
                 var subject = subjectRepository.findById(subjectCode);
-                var teacher = userRepository.findById(teacherId);
+                // var teacher = userRepository.findById(teacherId);
                 var _course = courseRepository.findAll().stream()
                         .filter(t -> t.getSemester().getSemesterCode().equals(semseterCode)
                                 && t.getSubject().getSubjectCode().equals(subjectCode)
-                                && t.getTeacher().getId().equals(teacherId))
+                                && t.getTeacherId().equals(teacherId))
                         .findFirst();
                 Course course;
                 if (!_course.isPresent()) {
                     course = courseRepository.save(Course.builder()
                             .semester(semester.get())
                             .subject(subject.get())
-                            .teacher(teacher.get())
+                            .teacherId(teacherId)
                             .build());
                 } else {
                     course = _course.get();
@@ -175,9 +174,9 @@ public class ExcelService {
             createCell(
                     sheet, row, columnCount++, schedule.getCourse().getSubject().getSubjectName(), style);
             createCell(
-                    sheet, row, columnCount++, schedule.getCourse().getTeacher().getId(), style);
+                    sheet, row, columnCount++, schedule.getCourse().getTeacherId(), style);
             createCell(
-                    sheet, row, columnCount++, schedule.getCourse().getTeacher().getFullName(), style);
+                    sheet, row, columnCount++, schedule.getCourse().getTeacherId(), style);
             createCell(sheet, row, columnCount++, schedule.getTrainingDate().format(dateTimeFormatter), style);
             createCell(sheet, row, columnCount++, schedule.getRoom().getRoomId(), style);
             createCell(sheet, row, columnCount++, schedule.getRoom().getRoomNumber(), style);

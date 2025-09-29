@@ -9,22 +9,32 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.stereotype.Component;
 
 import com.example.identity_service.dto.response.ApiResponse;
 import com.example.identity_service.exception.ErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Component
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
-    public void commence(
-            HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)
-            throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         ErrorCode errorCode = ErrorCode.UNAUTHENTICATED;
+        
+        System.out.println("Authentication failed: " + authException.getMessage());
+        
         response.setStatus(errorCode.getStatusCode().value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        
+        // Provide more specific error message for JWT issues
+        String errorMessage = errorCode.getMessage();
+        if (authException.getMessage() != null && authException.getMessage().contains("JWT")) {
+            errorMessage = "Invalid or malformed JWT token";
+        }
+        
         ApiResponse<?> apiResponse = ApiResponse.builder()
                 .code(errorCode.getCode())
-                .message(errorCode.getMessage())
+                .message(errorMessage)
                 .build();
         ObjectMapper objectMapper = new ObjectMapper();
 

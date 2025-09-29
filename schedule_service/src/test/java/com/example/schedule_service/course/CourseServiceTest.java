@@ -23,9 +23,7 @@ public class CourseServiceTest extends BaseContainerTest {
     static PostgreSQLContainer<?> postgreSQLContainer = new PostgreSQLContainer<>("postgres:latest")
             .withInitScript("sql/initdb_test.sql");
     
-    @Autowired
-    private CourseService courseService;
-    
+    @Autowired private CourseService courseService;
     @Autowired private RedisTemplate<String, Object> redisTemplate;
     @Autowired private ObjectMapper objectMapper;
 
@@ -36,7 +34,7 @@ public class CourseServiceTest extends BaseContainerTest {
         try {
             redisTemplate.opsForValue().set("course:SU25", objectMapper.writeValueAsString(result.stream().map(course -> {
                 course.setCourseStudents(null);
-                course.getTeacher().setCourseStudents(null);
+                course.getTeacherId();
                 return course;
             }).toList()));
         } catch (JsonProcessingException e) {

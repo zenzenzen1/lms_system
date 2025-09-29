@@ -13,13 +13,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.example.enums.EnumRole;
 import com.example.event.IdentityNotification;
 import com.example.identity_service.dto.request.UserCreationRequest;
 import com.example.identity_service.dto.request.UserUpdateRequest;
 import com.example.identity_service.dto.response.UserProfileResponse;
 import com.example.identity_service.dto.response.UserResponse;
+import com.example.identity_service.entity.Role;
 import com.example.identity_service.entity.User;
-import com.example.identity_service.enums.Role;
 import com.example.identity_service.exception.AppException;
 import com.example.identity_service.exception.ErrorCode;
 import com.example.identity_service.mapper.UserMapper;
@@ -28,6 +29,8 @@ import com.example.identity_service.repository.RoleRepository;
 import com.example.identity_service.repository.UserRepository;
 import com.example.identity_service.repository.http_client.LmsClient;
 
+import feign.FeignException;
+import feign.FeignException.FeignClientException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -78,7 +81,8 @@ public class UserService {
 
     // @PostAuthorize(returnObject)
     // @PreAuthorize("hasRole('ADMIN')")
-    @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_GET_ALL_USERS')")
+    // @PreAuthorize("hasAnyAuthority('SCOPE_ADMIN', 'SCOPE_GET_ALL_USERS')")
+    @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
     public List<User> getUsers() {
         return userRepository.findAll();
     }
@@ -93,9 +97,9 @@ public class UserService {
         request.setPassword(passwordEncoder.encode(request.getPassword()));
         user = userMapper.toUser(request);
 
-        HashSet<com.example.identity_service.entity.Role> roles = new HashSet<>();
-        roleRepository.findById(Role.USER.name()).ifPresent(roles::add);
-        roleRepository.findById(Role.STUDENT.name()).ifPresent(roles::add);
+        HashSet<Role> roles = new HashSet<>();
+        roleRepository.findById(EnumRole.USER.name()).ifPresent(roles::add);
+        roleRepository.findById(EnumRole.STUDENT.name()).ifPresent(roles::add);
         user.setRoles(roles);
         user = userRepository.save(user);
 
@@ -138,7 +142,14 @@ public class UserService {
         log.warn("{} logging", name);
         User user = userRepository.findByUsername(name).orElseThrow(() -> new AppException(ErrorCode.USER_NOT_FOUND));
         var userResponse = userMapper.toUserResponse(user);
-        userResponse.setUserProfile(lmsClient.getUserProfileByUserId(user.getId()));
+        try {
+            userResponse.setUserProfile(lmsClient.getUserProfileByUserId(user.getId()));
+            
+        } catch (FeignClientException e) {
+            
+        } catch (FeignException e) {
+            
+        }
         return userResponse;
     }
 

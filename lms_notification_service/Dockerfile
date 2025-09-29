@@ -7,7 +7,7 @@ COPY ../settings.xml /root/.m2/settings.xml
 RUN mvn -f ./pom-prod.xml install -DskipTests
 
 # Stage 2: run
-FROM eclipse-temurin:17-jdk-alpine
+FROM amazoncorretto:17.0.16-alpine3.22
 WORKDIR /app
 ARG APP_VERSION=0.0.1-SNAPSHOT
 COPY --from=build /app/lms_notification_service/target/lms_notification_service-${APP_VERSION}.jar /app/

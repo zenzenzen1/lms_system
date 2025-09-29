@@ -27,7 +27,6 @@ import com.example.schedule_service.entity.Attendance;
 import com.example.schedule_service.entity.CourseStudent;
 import com.example.schedule_service.entity.Schedule;
 import com.example.schedule_service.entity.dto.request.ScheduleRequest;
-import com.example.schedule_service.entity.key.CourseStudentKey;
 import com.example.schedule_service.exception.IdNotFoundException;
 import com.example.schedule_service.repository.AttendanceRepository;
 import com.example.schedule_service.repository.CourseRepository;
@@ -35,7 +34,6 @@ import com.example.schedule_service.repository.CourseStudentRepository;
 import com.example.schedule_service.repository.RoomRepository;
 import com.example.schedule_service.repository.ScheduleRepository;
 import com.example.schedule_service.repository.SlotRepository;
-import com.example.schedule_service.repository.UserRepository;
 import com.example.schedule_service.utils.Utils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -49,7 +47,7 @@ import lombok.RequiredArgsConstructor;
 public class ScheduleService {
 
     private final ScheduleRepository scheduleRepository;
-    private final UserRepository userRepository;
+    // private final UserRepository userRepository;
     private final SlotRepository slotRepository;
     private final RoomRepository roomRepository;
     private final CourseRepository courseRepository;
@@ -124,7 +122,8 @@ public class ScheduleService {
             return null;
         }
 
-        var students = userRepository.findAllById(scheduleRequest.getStudentIds());
+        // var students = userRepository.findAllById(scheduleRequest.getStudentIds());
+        var students = scheduleRequest.getStudentIds();
 
         var slot = slotRepository.findById(scheduleRequest.getSlotId()).orElseThrow(() -> new IdNotFoundException("Slot not found"));
         // var semester =
@@ -152,18 +151,18 @@ public class ScheduleService {
                 students.forEach((student) -> {
                     courseStudentRepository.save(CourseStudent.builder()
                             .course(course)
-                            .student(student)
-                            .id(CourseStudentKey.builder()
-                                    .courseId(course.getCourseId())
-                                    .studentId(student.getId())
-                                    .build())
+                            .studentId(student)
+                            // .id(CourseStudentKey.builder()
+                            //         .courseId(course.getCourseId())
+                            //         .studentId(student)
+                            //         .build())
                             .build());
                     attendanceRepository.save(Attendance.builder()
-                            .student(student)
+                            .studentId(student)
                             .schedule(schedule)
                             .build());
 
-                    redisTemplate.delete(redisTemplate.keys("schedule" + student.getId() + "*"));
+                    redisTemplate.delete(redisTemplate.keys("schedule" + student + "*"));
                 });
             }
         }
@@ -172,7 +171,7 @@ public class ScheduleService {
                     "create-schedule",
                     ScheduleStudent.builder()
                             .createdAt(LocalDateTime.now())
-                            .studentId(student.getId())
+                            .studentId(student)
                             .build());
         });
 

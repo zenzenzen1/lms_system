@@ -21,4 +21,6 @@ public class MessageController {
         kafkaTemplate.send("notification-message", messageDTO);
         return messageDTO;
     }
+    
+    
 }

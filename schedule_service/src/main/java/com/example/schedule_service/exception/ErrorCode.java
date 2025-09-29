@@ -11,8 +11,7 @@ import lombok.Getter;
 public enum ErrorCode {
     UNCATEGORIZED_EXCEPTION(9999, "Uncategorized exception", HttpStatus.INTERNAL_SERVER_ERROR),
     UNAUTHENTICATED(1005, "Unauthenticated", HttpStatus.UNAUTHORIZED),
-    ADD_SCHEDULE_ERROR(
-            1001, "This course already asigned to this room and slot in this semester.", HttpStatus.BAD_REQUEST),
+    ADD_SCHEDULE_ERROR(1001, "This course already asigned to this room and slot in this semester.", HttpStatus.BAD_REQUEST),
     ;
 
     private final int code;

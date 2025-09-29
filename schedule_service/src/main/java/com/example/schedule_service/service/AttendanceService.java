@@ -46,7 +46,7 @@ public class AttendanceService {
         // : -1)
         // .toList();
         attendanceRepository
-                .findAllBySchedule_Course_CourseIdAndStudent_IdOrderBySchedule_TrainingDate(courseId, studentId)
+                .findAllBySchedule_Course_CourseIdAndStudentIdOrderBySchedule_TrainingDate(courseId, studentId)
                 .stream()
                 .map(a -> {
                     var _a = attendanceMapper.toAttendanceResponse(a);
@@ -59,12 +59,12 @@ public class AttendanceService {
 
     public double getAbsentPercentage(String studentId, long courseId) {
         long total = attendanceRepository.findAll().stream()
-                .filter(t -> t.getStudent().getId().equals(studentId)
+                .filter(t -> t.getStudentId().equals(studentId)
                         && t.getSchedule().getCourse().getCourseId() == courseId)
                 .count();
         long numberOfAbsent = attendanceRepository.findAll().stream()
                 .filter(t -> {
-                    if (t.getStudent().getId().equals(studentId)
+                    if (t.getStudentId().equals(studentId)
                             && t.getSchedule().getCourse().getCourseId() == courseId) {
                         return t.getAttendanceStatus() != null && !t.getAttendanceStatus();
                     }
@@ -78,7 +78,7 @@ public class AttendanceService {
     public List<Attendance> getAttendancesByCourseIdStudentIdSlotId(Long cousreId, String studentId, int slotId) {
         return attendanceRepository.findAll().stream()
                 .filter(t -> t.getSchedule().getCourse().getCourseId() == cousreId
-                        && t.getStudent().getId().equals(studentId))
+                        && t.getStudentId().equals(studentId))
                 .sorted((o1, o2) -> o1.getSchedule()
                         .getTrainingDate()
                         .isAfter(o2.getSchedule().getTrainingDate())
@@ -120,7 +120,7 @@ public class AttendanceService {
         // .sorted((o1, o2) ->
         // o1.getStudent().getId().compareTo(o2.getStudent().getId()))
         // .toList();
-        return attendanceRepository.findAllBySchedule_ScheduleIdOrderByStudent_Id(scheduleId)
+        return attendanceRepository.findAllBySchedule_ScheduleIdOrderByStudentId(scheduleId)
                 .stream().map(a -> attendanceMapper.toAttendanceResponse(a))
                 .toList();
     }
@@ -138,7 +138,7 @@ public class AttendanceService {
                                 _attendance.setAttendanceStatus(t.isAttendanceStatus());
                                 _attendance.setAttendanceNote(t.getAttendanceNote());
                                 redisTemplate.delete(redisTemplate.keys(
-                                        "schedule" + _attendance.getStudent().getId() + "*"));
+                                        "schedule" + _attendance.getStudentId() + "*"));
                                 return _attendance;
                             }
                             return null;

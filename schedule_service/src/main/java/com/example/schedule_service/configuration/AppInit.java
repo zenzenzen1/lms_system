@@ -11,14 +11,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import com.example.schedule_service.client.IdentityClient;
 import com.example.schedule_service.entity.Course;
 import com.example.schedule_service.entity.Room;
 import com.example.schedule_service.entity.Semester;
 import com.example.schedule_service.entity.Slot;
 import com.example.schedule_service.entity.Subject;
-import com.example.schedule_service.entity.User;
-import com.example.schedule_service.entity.dto.response.identity_service.UserCreationRequest;
-import com.example.schedule_service.entity.dto.response.identity_service.UserResponse;
 import com.example.schedule_service.repository.AttendanceRepository;
 import com.example.schedule_service.repository.CourseRepository;
 import com.example.schedule_service.repository.CourseStudentRepository;
@@ -26,8 +24,6 @@ import com.example.schedule_service.repository.RoomRepository;
 import com.example.schedule_service.repository.SemesterRepository;
 import com.example.schedule_service.repository.SlotRepository;
 import com.example.schedule_service.repository.SubjectRepository;
-import com.example.schedule_service.repository.UserRepository;
-import com.example.schedule_service.repository.http_client.IdentityClient;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,15 +38,11 @@ public class AppInit {
 
     private final RoomRepository roomRepository;
 
-    /**
-     * Initialization methods for application startup.
-     */
     @Bean
     @Profile("dev")
     CommandLineRunner commandLineRunner(
             CourseRepository courseRepository,
             SemesterRepository semesterRepository,
-            UserRepository userRepository,
             CourseStudentRepository courseStudentRepository,
             IdentityClient identityClient, 
             AttendanceRepository attendanceRepository,
@@ -58,7 +50,7 @@ public class AppInit {
         return args -> {
             redisTemplate.opsForValue().set("demo", "tests", Duration.ofMinutes(1));
             
-            if (subjectRepository.count() > 0 && userRepository.count() > 0) {
+            if (subjectRepository.count() > 0 ) {
                 return;
             }
             var subjects = List.of(
@@ -123,65 +115,66 @@ public class AppInit {
                     );
             semesterRepository.saveAll(semesters);
 
-            User teacher = null, student = null;
+            // User teacher = null, student = null;
 
-            if (userRepository.findByEmail("lamthon@gmail.com").isPresent()) {
-                teacher = userRepository.findByEmail("lamthon@gmail.com").get();
-                student = userRepository.findByEmail("teacher@gmail.com").get();
-            } else {
-                while (true) {
-                    try {
-                        teacher = User.builder()
-                                .email("teacher@gmail")
-                                .fullName("teacher")
-                                .userId(identityClient
-                                        .getUserByUsername("teacher1")
-                                        .getId())
-                                .build();
-                        student = User.builder()
-                                .userId(identityClient
-                                        .getUserByUsername("student1")
-                                        .getId())
-                                .email("lamthon@gmail.com")
-                                .fullName("Lam Thon")
-                                .dob(LocalDate.of(2003, 7, 16))
-                                .build();
-                        userRepository.saveAll(List.of(student, teacher));
-                        // return;
+            // if (userRepository.findByEmail("lamthon@gmail.com").isPresent()) {
+            //     teacher = userRepository.findByEmail("lamthon@gmail.com").get();
+            //     student = userRepository.findByEmail("teacher@gmail.com").get();
+            // } else {
+            //     while (true) {
+            //         try {
+            //             var existTeacher = identityClient.getUserByUsername("teacher1");
+            //             var existStudent = identityClient.getUserByUsername("student1");
+            //             teacher = User.builder()
+            //                 .id(existTeacher.getId())
+            //                     .email("teacher@gmail")
+            //                     .fullName("teacher")
+            //                     .userId(existTeacher.getId())
+            //                     .build();
+            //             student = User.builder()
+            //                     .id(existStudent.getId())
+            //                     .userId(existStudent.getId())
+            //                     .email("lamthon@gmail.com")
+            //                     .fullName("Lam Thon")
+            //                     .dob(LocalDate.of(2003, 7, 16))
+            //                     .build();
+            //             userRepository.saveAll(List.of(student, teacher));
+            //             // return;
 
-                        break;
-                    } catch (Exception e) {
-                        System.out.println("start identity_service di anh La^m Tho^n`" + e.getMessage());
-                        try {
-                            Thread.sleep(3000);
+            //             break;
+            //         } catch (Exception e) {
+            //             System.out.println("start identity_service di anh La^m Tho^n`" + e.getMessage());
+            //             try {
+            //                 Thread.sleep(3000);
 
-                        } catch (Exception e2) {
-                            //
-                        }
-                    }
-                }
-            }
-            for (int i = 0; i < 20; i++) {
-                try {
-                    if (identityClient.existsByUsername(("user" + i))) {
-                        UserResponse user = identityClient.getUserByUsername("user" + i);
-                        userRepository.save(User.builder()
-                                .fullName("user" + i)
-                                .email("email" + i + "@gmail.com")
-                                .userId(user.getId())
-                                .build());
-                        continue;
-                    }
-                    identityClient.createUser(UserCreationRequest.builder()
-                            .username("user" + i)
-                            .password("user" + i)
-                            .fullName("user" + i)
-                            .email("email" + i + "@gmail.com")
-                            .build());
+            //             } catch (Exception e2) {
+            //                 //
+            //             }
+            //         }
+            //     }
+            // }
+            // for (int i = 0; i < 20; i++) {
+            //     try {
+            //         if (identityClient.existsByUsername(("user" + i))) {
+            //             UserResponse user = identityClient.getUserByUsername("user" + i);
+            //             userRepository.save(User.builder()
+            //                     .id(user.getId())
+            //                     .fullName("user" + i)
+            //                     .email("email" + i + "@gmail.com")
+            //                     .userId(user.getId())
+            //                     .build());
+            //             continue;
+            //         }
+            //         identityClient.createUser(UserCreationRequest.builder()
+            //                 .username("user" + i)
+            //                 .password("user" + i)
+            //                 .fullName("user" + i)
+            //                 .email("email" + i + "@gmail.com")
+            //                 .build());
 
-                } catch (Exception e) {
-                }
-            }
+            //     } catch (Exception e) {
+            //     }
+            // }
             // var users = List.of(teacher, student);
             var fall25 = semesters.stream()
                     .filter(s -> s.getSemesterCode().equals("FA25"))
@@ -191,22 +184,22 @@ public class AppInit {
                     Course.builder()
                             .subject(subjects.get(0))
                             .semester(fall25)
-                            .teacher(teacher)
+                            .teacherId("")
                             .build(),
                     Course.builder()
                             .subject(subjects.get(1))
                             .semester(fall25)
-                            .teacher(teacher)
+                            .teacherId("")
                             .build(),
                     Course.builder()
                             .subject(subjects.get(2))
                             .semester(fall25)
-                            .teacher(teacher)
+                            .teacherId("")
                             .build(),
                     Course.builder()
                             .subject(subjects.get(3))
                             .semester(fall25)
-                            .teacher(teacher)
+                            .teacherId("")
                             .build());
             courseRepository.saveAll(courses);
 

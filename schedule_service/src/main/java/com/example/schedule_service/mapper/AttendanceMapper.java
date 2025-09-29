@@ -12,10 +12,10 @@ import com.example.schedule_service.entity.dto.response.AttendanceResponse;
 @Mapper(componentModel = "spring")
 public interface AttendanceMapper {
 
-    @Mapping(target = "student", ignore = true)
+    // @Mapping(target = "student", ignore = true)
     @Mapping(target = "schedule", ignore = true)
     @Mapping(target = "attendanceId", ignore = true)
-    // Attendance toAttendance(AttendanceRequest attendanceRequest);
+    @Mapping(target = "studentId", ignore = true)
     void updateAttendance(@MappingTarget Attendance attendance, AttendanceRequest request);
     
     @Mapping(target = "schedule", ignore = true)

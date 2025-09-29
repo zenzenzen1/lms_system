@@ -6,9 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.example.schedule_service.entity.CourseStudent;
-import com.example.schedule_service.entity.key.CourseStudentKey;
 
 @Repository
-public interface CourseStudentRepository extends JpaRepository<CourseStudent, CourseStudentKey> {
+public interface CourseStudentRepository extends JpaRepository<CourseStudent, Long> {
     List<CourseStudent> findByCourse_Semester_semesterCodeAndStudentId(String semesterCode, String studentId);
 }

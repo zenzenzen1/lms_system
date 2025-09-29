@@ -23,6 +23,8 @@ import { adminSidebarTabs, sidebarComponents, studentSidebarTabs, TeacherSidebar
 import { urlRolePrefix } from './configurations/common/navigate';
 import TeacherPage from './components/main/user/teacher/TeacherPage';
 import { verifyToken } from './services/authenticationService';
+import WsDemo from './components/demo/WsDemo';
+import SseDemo from './components/demo/SseDemo';
 
 
 const generateSidebarRoutes = (tabs: SideBarType[], roleTab: string): JSX.Element[] => {
@@ -68,7 +70,7 @@ function App() {
     // });
 
     const user = useSelector((state: RootStateType) => state.user);
-    console.log("User from Redux Store:", user, user && user.roles && user.roles.includes("STUDENT"));
+    // console.log("User from Redux Store:", user, user && user.roles && user.roles.includes("STUDENT"));
 
     return (
         <>
@@ -102,7 +104,9 @@ function App() {
                     <Route path="/user/admin/schedule-detail/*" element={<ScheduleDetail />} />
                     <Route path="/user/teacher/schedule" element={<Scheduler />} />
                     <Route path='/user/teacher/class-detail/*' element={<ClassDetail />} />
-                    <Route path='*' element={(() => {
+                    <Route path='/ws-demo' element={<WsDemo />} />
+                    <Route path='/sse-demo' element={<SseDemo />} />
+                    {/* <Route path='*' element={(() => {
                         if(window.location.pathname !== '/user/login') {
                             verifyToken();
                         }
@@ -111,7 +115,7 @@ function App() {
                             <h1>404 Not Found</h1>
                             <p>The page you are looking for does not exist.</p>
                         </>)
-                    })()} />
+                    })()} /> */}
 
                 </Routes>
 

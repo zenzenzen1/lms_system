@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.dto.identity_service.response.IntrospectResponse;
 import com.example.identity_service.dto.request.AuthenticationRequest;
 import com.example.identity_service.dto.request.IntrospectRequest;
 import com.example.identity_service.dto.request.LogoutRequest;
@@ -14,7 +15,6 @@ import com.example.identity_service.dto.request.RefreshTokenRequest;
 import com.example.identity_service.dto.request.UserCreationRequest;
 import com.example.identity_service.dto.response.ApiResponse;
 import com.example.identity_service.dto.response.AuthenticationResponse;
-import com.example.identity_service.dto.response.IntrospectResponse;
 import com.example.identity_service.enums.ResponseCode;
 import com.example.identity_service.service.AuthenticationService;
 import com.nimbusds.jose.JOSEException;

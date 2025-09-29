@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CourseStudentResponse {
     private Course course;
-    private UserResponse student;
+    // private UserResponse student;
+    String studentId;
     private Boolean status;
 }

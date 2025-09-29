@@ -7,24 +7,29 @@ app:
     redis-host: ${REDIS_HOST:127.0.0.1}
     redis-port: ${REDIS_PORT:6379}
     ttl_student_schedule: 300 # seconds
+  security:
+    jwt:
+      signerKey: Tz1E7phK2u1hlLi2fTtDKqJx8gu+eAYoqSkGbQjKs7RHzz1yFqwt/DlJQ5BMlaipFwYOMvtg9cbej8dvP67tYg==
 
 spring:
+  config:
+    import: optional:configserver:http://localhost:8101
   profiles:
     active: ${ACTIVE_PROFILE:dev}
   application:
-    name: schedule_service
+    name: schedule-service
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5501/schedule_service}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5510/schedule_service}
     username: ${SPRING_DATASOURCE_USERNAME:postgres}
     password: ${SPRING_DATASOURCE_PASSWORD:123}
   jpa: 
     hibernate: 
-      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:update}
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:create-drop}
     show-sql: true
     properties: 
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
-        '[format_sql]': saveSchedulesForStudentdefaultMessage
+        # dialect: org.hibernate.dialect.PostgreSQLDialect
+        '[format_sql]': false
   kafka:
     bootstrap-servers: ${KAFKA_HOST:localhost:9095}
     producer:
@@ -32,6 +37,7 @@ spring:
       # value-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       retries: 1
+
 server:
   port: 8086
   servlet:
@@ -40,3 +46,11 @@ server:
     include-message: always
     
 ######
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+#   info:
+#     env:
+#       enabled: true

@@ -11,7 +11,6 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-import com.example.event.AttendanceStatusNotification;
 import com.example.schedule_service.entity.Attendance;
 import com.example.schedule_service.entity.CourseStudent;
 import com.example.schedule_service.entity.dto.request.AttendanceRequest;
@@ -27,6 +26,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RequiredArgsConstructor
 public class AttendanceAspect {
+    @SuppressWarnings("unused")
     private final KafkaTemplate<String, Object> kafkaTemplate;
     private final RedisTemplate<String, Object> redisTemplate;
 
@@ -63,11 +63,11 @@ public class AttendanceAspect {
         // log.info("AfterReturning saveAttendances function: saveAllAttendance result:
         // {}", result);
         result.forEach(t -> {
-            redisTemplate.delete(redisTemplate.keys("schedule" + t.getStudent().getId() + "*"));
+            redisTemplate.delete(redisTemplate.keys("schedule" + t.getStudentId() + "*"));
             double absentPercentage = attendanceService.getAbsentPercentage(
-                    t.getStudent().getId(), t.getSchedule().getCourse().getCourseId());
+                    t.getStudentId(), t.getSchedule().getCourse().getCourseId());
             CourseStudent courseStudent = courseStudentRepository.findAll().stream()
-                    .filter(cs -> cs.getStudent().getId().equals(t.getStudent().getId())
+                    .filter(cs -> cs.getStudentId().equals(t.getStudentId())
                             && cs.getCourse().getCourseId()
                                     == t.getSchedule().getCourse().getCourseId())
                     .findFirst()
@@ -75,7 +75,7 @@ public class AttendanceAspect {
             if (!courseStudent.isStatus()) {
                 log.info(
                         "Student {} is not active in course {}",
-                        t.getStudent().getId(),
+                        t.getStudentId(),
                         t.getSchedule().getCourse().getCourseId());
                 return;
             }
@@ -83,9 +83,7 @@ public class AttendanceAspect {
                 if (absentPercentage > 20) {
                     // do something
                     courseStudentRepository.findAll().stream()
-                            .filter(cs -> cs.getStudent()
-                                            .getId()
-                                            .equals(t.getStudent().getId())
+                            .filter(cs -> cs.getStudentId().equals(t.getStudentId())
                                     && cs.getCourse().getCourseId()
                                             == t.getSchedule().getScheduleId())
                             .findFirst()
@@ -94,15 +92,15 @@ public class AttendanceAspect {
                 } else {
                     log.info(
                             "Student {} has more than 10% absent in course {}",
-                            t.getStudent().getId(), t.getSchedule().getCourse().getCourseId());
-                    kafkaTemplate.send(
-                            "send-email-attendance-status",
-                            AttendanceStatusNotification.builder()
-                                    .studentId(t.getStudent().getId())
-                                    .absentPercentage(absentPercentage)
-                                    .email(t.getStudent().getEmail())
-                                    .fullName(t.getStudent().getFullName())
-                                    .build());
+                            t.getStudentId(), t.getSchedule().getCourse().getCourseId());
+                    // kafkaTemplate.send(
+                    //         "send-email-attendance-status",
+                    //         AttendanceStatusNotification.builder()
+                    //                 .studentId(t.getStudentId())
+                    //                 .absentPercentage(absentPercentage)
+                    //                 .email(t.getStudentEmail())
+                    //                 .fullName(t.getStudentFullName())
+                    //                 .build());
                 }
             }
         });

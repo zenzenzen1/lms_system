@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,8 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.schedule_service.entity.Attendance;
-import com.example.schedule_service.entity.Course;
-import com.example.schedule_service.entity.User;
 import com.example.schedule_service.entity.dto.request.AttendanceRequest;
 import com.example.schedule_service.entity.dto.response.ApiResponse;
 import com.example.schedule_service.entity.dto.response.AttendanceResponse;
@@ -104,42 +101,42 @@ public class AttendanceController {
         return ResponseEntity.ok(attendanceService.findById(id));
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Attendance> addAttendance(
-            @RequestParam Course course,
-            @RequestParam User student,
-            @RequestParam(defaultValue = "false") boolean attendanceStatus,
-            @RequestParam(defaultValue = "") String notes) {
-        Attendance newAttendance = Attendance.builder()
-                // .course(course)
-                .student(student)
-                .attendanceStatus(attendanceStatus)
-                .attendanceNote(notes)
-                .build();
-        attendanceService.saveAttendance(newAttendance);
+    // @PostMapping("/add")
+    // public ResponseEntity<Attendance> addAttendance(
+    //         @RequestParam Course course,
+    //         @RequestParam User student,
+    //         @RequestParam(defaultValue = "false") boolean attendanceStatus,
+    //         @RequestParam(defaultValue = "") String notes) {
+    //     Attendance newAttendance = Attendance.builder()
+    //             // .course(course)
+    //             .student(student)
+    //             .attendanceStatus(attendanceStatus)
+    //             .attendanceNote(notes)
+    //             .build();
+    //     attendanceService.saveAttendance(newAttendance);
 
-        return new ResponseEntity<>(newAttendance, HttpStatus.CREATED);
-    }
+    //     return new ResponseEntity<>(newAttendance, HttpStatus.CREATED);
+    // }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Attendance> updateAttendance(
-            @PathVariable Long id,
-            @RequestParam Course course,
-            @RequestParam User student,
-            @RequestParam boolean attendanceStatus,
-            @RequestParam String notes) {
-        Attendance attendance = attendanceService.findById(id);
-        if (attendance == null)
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    // @PutMapping("/update/{id}")
+    // public ResponseEntity<Attendance> updateAttendance(
+    //         @PathVariable Long id,
+    //         @RequestParam Course course,
+    //         @RequestParam User student,
+    //         @RequestParam boolean attendanceStatus,
+    //         @RequestParam String notes) {
+    //     Attendance attendance = attendanceService.findById(id);
+    //     if (attendance == null)
+    //         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        // attendance.setCourse(course);
-        attendance.setStudent(student);
-        attendance.setAttendanceStatus(attendanceStatus);
-        attendance.setAttendanceNote(notes);
-        attendanceService.saveAttendance(attendance);
+    //     // attendance.setCourse(course);
+    //     attendance.setStudent(student);
+    //     attendance.setAttendanceStatus(attendanceStatus);
+    //     attendance.setAttendanceNote(notes);
+    //     attendanceService.saveAttendance(attendance);
 
-        return new ResponseEntity<>(attendance, HttpStatus.OK);
-    }
+    //     return new ResponseEntity<>(attendance, HttpStatus.OK);
+    // }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Void> deleteAttendance(@PathVariable Long id) {

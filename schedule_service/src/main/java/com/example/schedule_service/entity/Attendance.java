@@ -30,9 +30,10 @@ public class Attendance {
     // // @JsonIgnore
     // Course course;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    User student;
+    // @ManyToOne
+    // @JoinColumn(name = "student_id")
+    // User student;
+    String studentId;
 
     @ManyToOne
     @JoinColumn(name = "schedule_id")

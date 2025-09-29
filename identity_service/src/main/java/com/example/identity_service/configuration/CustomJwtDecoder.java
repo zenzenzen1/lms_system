@@ -11,6 +11,8 @@ import org.springframework.stereotype.Component;
 import com.nimbusds.jwt.SignedJWT;
 
 @Component
+@SuppressWarnings("outdated")
+@Deprecated
 public class CustomJwtDecoder implements JwtDecoder {
     @Value("${jwt.signerKey}")
     private String signerKey;
@@ -21,31 +23,25 @@ public class CustomJwtDecoder implements JwtDecoder {
 
     @Override
     public Jwt decode(String token) throws JwtException {
-        // try {
-        // var response = authenticationService.introspect(
-        // IntrospectRequest.builder().token(token).build());
+        // Validate token is not null or empty
+        if (token == null || token.trim().isEmpty()) {
+            throw new JwtException("JWT token is null or empty");
+        }
 
-        // if (!response.isValid()) {
-        // // throw new JwtException("Token invalid");
-        // System.out.println("Invalid token");
-        // throw new AppException(ErrorCode.INVALID_TOKEN_JSON_OBJECT);
-        // }
-        // } catch (JOSEException | ParseException e) {
-        // throw new JwtException(e.getMessage());
-        // }
-
-        // if (Objects.isNull(nimbusJwtDecoder)) {
-        // SecretKeySpec secretKeySpec = new SecretKeySpec(signerKey.getBytes(),
-        // "HS512");
-        // nimbusJwtDecoder = NimbusJwtDecoder.withSecretKey(secretKeySpec)
-        // .macAlgorithm(MacAlgorithm.HS512)
-        // .build();
-        // }
-
-        // return nimbusJwtDecoder.decode(token);
+        // Basic format validation (JWT should have 3 parts separated by dots)
+        String[] parts = token.split("\\.");
+        if (parts.length != 3) {
+            throw new JwtException("Invalid JWT token format - must have 3 parts separated by dots");
+        }
 
         try {
             SignedJWT signedJWT = SignedJWT.parse(token);
+            
+            // Additional validation - check if claims set exists
+            if (signedJWT.getJWTClaimsSet() == null) {
+                throw new JwtException("JWT token has no claims");
+            }
+            
             return new Jwt(
                     token,
                     signedJWT.getJWTClaimsSet().getIssueTime().toInstant(),
@@ -54,9 +50,11 @@ public class CustomJwtDecoder implements JwtDecoder {
                     signedJWT.getJWTClaimsSet().toJSONObject());
 
         } catch (ParseException e) {
-            System.out.println("Invalid token");
-            return null;
-            // throw new JwtException("Invalid token");
+            System.out.println("Invalid token: " + e.getMessage());
+            throw new JwtException("Invalid JWT token format", e);
+        } catch (Exception e) {
+            System.out.println("Error parsing token: " + e.getMessage());
+            throw new JwtException("Error decoding JWT token", e);
         }
     }
 }

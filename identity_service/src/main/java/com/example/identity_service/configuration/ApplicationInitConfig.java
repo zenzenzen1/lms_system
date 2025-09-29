@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.example.enums.EnumRole;
 import com.example.identity_service.entity.Role;
 import com.example.identity_service.entity.User;
 import com.example.identity_service.mapper.UserProfileMapper;
@@ -40,20 +41,20 @@ public class ApplicationInitConfig {
             if (roleRepository.findAll().isEmpty()) {
 
                 var adminRole = roleRepository.save(Role.builder()
-                        .name(com.example.identity_service.enums.Role.ADMIN.name())
+                        .name(EnumRole.ADMIN.name())
                         .description("Admin role")
                         .build());
                 var userRole = roleRepository.save(Role.builder()
-                        .name(com.example.identity_service.enums.Role.USER.name())
+                        .name(EnumRole.USER.name())
                         .description("User role")
                         .build());
                 var studentRole = roleRepository.save(Role.builder()
-                        .name(com.example.identity_service.enums.Role.STUDENT.name())
-                        .description("User role")
+                        .name(EnumRole.STUDENT.name())
+                        .description("Student role")
                         .build());
                 var teacherRole = roleRepository.save(Role.builder()
-                        .name(com.example.identity_service.enums.Role.TEACHER.name())
-                        .description("User role")
+                        .name(EnumRole.TEACHER.name())
+                        .description("Teacher role")
                         .build());
                 if (userRepository.findByUsername("admin").isEmpty()) {
                     var roles = new HashSet<Role>();

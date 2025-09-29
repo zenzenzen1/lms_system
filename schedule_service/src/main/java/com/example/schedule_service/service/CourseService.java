@@ -31,7 +31,7 @@ public class CourseService {
         //                 .isPresent())
         //         .collect(Collectors.toSet());
         // courseStudentRepository.findByCourse_Semester_semesterCodeAndStudentId(semesterCode, studentId).stream().map(courseStudentMapper::toCourseStudentResponse).toList()
-        courseRepository.findBySemester_SemesterCodeAndCourseStudents_Student_Id(semesterCode, studentId)
+        courseRepository.findBySemester_SemesterCodeAndCourseStudents_StudentId(semesterCode, studentId)
         ;
         return courses;
     }
@@ -48,7 +48,7 @@ public class CourseService {
                     }
                     existingCourse.setSemester(course.getSemester());
                     existingCourse.setSubject(course.getSubject());
-                    existingCourse.setTeacher(course.getTeacher());
+                    existingCourse.setTeacherId(course.getTeacherId());
                     existingCourse.setCourseStudents(course.getCourseStudents());
                     return courseRepository.save(existingCourse);
                 })

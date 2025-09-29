@@ -30,6 +30,7 @@ import com.example.schedule_service.exception.IdNotFoundException;
 import com.example.schedule_service.service.ScheduleService;
 
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -92,7 +93,7 @@ public class ScheduleController {
     }
 
     @PostMapping()
-    public ResponseEntity<Set<Schedule>> addSchedules(@RequestBody ScheduleRequest scheduleRequest) throws IdNotFoundException {
+    public ResponseEntity<Set<Schedule>> addSchedules(@Valid @RequestBody ScheduleRequest scheduleRequest) throws IdNotFoundException {
         return ResponseEntity.ok().body(scheduleService.saveSchedules(scheduleRequest));
     }
 
