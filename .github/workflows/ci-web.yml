@@ -5,7 +5,7 @@ on:
     branches:
       - test
       - main
-      - dev
+    #   - dev
     paths:
       - lms_web/**
       - .github/workflows/ci-web.yml
